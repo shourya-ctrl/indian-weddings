@@ -183,7 +183,7 @@ export default class LandingLogic extends DCLogic {
   orbitCometRefs = ORBIT_COMETS.flatMap(c => Array.from({ length: c.n }, () => React.createRef()));
   seamRef = React.createRef(); seamHandleRef = React.createRef(); archRef = React.createRef(); archProgRef = React.createRef(); archCapRef = React.createRef(); archSecRef = React.createRef(); archAuraRef = React.createRef(); archImgRefs = ORBIT.map(() => React.createRef());
   moonRef = React.createRef(); petalRef = React.createRef(); petalBackRef = React.createRef(); petalFrontRef = React.createRef();
-  nwStageRef = React.createRef(); orbRef = React.createRef();
+  nwStageRef = React.createRef(); orbRef = React.createRef(); evThumbRef = React.createRef();
 
   motionOn() { return !this.reduced && this.props.motion !== false; }
   anim() { return this.motionOn() && this.state.w >= 960; }
@@ -212,6 +212,8 @@ export default class LandingLogic extends DCLogic {
       e.preventDefault();
     };
     window.addEventListener('keydown', this._onKey);
+    this._onBlur = () => { this.seamUp(); this.evUp(); };
+    window.addEventListener('blur', this._onBlur);
     if (this.motionOn()) { this.heroIn(); this._rvT = setTimeout(() => this.setupReveal(), 80); }
     if ('IntersectionObserver' in window && this.cnRef.current) {
       this.cnIo = new IntersectionObserver(es => es.forEach(e => {
@@ -245,6 +247,7 @@ export default class LandingLogic extends DCLogic {
     clearInterval(this._auto); clearInterval(this._archT); if (this._archPg) this._archPg.cancel(); if (this._archAu) this._archAu.cancel(); clearTimeout(this._rvT); clearTimeout(this._cnT);
     cancelAnimationFrame(this._spRaf); cancelAnimationFrame(this._obRaf); cancelAnimationFrame(this._seamRaf); cancelAnimationFrame(this._ptRaf); cancelAnimationFrame(this._mnRaf);
     if (this._onKey) window.removeEventListener('keydown', this._onKey);
+    if (this._onBlur) window.removeEventListener('blur', this._onBlur);
     if (this._onSpRs) window.removeEventListener('resize', this._onSpRs);
     if (this._onVis) document.removeEventListener('visibilitychange', this._onVis);
   }
@@ -311,7 +314,7 @@ export default class LandingLogic extends DCLogic {
       const rr = R * .19 * br;
       g = x.createRadialGradient(cx, cy, 0, cx, cy, rr * 1.9); g.addColorStop(0, 'rgba(255,248,230,.9)'); g.addColorStop(.35, 'rgba(240,221,179,.5)'); g.addColorStop(1, 'rgba(201,169,110,0)');
       x.fillStyle = g; x.beginPath(); x.arc(cx, cy, rr * 1.9, 0, 6.283); x.fill();
-      let rg = '#C9A96E';
+      let rg = 'var(--iw-gold)';
       if (x.createConicGradient) { rg = x.createConicGradient(t * .0005 + 3.5, cx, cy); rg.addColorStop(0, '#C9A96E'); rg.addColorStop(.33, '#F0DDB3'); rg.addColorStop(.66, '#A9864C'); rg.addColorStop(1, '#C9A96E'); }
       x.beginPath(); x.arc(cx, cy, rr, 0, 6.283); x.lineWidth = R * .07; x.strokeStyle = rg; x.stroke();
       x.globalCompositeOperation = 'lighter';
@@ -329,24 +332,24 @@ export default class LandingLogic extends DCLogic {
   noorVals() {
     const s = this.state, ph = s.nwPh || 0, st = s.nwStep || 0, mo = this.motionOn(), nar = s.w < 900, E = 'cubic-bezier(.2,.7,.1,1)';
     const vis = (on, d, dx, dy) => 'opacity:' + (on ? 1 : 0) + ';transform:' + (on ? 'none' : 'translate(' + (dx || 0) + 'px,' + (dy == null ? 10 : dy) + 'px)') + ';transition:opacity .6s ease ' + (d || 0) + 'ms,transform .7s ' + E + ' ' + (d || 0) + 'ms';
-    const sig = (sz, run) => 'flex:0 0 ' + sz + 'px;width:' + sz + 'px;height:' + sz + 'px;border-radius:50%;display:grid;place-items:center;background:conic-gradient(from 200deg,#C9A96E,#F0DDB3,#A9864C,#C9A96E)' + (mo ? ';animation:nwspin 2.6s linear infinite;animation-play-state:' + (run ? 'running' : 'paused') : '');
+    const sig = (sz, run) => 'flex:0 0 ' + sz + 'px;width:' + sz + 'px;height:' + sz + 'px;border-radius:50%;display:grid;place-items:center;background:conic-gradient(from 200deg,var(--iw-gold),#F0DDB3,#A9864C,var(--iw-gold))' + (mo ? ';animation:nwspin 2.6s linear infinite;animation-play-state:' + (run ? 'running' : 'paused') : '');
     const N = NW[st];
     const tabs = NW.map((t, i) => {
       const on = i === st; let lw = '0%', tr = 'width .3s ease';
       if (on) { if (!mo || s.nwPaused) { lw = '100%'; tr = 'none'; } else { lw = s.nwRun ? '100%' : '0%'; tr = s.nwRun ? 'width ' + (NW_DUR - 80) + 'ms linear' : 'none'; } }
       return { no: '0' + (i + 1), label: t.label, sub: t.sub, tid: 'nw-tab-' + t.id, sel: on ? 'true' : 'false', on: () => this.nwGo(i),
-        style: 'appearance:none;position:relative;width:100%;display:flex;align-items:baseline;gap:' + (nar ? 10 : 16) + 'px;padding:' + (nar ? '14px 0' : '20px 0') + ';background:none;border:0;border-bottom:1px solid #3E3229;text-align:left;cursor:pointer;font-family:inherit;color:' + (on ? '#F4EEE4' : '#7B726A') + ';outline:none;transition:color .25s ease,background-color .25s ease',
-        lineStyle: 'position:absolute;left:0;bottom:-1px;height:1px;background:#C9A96E;width:' + lw + ';transition:' + tr,
-        subStyle: nar ? 'display:none' : 'display:block;margin-top:6px;font-size:13px;line-height:1.5;color:#9C9289' };
+        style: 'appearance:none;position:relative;width:100%;display:flex;align-items:baseline;gap:' + (nar ? 10 : 16) + 'px;padding:' + (nar ? '14px 0' : '20px 0') + ';background:none;border:0;border-bottom:1px solid var(--iw-line-strong);text-align:left;cursor:pointer;font-family:inherit;color:' + (on ? 'var(--iw-ivory)' : 'var(--iw-stone-dim)') + ';outline:none;transition:color .25s ease,background-color .25s ease',
+        lineStyle: 'position:absolute;left:0;bottom:-1px;height:1px;background:var(--iw-gold);width:' + lw + ';transition:' + tr,
+        subStyle: nar ? 'display:none' : 'display:block;margin-top:6px;font-size:13px;line-height:1.5;color:var(--iw-stone)' };
     });
     const BUD = [['Décor and florals', 10, 14], ['Food and drink', 15, 13], ['Photography and film', 7.5, 7.5], ['Travel and the rest', 7.5, 5.5]];
     const Lk = v => '₹' + v + 'L';
     const budget = BUD.map((b, i) => { const ch = b[1] !== b[2], hi = i === 0 && ph >= 2, mv = ph >= 3 && ch, v = mv ? b[2] : b[1]; return { k: b[0], from: Lk(b[1]), to: ch ? '→ ' + Lk(b[2]) : '',
-      rowStyle: 'padding:12px 10px;margin:0 -10px;border-bottom:1px solid #241C17;transition:background-color .5s ease;background:' + (hi ? 'rgba(201,169,110,.07)' : 'transparent'),
-      kStyle: 'font-size:15px;color:' + (hi ? '#E8D19A' : '#EDE3D3') + ';transition:color .4s ease',
-      fromStyle: 'font-size:15px;color:' + (mv ? '#7B726A' : '#EDE3D3') + ';transition:color .4s ease',
-      toStyle: (ch ? 'display:inline-block;' : 'display:none;') + 'font-size:15px;font-weight:700;color:#E8D19A;' + vis(mv, i * 140, -6, 0),
-      barStyle: 'display:block;height:100%;width:' + (v / 20 * 100) + '%;background:' + (hi ? '#E8D19A' : '#5A4D42') + ';transition:width 1.1s ' + E + ' ' + (i * 140) + 'ms,background-color .5s ease' }; });
+      rowStyle: 'padding:12px 10px;margin:0 -10px;border-bottom:1px solid var(--iw-line);transition:background-color .5s ease;background:' + (hi ? 'rgba(201,169,110,.07)' : 'transparent'),
+      kStyle: 'font-size:15px;color:' + (hi ? 'var(--iw-gold-light)' : 'var(--iw-parchment)') + ';transition:color .4s ease',
+      fromStyle: 'font-size:15px;color:' + (mv ? 'var(--iw-stone-dim)' : 'var(--iw-parchment)') + ';transition:color .4s ease',
+      toStyle: (ch ? 'display:inline-block;' : 'display:none;') + 'font-size:15px;font-weight:700;color:var(--iw-gold-light);' + vis(mv, i * 140, -6, 0),
+      barStyle: 'display:block;height:100%;width:' + (v / 20 * 100) + '%;background:' + (hi ? 'var(--iw-gold-light)' : '#5A4D42') + ';transition:width 1.1s ' + E + ' ' + (i * 140) + 'ms,background-color .5s ease' }; });
     const shown = [ph >= 1, ph >= 2, ph >= 2, ph >= 3], latest = ph >= 3 ? 3 : ph >= 2 ? 2 : ph >= 1 ? 0 : -1, dl = [0, 0, 240, 0];
     const pages = NW_PAGES.map((p, i) => ({ when: p.when, title: p.title, img: p.img, band: !!p.band,
       style: 'position:relative;overflow:hidden;display:flex;align-items:center;justify-content:space-between;gap:16px;min-height:66px;padding:' + (p.band ? '18px' : '10px') + ' 10px 10px 16px;border-radius:2px;background:' + p.bg + ';' + vis(shown[i], dl[i], 0, 18),
@@ -357,16 +360,16 @@ export default class LandingLogic extends DCLogic {
       shimStyle: 'position:absolute;inset:0;pointer-events:none;background:linear-gradient(100deg,transparent 30%,rgba(255,255,255,.38) 50%,transparent 70%);background-size:220% 100%;opacity:' + (mo && i === latest && ph < 4 ? 1 : 0) + ';transition:opacity .5s ease' + (mo ? ';animation:nwshim 1.5s linear infinite' : '') }));
     const tw = nar ? 52 : 64, th = nar ? 64 : 80;
     const srcs = ['couple1', 'couple2', 'couple3'].map((k, i) => { const lit = ph >= 1 && !(ph >= 2 && i === 1); return { img: NWA_IMG[k],
-      style: 'position:relative;display:block;width:' + tw + 'px;height:' + th + 'px;overflow:hidden;border-radius:2px;outline:1px solid ' + (lit ? '#C9A96E' : 'transparent') + ';outline-offset:2px;opacity:' + (lit ? 1 : .4) + ';transition:opacity .5s ease ' + (i * 180) + 'ms,outline-color .5s ease ' + (i * 180) + 'ms' }; });
+      style: 'position:relative;display:block;width:' + tw + 'px;height:' + th + 'px;overflow:hidden;border-radius:2px;outline:1px solid ' + (lit ? 'var(--iw-gold)' : 'transparent') + ';outline-offset:2px;opacity:' + (lit ? 1 : .4) + ';transition:opacity .5s ease ' + (i * 180) + 'ms,outline-color .5s ease ' + (i * 180) + 'ms' }; });
     const capBase = 'position:absolute;left:0;right:0;bottom:0;padding:26px 14px 16px;text-align:center;';
     const run = [
       { t: '19:15', what: 'Family performances, seven acts', flag: 'Running 20 minutes late', on: ph >= 1, warn: true },
       { t: '20:30', nt: '20:50', what: 'Your entrance', flag: 'Moved 20 minutes', on: ph >= 2 },
       { t: '21:00', nt: '21:20', what: 'Dinner service, forty Jain plates marked', flag: 'Moved 20 minutes', on: ph >= 2 }
     ].map((r, i) => { const mv = !!r.nt && ph >= 2; return { t: r.t, nt: r.nt || '', what: r.what, flag: r.flag,
-      oldStyle: 'color:' + (mv ? '#7B726A' : '#EDE3D3') + ';text-decoration:' + (mv ? 'line-through' : 'none') + ';text-decoration-color:#7B726A;transition:color .4s ease',
-      newStyle: (r.nt ? 'display:inline-block;' : 'display:none;') + 'margin-left:10px;font-weight:700;color:#E8D19A;' + vis(mv, i * 150, -6, 0),
-      flagStyle: 'display:block;margin-top:4px;font-size:13px;font-weight:700;color:' + (r.warn ? '#E0A87A' : '#9C9289') + ';' + vis(r.on, i * 150, 0, 6) }; });
+      oldStyle: 'color:' + (mv ? 'var(--iw-stone-dim)' : 'var(--iw-parchment)') + ';text-decoration:' + (mv ? 'line-through' : 'none') + ';text-decoration-color:var(--iw-stone-dim);transition:color .4s ease',
+      newStyle: (r.nt ? 'display:inline-block;' : 'display:none;') + 'margin-left:10px;font-weight:700;color:var(--iw-gold-light);' + vis(mv, i * 150, -6, 0),
+      flagStyle: 'display:block;margin-top:4px;font-size:13px;font-weight:700;color:' + (r.warn ? '#E0A87A' : 'var(--iw-stone)') + ';' + vis(r.on, i * 150, 0, 6) }; });
     const AQ = s.askI, A = AQ === 'free' ? ASK_FREE : AQ != null ? ASK[AQ] : null, ans = !!A && s.askPh >= 1;
     const aw = A ? A.a.split(' ').length * 32 : 0, rise = d => mo ? ';animation:nwrise .6s ' + E + ' ' + d + 'ms both' : '';
     return {
@@ -374,19 +377,19 @@ export default class LandingLogic extends DCLogic {
       orbMove: e => { const c = this.orbRef.current, P = this._orbP; if (!c || !P) return; const r = c.getBoundingClientRect(); P.tx = Math.max(-1, Math.min(1, (e.clientX - r.left - r.width / 2) / r.width)); P.ty = Math.max(-1, Math.min(1, (e.clientY - r.top - r.height / 2) / r.height)); },
       orbLeave: () => { if (this._orbP) { this._orbP.tx = 0; this._orbP.ty = 0; } },
       nwTabs: tabs, nwLabelledBy: 'nw-tab-' + N.id, nwStatus: N.status[ph],
-      nwRailStyle: nar ? 'display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0 18px;border-top:1px solid #3E3229' : 'border-top:1px solid #3E3229',
+      nwRailStyle: nar ? 'display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0 18px;border-top:1px solid var(--iw-line-strong)' : 'border-top:1px solid var(--iw-line-strong)',
       nwCanPause: mo, nwPausedA: s.nwPaused ? 'true' : 'false', nwPauseLabel: s.nwPaused ? 'Play the demo' : 'Pause the demo', nwPauseToggle: () => this.nwPause(),
       nwSigStyle: sig(22, ph < 4 && !s.nwPaused),
       nwBodyStyle: 'position:relative;flex:1;display:flex;flex-direction:column;min-height:' + (nar ? '0' : '520px') + ';padding:clamp(20px,2.6vw,36px)',
       nwIsBudget: st === 0, nwIsSite: st === 1, nwIsPortraits: st === 2, nwIsDay: st === 3,
-      nwScanStyle: 'position:absolute;left:0;right:0;height:56px;z-index:1;pointer-events:none;top:' + (ph >= 1 ? 'calc(100% - 56px)' : '-56px') + ';opacity:' + (ph === 1 ? 1 : 0) + ';background:linear-gradient(180deg,rgba(232,209,154,0) 0%,rgba(232,209,154,.1) 100%);border-bottom:1px solid #E8D19A;transition:top 1.5s cubic-bezier(.45,0,.2,1),opacity .5s ease',
+      nwScanStyle: 'position:absolute;left:0;right:0;height:56px;z-index:1;pointer-events:none;top:' + (ph >= 1 ? 'calc(100% - 56px)' : '-56px') + ';opacity:' + (ph === 1 ? 1 : 0) + ';background:linear-gradient(180deg,rgba(232,209,154,0) 0%,rgba(232,209,154,.1) 100%);border-bottom:1px solid var(--iw-gold-light);transition:top 1.5s cubic-bezier(.45,0,.2,1),opacity .5s ease',
       nwBudget: budget,
       nwNoteStyle: 'display:flex;gap:12px;align-items:flex-start;margin-top:18px;' + vis(ph >= 2),
       nwBudgetWords: ph >= 2 ? this.nwWords('Hanging florals over a forty-foot mandap usually cost ₹14L to ₹16L. Here is one way to find the difference without moving your total.', 0, 30) : [],
-      nwBudDone: 'display:flex;gap:10px;align-items:flex-start;margin-top:auto;padding-top:16px;font-size:14px;line-height:1.55;color:#EDE3D3;' + vis(ph >= 4),
+      nwBudDone: 'display:flex;gap:10px;align-items:flex-start;margin-top:auto;padding-top:16px;font-size:14px;line-height:1.55;color:var(--iw-parchment);' + vis(ph >= 4),
       nwSiteCount: ['Starting', '1 of 6 pages', '3 of 6 pages', '4 of 6 pages', '6 of 6 pages'][ph],
       nwPages: pages,
-      nwSiteDone: 'display:flex;gap:10px;align-items:flex-start;margin-top:auto;padding-top:16px;font-size:14px;line-height:1.55;color:#EDE3D3;' + vis(ph >= 4),
+      nwSiteDone: 'display:flex;gap:10px;align-items:flex-start;margin-top:auto;padding-top:16px;font-size:14px;line-height:1.55;color:var(--iw-parchment);' + vis(ph >= 4),
       nwSrc: srcs,
       nwPosterStyle: 'position:absolute;inset:0;opacity:' + (ph >= 2 ? 1 : 0) + ';transform:scale(' + (ph >= 2 ? 1 : .96) + ');transition:opacity .8s ease,transform 1s ' + E,
       nwPImgA: 'position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:' + (ph >= 3 ? 'sepia(.75) contrast(1.1) saturate(.8)' : ph >= 2 ? 'blur(0px) saturate(.95)' : 'blur(10px) saturate(.6)') + ';opacity:' + (ph >= 4 ? 0 : 1) + ';transition:filter 1.4s ease,opacity 1s ease',
@@ -394,28 +397,28 @@ export default class LandingLogic extends DCLogic {
       nwPFrame: 'position:absolute;inset:8px;border:2px solid #F2E2C4;pointer-events:none;opacity:' + (ph === 3 ? 1 : 0) + ';transition:opacity .8s ease',
       nwPCapA: capBase + 'background:linear-gradient(0deg,#3A1F10,transparent);color:#F2E2C4;' + vis(ph === 3, 200, 0, 12),
       nwPCapB: capBase + 'background:linear-gradient(0deg,rgba(122,62,0,.95),transparent);color:#FFE18A;' + vis(ph >= 4, 200, 0, 12),
-      nwPTag: 'position:absolute;top:12px;right:12px;padding:4px 8px;border-radius:2px;background:rgba(12,9,7,.72);color:#F4EEE4;font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;' + vis(ph >= 3, 400, 0, -6),
-      nwStyles: [['Vintage film poster', ph === 3], ['Haldi tug of war', ph >= 4], ['70s Bollywood', false], ['Miniature painting', false]].map(x => ({ label: x[0], style: 'padding:6px 0;font-size:13px;border-bottom:1px solid ' + (x[1] ? '#C9A96E' : 'transparent') + ';color:' + (x[1] ? '#F4EEE4' : '#7B726A') + ';transition:color .4s ease,border-color .4s ease' })),
+      nwPTag: 'position:absolute;top:12px;right:12px;padding:4px 8px;border-radius:2px;background:rgba(12,9,7,.72);color:var(--iw-ivory);font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;' + vis(ph >= 3, 400, 0, -6),
+      nwStyles: [['Vintage film poster', ph === 3], ['Haldi tug of war', ph >= 4], ['70s Bollywood', false], ['Miniature painting', false]].map(x => ({ label: x[0], style: 'padding:6px 0;font-size:13px;border-bottom:1px solid ' + (x[1] ? 'var(--iw-gold)' : 'transparent') + ';color:' + (x[1] ? 'var(--iw-ivory)' : 'var(--iw-stone-dim)') + ';transition:color .4s ease,border-color .4s ease' })),
       nwRun: run,
-      nwAlertStyle: 'margin-top:16px;padding:16px 18px;border-radius:2px;background:#1A1411;' + vis(ph >= 3),
+      nwAlertStyle: 'margin-top:16px;padding:16px 18px;border-radius:2px;background:var(--iw-surface);' + vis(ph >= 3),
       nwAlertWords: ph >= 3 ? this.nwWords('The sangeet is running twenty minutes late. Your entrance is now at 8:50, and dinner at 9:20. Shuttles back to the hotel are unchanged.', 150, 28) : [],
       nwSendLabel: ph >= 4 ? 'Sent by you' : 'Send to 240 guests',
-      nwSendStyle: 'display:inline-flex;align-items:center;min-height:40px;padding:0 16px;border:1px solid #C9A96E;border-radius:2px;font-size:13px;font-weight:700;background:' + (ph >= 4 ? '#C9A96E' : 'transparent') + ';color:' + (ph >= 4 ? '#150E06' : '#F4EEE4') + ';transition:background-color .4s ease,color .4s ease',
-      nwReadStyle: 'font-size:13px;color:#9C9289;' + vis(ph >= 4, 300, -6, 0),
+      nwSendStyle: 'display:inline-flex;align-items:center;min-height:40px;padding:0 16px;border:1px solid var(--iw-gold);border-radius:2px;font-size:13px;font-weight:700;background:' + (ph >= 4 ? 'var(--iw-gold)' : 'transparent') + ';color:' + (ph >= 4 ? 'var(--iw-on-gold)' : 'var(--iw-ivory)') + ';transition:background-color .4s ease,color .4s ease',
+      nwReadStyle: 'font-size:13px;color:var(--iw-stone);' + vis(ph >= 4, 300, -6, 0),
       askOpts: ASK.map((a, i) => { const on = AQ === i; return { q: a.q, pressed: on ? 'true' : 'false', on: () => this.askGo(i),
-        style: 'appearance:none;width:100%;display:flex;align-items:center;justify-content:space-between;gap:16px;min-height:60px;padding:14px 0;background:none;border:0;border-bottom:1px solid #3E3229;text-align:left;cursor:pointer;font-family:inherit;font-size:16px;line-height:1.45;color:' + (on ? '#F4EEE4' : '#C5BAB0') + ';transition:color .2s ease',
-        arrowStyle: 'flex:none;font-size:18px;color:#C9A96E;transition:transform .3s ' + E + ';transform:translateX(' + (on ? 6 : 0) + 'px)' }; }),
+        style: 'appearance:none;width:100%;display:flex;align-items:center;justify-content:space-between;gap:16px;min-height:60px;padding:14px 0;background:none;border:0;border-bottom:1px solid var(--iw-line-strong);text-align:left;cursor:pointer;font-family:inherit;font-size:16px;line-height:1.45;color:' + (on ? 'var(--iw-ivory)' : 'var(--iw-sand)') + ';transition:color .2s ease',
+        arrowStyle: 'flex:none;font-size:18px;color:var(--iw-gold);transition:transform .3s ' + E + ';transform:translateX(' + (on ? 6 : 0) + 'px)' }; }),
       askText: s.askText || '', askSet: e => this.setState({ askText: e.target.value }),
       askSubmit: e => { e.preventDefault(); const t = (this.state.askText || '').trim(); if (!t) return; this.setState({ askFreeQ: t, askText: '' }); this.askGo('free'); },
       askEmpty: !A, askHas: !!A, askQ: AQ === 'free' ? s.askFreeQ : A ? A.q : '',
       askThinking: !!A && s.askPh === 0, askSigStyle: sig(26, !!A && s.askPh === 0),
       askWords: ans ? this.nwWords(A.a, 0, 32) : [],
       askHasRows: ans && A.rows.length > 0,
-      askRows: ans ? A.rows.map((r, i) => ({ k: r[0], v: r[1], style: 'display:flex;flex-wrap:wrap;justify-content:space-between;align-items:baseline;gap:4px 20px;padding:12px 0;border-bottom:1px solid #241C17' + rise(aw + 200 + i * 140) })) : [],
+      askRows: ans ? A.rows.map((r, i) => ({ k: r[0], v: r[1], style: 'display:flex;flex-wrap:wrap;justify-content:space-between;align-items:baseline;gap:4px 20px;padding:12px 0;border-bottom:1px solid var(--iw-line)' + rise(aw + 200 + i * 140) })) : [],
       askHasFoot: ans && !!A.foot, askFoot: A && A.foot ? A.foot : '',
-      askFootStyle: 'margin:14px 0 0;font-size:14px;line-height:1.6;color:#E8D19A' + rise(aw + 200 + (A ? A.rows.length : 0) * 140 + 120),
+      askFootStyle: 'margin:14px 0 0;font-size:14px;line-height:1.6;color:var(--iw-gold-light)' + rise(aw + 200 + (A ? A.rows.length : 0) * 140 + 120),
       askIsFree: ans && AQ === 'free',
-      askLinkStyle: 'display:inline-flex;align-items:center;min-height:44px;margin-top:12px;font-size:14px;font-weight:700;color:#E8D19A;text-decoration:underline;text-underline-offset:5px' + rise(aw + 200)
+      askLinkStyle: 'display:inline-flex;align-items:center;min-height:44px;margin-top:12px;font-size:14px;font-weight:700;color:var(--iw-gold-light);text-decoration:underline;text-underline-offset:5px' + rise(aw + 200)
     };
   }
   archPinned() { return this.hs() === 'Arch' && this.motionOn() && this.state.w >= 960; }
@@ -560,7 +563,9 @@ export default class LandingLogic extends DCLogic {
   }
   sizeSparkle() {
     const c = this.sparkRef.current; if (!c || !this._ctx) return;
-    const dpr = Math.min(2, window.devicePixelRatio || 1), W = window.innerWidth, H = window.innerHeight, R = Math.random;
+    // Soft glows and blurred sprites look the same at 1x; a 2x full-viewport
+    // canvas redrawn every frame costs four times the fill for no visible gain.
+    const dpr = 1, W = window.innerWidth, H = window.innerHeight, R = Math.random;
     c.width = Math.round(W * dpr); c.height = Math.round(H * dpr);
     this._ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
     this._W = W; this._H = H; this._FH = H * 1.8;
@@ -576,7 +581,7 @@ export default class LandingLogic extends DCLogic {
     if (!this._sp || (!this._sp.length && !this._gl.length && !this.skyOn())) { if (this._ctx) this._ctx.clearRect(0, 0, this._W || 0, this._H || 0); return; }
     if (!this.motionOn() || document.visibilityState === 'hidden') { this.drawSparkle(9000); return; }
     let last = 0;
-    const step = ts => { this._spRaf = requestAnimationFrame(step); if (ts - last < 32) return; last = ts; this.drawSparkle(ts); };
+    const step = ts => { this._spRaf = requestAnimationFrame(step); if (ts - last < 48) return; last = ts; this.drawSparkle(ts); };
     this._spRaf = requestAnimationFrame(step);
   }
   drawSparkle(ts) {
@@ -609,7 +614,7 @@ export default class LandingLogic extends DCLogic {
     return {
       showSwitcher: this.props.presenter !== false && !this.state.swHidden, swOpen: open, swClosed: !open,
       swCur: (ci + 1) + ' / ' + HEROES.length + ' · ' + cur,
-      heroOpts: HEROES.map((n, i) => ({ no: String(i + 1), label: narrow ? '' : n, title: n + ' (press ' + (i + 1) + ')', pressed: n === cur ? 'true' : 'false', bg: n === cur ? '#F4EEE4' : 'transparent', fg: n === cur ? '#1E1915' : '#C5BAB0', noC: n === cur ? '#8A7245' : '#7B726A', on: () => this.pickHero(n) })),
+      heroOpts: HEROES.map((n, i) => ({ no: String(i + 1), label: narrow ? '' : n, title: n + ' (press ' + (i + 1) + ')', pressed: n === cur ? 'true' : 'false', bg: n === cur ? 'var(--iw-ivory)' : 'transparent', fg: n === cur ? 'var(--iw-on-ivory)' : 'var(--iw-sand)', noC: n === cur ? '#8A7245' : 'var(--iw-stone-dim)', on: () => this.pickHero(n) })),
       swPrev: () => this.heroStep(-1), swNext: () => this.heroStep(1),
       swEnter: () => { if (!this.state.swOpen) this.setState({ swOpen: true }); },
       swLeave: () => { if (this.state.swOpen && !(document.activeElement && document.activeElement.closest && document.activeElement.closest('[aria-label="Hero options for presenting"]'))) this.setState({ swOpen: false }); },
@@ -717,12 +722,20 @@ export default class LandingLogic extends DCLogic {
     const r = s.getBoundingClientRect(), sx = r.left + r.width * (this._seam ?? 54) / 100;
     const onHandle = e.target.closest && e.target.closest('[data-seam]');
     if (!onHandle && Math.abs(e.clientX - sx) > 48) return;
-    this._seamDrag = true; cancelAnimationFrame(this._seamRaf);
+    // One pointer owns the drag; a second finger landing mid-drag is ignored.
+    if (this._seamDrag) return;
+    this._seamDrag = true; this._seamPid = e.pointerId; cancelAnimationFrame(this._seamRaf);
     try { s.setPointerCapture(e.pointerId); } catch (_) {}
     this.seamFrom(e);
   };
-  seamMove = e => { if (this._seamDrag) this.seamFrom(e); };
-  seamUp = () => { this._seamDrag = false; };
+  seamMove = e => { if (this._seamDrag && e.pointerId === this._seamPid) this.seamFrom(e); };
+  // Ends the drag on release, cancel, lost capture or window blur.
+  seamUp = e => {
+    if (!this._seamDrag || (e && e.pointerId != null && e.pointerId !== this._seamPid)) return;
+    const s = this.seamRef.current, pid = this._seamPid;
+    this._seamDrag = false; this._seamPid = null;
+    try { if (s && s.hasPointerCapture && s.hasPointerCapture(pid)) s.releasePointerCapture(pid); } catch (_) {}
+  };
   seamKey = e => {
     const v = this._seam ?? 54, k = e.key;
     if (k === 'ArrowLeft' || k === 'ArrowDown') this.seamSet(v - 4); else if (k === 'ArrowRight' || k === 'ArrowUp') this.seamSet(v + 4);
@@ -901,7 +914,7 @@ export default class LandingLogic extends DCLogic {
   }
   sizeSky() {
     const c = this.skyRef.current; if (!c || !this._sctx) return;
-    const dpr = Math.min(2, window.devicePixelRatio || 1), W = window.innerWidth, H = window.innerHeight, Rn = Math.random;
+    const dpr = Math.min(1.5, window.devicePixelRatio || 1), W = window.innerWidth, H = window.innerHeight, Rn = Math.random;
     c.width = Math.round(W * dpr); c.height = Math.round(H * dpr);
     this._sctx.setTransform(dpr, 0, 0, dpr, 0, 0);
     const px = W * 0.8, py = H * (W < 700 ? 0.14 : 0.2), K = Math.min(1.45 * H, 1.05 * W);
@@ -1071,7 +1084,12 @@ export default class LandingLogic extends DCLogic {
       const el = this.evRef.current; if (!el) return;
       const max = el.scrollWidth - el.clientWidth;
       const evP = max > 0 ? el.scrollLeft / max : 0, evVis = el.scrollWidth ? el.clientWidth / el.scrollWidth : 1;
-      if (Math.abs(evP - this.state.evP) > 0.004 || Math.abs(evVis - this.state.evVis) > 0.004) this.setState({ evP, evVis });
+      // Move the progress thumb directly; re-render the page only when the
+      // end-of-strip state or the visible share changes, not on every frame.
+      const th = this.evThumbRef.current, tw = Math.max(10, Math.min(100, evVis * 100));
+      if (th) { th.style.width = tw + '%'; th.style.left = (evP * (100 - tw)) + '%'; }
+      const S = this.state, edge = p => (p <= 0.01 ? -1 : p >= 0.99 ? 1 : 0);
+      if (edge(evP) !== edge(S.evP) || Math.abs(evVis - S.evVis) > 0.004) this.setState({ evP, evVis });
     });
   };
   evStep(dir) {
@@ -1108,16 +1126,21 @@ export default class LandingLogic extends DCLogic {
     const dayAlerts = [...sent, ...DAY_BASE.slice().reverse().map(a => ({ ...a, tc: T.soft, wt: '400' }))].slice(0, 3);
     const sdSrc = s.sdImg < 0 && s.sdCustom ? s.sdCustom : SD_IMGS[Math.max(0, s.sdImg)].src;
     return {
-      navWide: s.w >= 1140, navNarrow: s.w < 1140, advNav: nm.nav,
+      navWide: s.w >= 1140, navNarrow: s.w < 1140, navCta: s.w >= 360,
+      // On phones the hero copy climbs to a third of the way down the photo, so the
+      // scrim darkens from there instead of leaving a clear band behind the text.
+      heroScrim: s.w < 768
+        ? 'linear-gradient(180deg,rgba(12,9,7,.5) 0%,rgba(12,9,7,.18) 14%,rgba(12,9,7,.55) 30%,rgba(12,9,7,.88) 100%)'
+        : 'linear-gradient(180deg,rgba(12,9,7,.5) 0%,rgba(12,9,7,0) 20%,rgba(12,9,7,0) 42%,rgba(12,9,7,.82) 100%)', advNav: nm.nav,
       dealTabs: [['all', 'All'], ['india', 'In India'], ['abroad', 'Abroad']].map(([id, label]) => ({
         label, tid: 'od-tab-' + id, sel: s.dealF === id ? 'true' : 'false',
-        color: s.dealF === id ? '#F4EEE4' : '#9C9289', line: s.dealF === id ? '#C9A96E' : 'transparent',
+        color: s.dealF === id ? 'var(--iw-ivory)' : 'var(--iw-stone)', line: s.dealF === id ? 'var(--iw-gold)' : 'transparent',
         on: () => { this.setState({ dealF: id }); const g = document.getElementById('od-list'); if (g) g.scrollLeft = 0; }
       })),
       dealLabelledBy: 'od-tab-' + s.dealF,
       deals: DEALS.filter(d => s.dealF === 'all' || d.r === s.dealF).map(d => ({ ...d, aria: 'Ask about ' + d.name + ', ' + d.dates + '. Sample open date, opens the app' })),
       advOver: nm.over, advCard: nm.card, advLede: nm.lede, advTrust: nm.trust, advTabsLabel: nm.tabs || 'Moments with your advisor', advSample: nm.sample || 'Sample advice, written to show how the advisor works.',
-      advTabs: ADVICE.map((a, i) => ({ no: '0' + (i + 1), label: a.tab, sub: a.sub, tid: 'adv-tab-' + a.id, sel: s.adv === i ? 'true' : 'false', color: s.adv === i ? '#F4EEE4' : '#7B726A', arrow: s.adv === i ? '1' : '0', lineW: s.adv === i ? '100%' : '0%', on: () => this.setState({ adv: i }) })),
+      advTabs: ADVICE.map((a, i) => ({ no: '0' + (i + 1), label: a.tab, sub: a.sub, tid: 'adv-tab-' + a.id, sel: s.adv === i ? 'true' : 'false', color: s.adv === i ? 'var(--iw-ivory)' : 'var(--iw-stone-dim)', arrow: s.adv === i ? '1' : '0', lineW: s.adv === i ? '100%' : '0%', on: () => this.setState({ adv: i }) })),
       advLabelledBy: 'adv-tab-' + A.id,
       advImg: A.img, advAlt: A.alt, advHead: A.head, advBody: A.body, advRows: A.rows.map(([k, v]) => ({ k, v })),
       advHasFoot: !!A.foot, advFoot: A.foot || '',
@@ -1127,9 +1150,9 @@ export default class LandingLogic extends DCLogic {
       advTake: () => setRes('yes'), advSkip: () => setRes('no'), advUndo: () => setRes(null),
       advWhyToggle: () => this.setState(p => ({ advWhy: { ...p.advWhy, [A.id]: !why } })),
       tp: T,
-      tpls: TPLS.map(t => ({ name: t.name, from: t.from, sw: t.sw, pressed: s.tpl === t.id ? 'true' : 'false', bd: s.tpl === t.id ? '#C9A96E' : '#3E3229', nc: s.tpl === t.id ? '#F4EEE4' : '#C5BAB0', on: () => this.setState({ tpl: t.id }) })),
+      tpls: TPLS.map(t => ({ name: t.name, from: t.from, sw: t.sw, pressed: s.tpl === t.id ? 'true' : 'false', bd: s.tpl === t.id ? 'var(--iw-gold)' : 'var(--iw-line-strong)', nc: s.tpl === t.id ? 'var(--iw-ivory)' : 'var(--iw-sand)', on: () => this.setState({ tpl: t.id }) })),
       sdSrc, sdOverOn: !!s.sdOver,
-      sdThumbs: SD_IMGS.map((p, i) => ({ src: p.src, aria: 'Use the ' + p.alt + ' photograph', pressed: s.sdImg === i ? 'true' : 'false', bd: s.sdImg === i ? '#C9A96E' : 'transparent',
+      sdThumbs: SD_IMGS.map((p, i) => ({ src: p.src, aria: 'Use the ' + p.alt + ' photograph', pressed: s.sdImg === i ? 'true' : 'false', bd: s.sdImg === i ? 'var(--iw-gold)' : 'transparent',
         on: () => this.setState({ sdImg: i }),
         drag: e => { try { e.dataTransfer.setData('text/plain', 'iw-sd:' + i); e.dataTransfer.effectAllowed = 'copy'; } catch (_) {} } })),
       sdOver: e => { e.preventDefault(); if (!this.state.sdOver) this.setState({ sdOver: true }); },
@@ -1144,7 +1167,7 @@ export default class LandingLogic extends DCLogic {
       sendLabel: s.alertN >= DAY_SEND.length ? 'Start the morning again' : s.alertN ? 'Send the next alert' : 'Send an alert to every guest',
       sendHasNote: s.alertN > 0, sendNote: s.alertN ? 'Delivered to the 240 guests invited to the wedding.' : '',
       sendAlert: () => this.setState(p => ({ alertN: p.alertN >= DAY_SEND.length ? 0 : p.alertN + 1 })),
-      rwTabs: WEDS.map((w, i) => ({ names: w.names, place: w.place, img: w.img, tid: 'rw-tab-' + i, sel: s.rw === i ? 'true' : 'false', nc: s.rw === i ? '#F4EEE4' : '#9C9289', line: s.rw === i ? '#C9A96E' : 'transparent', on: () => this.setState({ rw: i }) })),
+      rwTabs: WEDS.map((w, i) => ({ names: w.names, place: w.place, img: w.img, tid: 'rw-tab-' + i, sel: s.rw === i ? 'true' : 'false', nc: s.rw === i ? 'var(--iw-ivory)' : 'var(--iw-stone)', line: s.rw === i ? 'var(--iw-gold)' : 'transparent', on: () => this.setState({ rw: i }) })),
       rwLabelledBy: 'rw-tab-' + s.rw, rw: W, rwFacts: W.facts.map(([n, l]) => ({ n, l })), rwTeam: W.team.map(([k, v]) => ({ k, v }))
     };
   }
@@ -1152,13 +1175,13 @@ export default class LandingLogic extends DCLogic {
     const s = this.state, narrow = s.w < 960, mo = this.motionOn();
     const tabs = [['budget', 'Budget'], ['run', 'Run sheet'], ['dec', 'Decisions']].map(([id, label]) => ({
       id, label, tid: 'tab-' + id, sel: s.tab === id ? 'true' : 'false',
-      color: s.tab === id ? '#F4EEE4' : '#9C9289', line: s.tab === id ? '#C9A96E' : 'transparent',
+      color: s.tab === id ? 'var(--iw-ivory)' : 'var(--iw-stone)', line: s.tab === id ? 'var(--iw-gold)' : 'transparent',
       on: () => this.setState({ tab: id })
     }));
     const catName = (CATS.find(c => c[0] === s.cat) || CATS[0])[1];
     const cats = CATS.map(([id, label], i) => ({
       id, label, no: '0' + (i + 1), sel: s.cat === id ? 'true' : 'false',
-      color: s.cat === id ? '#F4EEE4' : '#7B726A', arrow: s.cat === id ? '1' : '0',
+      color: s.cat === id ? 'var(--iw-ivory)' : 'var(--iw-stone-dim)', arrow: s.cat === id ? '1' : '0',
       on: () => { this.setState({ cat: id }); const g = document.getElementById('vd-grid'); if (g) g.scrollLeft = 0; }
     }));
     const vendors = VENDORS[s.cat].map((v, i) => ({ ...v, mt: STAGGER[i], aria: `${v.name}, ${v.kind.toLowerCase()} in ${v.place}. Sample listing, opens the app` }));
@@ -1171,14 +1194,14 @@ export default class LandingLogic extends DCLogic {
       r: st ? '0deg' : f.s[2] + 'deg',
       d: mo ? (st ? i * 70 : (5 - i) * 50) + 'ms' : '0ms',
       d2: mo ? (st ? 300 + i * 70 : 0) + 'ms' : '0ms',
-      bg: st ? '#0C0907' : '#1A1411', bd: st ? '#241C17' : '#2F251E',
+      bg: st ? 'var(--iw-ink)' : 'var(--iw-surface)', bd: st ? 'var(--iw-line)' : '#2F251E',
       oa: st ? '0' : '1', ob: st ? '1' : '0'
     }));
     const slidesOn = this.slidesOn();
     const cur = slidesOn ? s.slide : 0;
     const segs = [0, 1, 2].map(i => ({
       aria: `Show photograph ${i + 1}: ${SLIDE_ALT[i]}`, pressed: cur === i ? 'true' : 'false',
-      bg: cur === i ? '#F4EEE4' : 'rgba(244,238,228,.32)',
+      bg: cur === i ? 'var(--iw-ivory)' : 'rgba(244,238,228,.32)',
       on: () => { this.setState({ slide: i }); this.startAuto(); }
     }));
     return {
@@ -1190,7 +1213,7 @@ export default class LandingLogic extends DCLogic {
       menuOpen: s.w < 1140 && s.menu, menuExpanded: s.menu ? 'true' : 'false', menuLabel: s.menu ? 'Close' : 'Menu',
       toggleMenu: () => this.setState({ menu: !s.menu }), closeMenu: () => this.setState({ menu: false }),
       navBg: (s.solid || s.menu) ? 'rgba(12,9,7,.88)' : 'rgba(12,9,7,0)',
-      navLine: (s.solid || s.menu) ? '#241C17' : 'transparent',
+      navLine: (s.solid || s.menu) ? 'var(--iw-line)' : 'transparent',
       navBlur: (s.solid || s.menu) ? 'blur(14px) saturate(1.1)' : 'none',
       slideOp0: cur === 0 ? '1' : '0', slideOp1: cur === 1 ? '1' : '0', slideOp2: cur === 2 ? '1' : '0',
       slideNo: '0' + (cur + 1), segs, slideCtlDisp: slidesOn ? 'flex' : 'none',
@@ -1204,7 +1227,7 @@ export default class LandingLogic extends DCLogic {
       textADisp: this.anim() ? 'flex' : 'none', railDisp: narrow ? 'none' : 'flex',
       tabs, tabBudget: s.tab === 'budget', tabRun: s.tab === 'run', tabDec: s.tab === 'dec', tabLabelledBy: 'tab-' + s.tab,
       cats, catLabel: catName, vendors,
-      evThumbW: thumbW + '%', evThumbL: (s.evP * (100 - thumbW)) + '%',
+      evThumbRef: this.evThumbRef, evThumbW: thumbW + '%', evThumbL: (s.evP * (100 - thumbW)) + '%',
       evPrevOp: s.evP <= 0.01 ? '.35' : '1', evNextOp: s.evP >= 0.99 ? '.35' : '1',
       evPrev: () => this.evStep(-1), evNext: () => this.evStep(1),
       onEvScroll: this.onEvScroll, evDown: this.evDown, evMove: this.evMove, evUp: this.evUp,

@@ -1,0 +1,122 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-11-13T08:30:00Z",
+  "title": "Design System: IndianWeddings",
+  "extensions": {
+    "colorMeta": {
+      "ink": { "role": "neutral", "displayName": "Courtyard Ink", "tonalRamp": ["#0C0907", "#120E0B", "#1A1411", "#241C17", "#3E3229", "#5A4D42", "#8A8077", "#C5BAB0"] },
+      "field": { "role": "neutral", "displayName": "Field" },
+      "surface": { "role": "neutral", "displayName": "Raised Stone" },
+      "line": { "role": "neutral", "displayName": "Hairline" },
+      "line-strong": { "role": "neutral", "displayName": "Rule" },
+      "stone-dim": { "role": "neutral", "displayName": "Weathered Stone" },
+      "stone": { "role": "neutral", "displayName": "Stone" },
+      "sand": { "role": "neutral", "displayName": "Sand" },
+      "parchment": { "role": "neutral", "displayName": "Parchment" },
+      "ivory": { "role": "neutral", "displayName": "Ivory", "tonalRamp": ["#5A4D42", "#8A8077", "#9C9289", "#C5BAB0", "#EDE3D3", "#F4EEE4", "#FAF6EF", "#FFFFFF"] },
+      "zari-gold": { "role": "primary", "displayName": "Zari Gold", "tonalRamp": ["#3A2D16", "#5C4724", "#7F6434", "#A9864C", "#C9A96E", "#E8D19A", "#F0DDB3", "#F8EED6"] },
+      "zari-highlight": { "role": "primary", "displayName": "Zari Highlight" },
+      "on-ivory": { "role": "neutral", "displayName": "Ink on Ivory" },
+      "on-gold": { "role": "neutral", "displayName": "Ink on Gold" }
+    },
+    "typographyMeta": {
+      "display": { "displayName": "Display", "purpose": "Hero H1 only." },
+      "headline": { "displayName": "Headline", "purpose": "Section H2s." },
+      "title": { "displayName": "Title", "purpose": "Card and feature titles." },
+      "body": { "displayName": "Body", "purpose": "Section ledes." },
+      "body-small": { "displayName": "Body small", "purpose": "Card copy, demos, footer links." },
+      "label": { "displayName": "Label", "purpose": "Uppercase tags, badges and meta lines; never below 12px." }
+    },
+    "shadows": [],
+    "motion": [
+      { "name": "ease-settle", "value": "cubic-bezier(.2,.7,.1,1)", "purpose": "Reveals, word-by-word text and image hover scale." },
+      { "name": "ken-burns", "value": "8000ms cubic-bezier(.2,.6,.2,1)", "purpose": "Slow scale drift on hero photographs." },
+      { "name": "state-change", "value": "200-250ms ease", "purpose": "Colour and background changes on hover." }
+    ],
+    "breakpoints": [
+      { "name": "menu", "value": "1140px" },
+      { "name": "motion", "value": "960px" },
+      { "name": "header-cta", "value": "360px" }
+    ]
+  },
+  "components": [
+    {
+      "name": "Primary Button",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "The one call to action: ivory fill, ink text.",
+      "html": "<a class=\"ds-btn-primary\" href=\"#\">Start planning</a>",
+      "css": ".ds-btn-primary{display:inline-flex;align-items:center;justify-content:center;min-height:56px;padding:0 34px;background:var(--iw-ivory,#F4EEE4);color:var(--iw-on-ivory,#1E1915);font-family:'Nunito Sans',sans-serif;font-size:15px;font-weight:700;letter-spacing:.03em;text-decoration:none;border-radius:2px;transition:background-color .25s ease,transform .2s ease}.ds-btn-primary:hover{background:#FFFFFF}.ds-btn-primary:active{transform:translateY(1px)}.ds-btn-primary:focus-visible{outline:2px solid var(--iw-ivory,#F4EEE4);outline-offset:3px}"
+    },
+    {
+      "name": "Ghost Button",
+      "kind": "button",
+      "refersTo": "button-ghost",
+      "description": "Secondary controls: menu, pause, carousel steps.",
+      "html": "<button class=\"ds-btn-ghost\" type=\"button\">Pause</button>",
+      "css": ".ds-btn-ghost{min-height:44px;padding:0 16px;background:transparent;border:1px solid rgba(244,238,228,.4);border-radius:2px;color:var(--iw-ivory,#F4EEE4);font-family:'Nunito Sans',sans-serif;font-size:14px;font-weight:600;cursor:pointer;transition:border-color .2s ease}.ds-btn-ghost:hover{border-color:var(--iw-ivory,#F4EEE4)}.ds-btn-ghost:focus-visible{outline:2px solid var(--iw-gold,#C9A96E);outline-offset:2px}"
+    },
+    {
+      "name": "Underlined Link",
+      "kind": "custom",
+      "refersTo": "link-underlined",
+      "description": "Text link with a hairline rule, padded to a 44px target.",
+      "html": "<a class=\"ds-link\" href=\"#\">Explore the experience</a>",
+      "css": ".ds-link{display:inline-flex;align-items:center;padding:15px 0 8px;border-bottom:1px solid var(--iw-ivory,#F4EEE4);color:var(--iw-ivory,#F4EEE4);font-family:'Nunito Sans',sans-serif;font-size:15px;font-weight:600;text-decoration:none;transition:color .2s ease,border-color .2s ease}.ds-link:hover{color:var(--iw-gold-light,#E8D19A);border-color:var(--iw-gold-light,#E8D19A)}.ds-link:focus-visible{outline:2px solid var(--iw-ivory,#F4EEE4);outline-offset:3px}"
+    },
+    {
+      "name": "Text Field",
+      "kind": "input",
+      "refersTo": "input-field",
+      "description": "The Ask Noor field.",
+      "html": "<input class=\"ds-input\" type=\"text\" placeholder=\"Or ask your own question\" aria-label=\"Ask Noor a question\">",
+      "css": ".ds-input{min-height:52px;padding:0 16px;background:var(--iw-field,#120E0B);border:1px solid var(--iw-line-strong,#3E3229);border-radius:2px;color:var(--iw-ivory,#F4EEE4);font-family:'Nunito Sans',sans-serif;font-size:16px;outline:none;transition:border-color .2s ease}.ds-input::placeholder{color:var(--iw-stone,#9C9289)}.ds-input:focus-visible{border-color:var(--iw-gold,#C9A96E)}"
+    },
+    {
+      "name": "Text Tabs",
+      "kind": "nav",
+      "refersTo": "tab-active",
+      "description": "Filter tabs on a hairline; gold underline marks the active tab.",
+      "html": "<div class=\"ds-tabs\" role=\"tablist\"><button class=\"ds-tab\" role=\"tab\" aria-selected=\"true\">All</button><button class=\"ds-tab\" role=\"tab\" aria-selected=\"false\">In India</button><button class=\"ds-tab\" role=\"tab\" aria-selected=\"false\">Abroad</button></div>",
+      "css": ".ds-tabs{display:flex;gap:28px;border-bottom:1px solid var(--iw-line,#241C17)}.ds-tab{min-height:47px;padding:0;background:none;border:0;border-bottom:2px solid transparent;color:var(--iw-stone-dim,#8A8077);font-family:'Nunito Sans',sans-serif;font-size:15px;font-weight:700;cursor:pointer}.ds-tab[aria-selected=true]{color:var(--iw-ivory,#F4EEE4);border-bottom-color:var(--iw-gold,#C9A96E)}.ds-tab:hover{color:var(--iw-ivory,#F4EEE4)}.ds-tab:focus-visible{outline:2px solid var(--iw-gold,#C9A96E);outline-offset:2px}"
+    },
+    {
+      "name": "Label",
+      "kind": "chip",
+      "refersTo": "label",
+      "description": "Uppercase tag such as a save badge.",
+      "html": "<span class=\"ds-label\">Save ₹9L</span>",
+      "css": ".ds-label{display:inline-block;padding:6px 10px;background:var(--iw-ivory,#F4EEE4);color:var(--iw-on-ivory,#1E1915);font-family:'Nunito Sans',sans-serif;font-size:12px;font-weight:700;letter-spacing:.14em;text-transform:uppercase}"
+    }
+  ],
+  "narrative": {
+    "northStar": "The Lamplit Courtyard",
+    "overview": "The page is a haveli courtyard after dark. Deep ink surfaces hold the space, wedding photography opens in them like lit windows, and Zari Gold is used the way lamplight is: on edges, thresholds and small marks, never poured over a surface. Headlines are set in Marcellus, a carved, inscriptional serif, at generous size with slightly tight tracking. Everything else is quiet Nunito Sans.\n\nDensity is low and pacing is slow. Sections are tall, copy is short, and each section has one idea and one image or demonstration. Motion is ambient (a slow sparkle field, a sky canvas, Ken Burns drift on photographs) and stops entirely under reduced-motion preferences.",
+    "keyCharacteristics": [
+      "Dark only: one ink ground (#0C0907 family), no light theme.",
+      "Square geometry: corners are 0 or a 2px hairline; arches are the only curves.",
+      "Gold as accent: rules, focus rings, small labels, check marks.",
+      "Photography carries the colour; the interface carries almost none.",
+      "No shadows; depth comes from tone, photography and the fixed sky canvas."
+    ],
+    "rules": [
+      { "name": "The Gold Marks, Never Fills Rule", "body": "Zari Gold appears on accents, rules, focus rings and small labels. It never fills a surface larger than a chip, and it never sets a paragraph.", "section": "colors" },
+      { "name": "The Photography Carries Colour Rule", "body": "Saturated colour enters only through photographs and the save-the-date template samples. Interface colour stays within ink, stone, ivory and gold.", "section": "colors" },
+      { "name": "The One Serif Voice Rule", "body": "Marcellus is used only at 24px and above, always at weight 400. Anything smaller or bolder is Nunito Sans.", "section": "typography" },
+      { "name": "The No Shadow Rule", "body": "Separation is tone or a hairline, never a drop shadow.", "section": "elevation" }
+    ],
+    "dos": [
+      "Do use the `--iw-*` CSS variables from `src/styles.css` for every interface colour.",
+      "Do keep Zari Gold to marks: rules, rings, labels, check marks.",
+      "Do keep every control at least 44px tall and give it a visible `:focus-visible` outline.",
+      "Do keep text at or above weathered stone (#8A8077) on dark ground."
+    ],
+    "donts": [
+      "Don't add drop shadows or glass effects; use tone and hairlines.",
+      "Don't fill large areas with gold or use it for paragraph text.",
+      "Don't set Marcellus below 24px or above weight 400.",
+      "Don't set interface text below 12px.",
+      "Don't introduce a light theme or a second accent colour."
+    ]
+  }
+}
