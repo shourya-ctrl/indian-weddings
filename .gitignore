@@ -2,3 +2,7 @@ node_modules/
 dist/
 .vercel/
 .DS_Store
+
+# Impeccable: per-machine engine binary and local hook settings
+.claude/skills/impeccable/scripts/bin/
+.claude/settings.local.json
