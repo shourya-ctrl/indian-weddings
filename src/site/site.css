@@ -1,0 +1,126 @@
+/* Site shell for destination pages (header, footer, Ask Noor, account prompt).
+   Scoped under .iws-* so nothing here reaches the homepage. Tokens: styles.css. */
+
+.iws-page { min-height: 100vh; background: var(--iw-ink); color: var(--iw-parchment); overflow-x: clip; }
+.iws-main { display: block; }
+.iws-wrap { max-width: 1320px; margin: 0 auto; padding: 0 clamp(20px, 4vw, 56px); }
+
+.iws-skip { position: absolute; left: 12px; top: -60px; z-index: 80; padding: 12px 16px; background: var(--iw-ivory); color: var(--iw-on-ivory); font-weight: 700; }
+.iws-skip:focus-visible { top: 12px; outline: 2px solid var(--iw-gold); outline-offset: 2px; }
+
+/* Shared controls (DESIGN.md: primary, ghost, underlined link) */
+.iws-btn { display: inline-flex; align-items: center; justify-content: center; gap: 10px; min-height: 44px; padding: 0 22px; border-radius: 2px; font-family: 'Nunito Sans', sans-serif; font-size: 14px; font-weight: 700; letter-spacing: .03em; text-decoration: none; white-space: nowrap; cursor: pointer; transition: background-color .25s ease, color .25s ease, border-color .25s ease, transform .2s ease; }
+.iws-btn-primary { background: var(--iw-ivory); color: var(--iw-on-ivory); border: 0; }
+.iws-btn-primary:hover { background: #FFFFFF; color: var(--iw-on-ivory); }
+.iws-btn-primary:active { transform: translateY(1px); }
+.iws-btn-ghost { background: transparent; color: var(--iw-ivory); border: 1px solid rgba(244,238,228,.4); }
+.iws-btn-ghost:hover { border-color: var(--iw-ivory); color: var(--iw-ivory); }
+.iws-underlined { display: inline-flex; align-items: center; padding: 15px 0 8px; border-bottom: 1px solid var(--iw-ivory); color: var(--iw-ivory); font-size: 15px; font-weight: 600; text-decoration: none; transition: color .2s ease, border-color .2s ease; }
+.iws-underlined:hover { color: var(--iw-gold-light); border-color: var(--iw-gold-light); }
+.iws-page a:focus-visible, .iws-page button:focus-visible, .iws-overlay a:focus-visible, .iws-overlay button:focus-visible, .iws-overlay input:focus-visible { outline: 2px solid var(--iw-gold); outline-offset: 3px; }
+.iws-btn-primary:focus-visible { outline-color: var(--iw-ivory) !important; }
+
+/* Header */
+.iws-header { position: fixed; top: 0; left: 0; right: 0; z-index: 50; border-bottom: 1px solid transparent; transition: background-color .35s ease, border-color .35s ease; }
+.iws-header.is-solid { background: rgba(12,9,7,.88); border-bottom-color: var(--iw-line); -webkit-backdrop-filter: blur(14px) saturate(1.1); backdrop-filter: blur(14px) saturate(1.1); }
+.iws-bar { max-width: 1320px; margin: 0 auto; height: 72px; padding: 0 clamp(20px, 4vw, 56px); display: flex; align-items: center; justify-content: space-between; gap: clamp(12px, 3vw, 24px); }
+.iws-logo { display: flex; align-items: center; min-height: 44px; flex-shrink: 0; font-family: 'Marcellus', serif; font-size: clamp(15px, 3.6vw + 1.5px, 19px); letter-spacing: .04em; line-height: 1; white-space: nowrap; color: var(--iw-ivory); text-decoration: none; }
+.iws-logo span { color: var(--iw-gold); }
+.iws-logo:hover { color: var(--iw-ivory); }
+.iws-links { display: none; align-items: center; gap: clamp(18px, 2.2vw, 36px); }
+.iws-link { position: relative; display: inline-flex; align-items: center; min-height: 44px; font-size: 14px; font-weight: 600; letter-spacing: .02em; color: var(--iw-parchment); text-decoration: none; white-space: nowrap; transition: color .2s ease; }
+.iws-link:hover { color: var(--iw-gold); }
+.iws-link[aria-current="page"] { color: var(--iw-ivory); }
+.iws-link[aria-current="page"]::after { content: ""; position: absolute; left: 0; right: 0; bottom: 6px; height: 1px; background: var(--iw-gold); }
+.iws-actions { display: flex; align-items: center; gap: 8px; }
+.iws-login { display: none; }
+.iws-ask { display: none; align-items: center; gap: 8px; min-height: 44px; padding: 0 4px; background: none; border: 0; color: var(--iw-gold-light); font-family: 'Nunito Sans', sans-serif; font-size: 14px; font-weight: 600; cursor: pointer; transition: color .2s ease; }
+.iws-ask:hover { color: var(--iw-ivory); }
+.iws-begin { padding: 0 14px; }
+.iws-menu { display: inline-flex; align-items: center; justify-content: center; width: 44px; height: 44px; padding: 0; flex-shrink: 0; background: transparent; border: 1px solid rgba(244,238,228,.4); border-radius: 2px; color: var(--iw-ivory); cursor: pointer; }
+@media (max-width: 359px) { .iws-begin { display: none; } }
+@media (min-width: 1140px) {
+  .iws-logo { letter-spacing: .08em; }
+  .iws-links { display: flex; }
+  .iws-login, .iws-ask { display: inline-flex; }
+  .iws-actions { gap: 24px; }
+  .iws-begin { padding: 0 22px; }
+  .iws-menu { display: none; }
+}
+
+.iws-drawer { background: var(--iw-ink); border-top: 1px solid var(--iw-line); padding: 8px clamp(20px, 4vw, 56px) 28px; max-height: calc(100svh - 72px); overflow-y: auto; }
+.iws-drawer-link { display: flex; align-items: center; min-height: 60px; border-bottom: 1px solid var(--iw-line); font-family: 'Marcellus', serif; font-size: 26px; color: var(--iw-ivory); text-decoration: none; }
+.iws-drawer-link[aria-current="page"] { color: var(--iw-gold-light); }
+.iws-drawer-ask { display: flex; align-items: center; gap: 10px; width: 100%; min-height: 56px; padding: 0; background: none; border: 0; border-bottom: 1px solid var(--iw-line); color: var(--iw-gold-light); font-family: 'Nunito Sans', sans-serif; font-size: 16px; font-weight: 600; cursor: pointer; }
+.iws-drawer-begin { display: flex; width: 100%; min-height: 52px; margin-top: 24px; font-size: 15px; }
+.iws-drawer-login { display: flex; align-items: center; justify-content: center; min-height: 52px; font-size: 15px; font-weight: 600; color: var(--iw-sand); text-decoration: none; }
+@media (min-width: 1140px) { .iws-drawer { display: none; } }
+
+/* Persistent Ask Noor button: below 1140px only (the header carries it above). */
+.iws-noor-fab { position: fixed; z-index: 45; right: max(16px, env(safe-area-inset-right)); bottom: max(16px, env(safe-area-inset-bottom)); display: inline-flex; align-items: center; justify-content: center; width: 48px; height: 48px; padding: 0; background: rgba(12,9,7,.86); border: 1px solid var(--iw-line-strong); border-radius: 50%; color: var(--iw-gold-light); cursor: pointer; -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px); animation: iws-fade .5s ease .6s both; }
+.iws-noor-fab:hover { border-color: var(--iw-gold); }
+@keyframes iws-fade { from { opacity: 0; } to { opacity: 1; } }
+@media (min-width: 1140px) { .iws-noor-fab { display: none; } }
+[data-iws-menu] .iws-noor-fab { display: none; }
+@media (prefers-reduced-motion: reduce) { .iws-noor-fab { animation: none; } }
+
+/* Footer */
+.iws-footer { border-top: 1px solid var(--iw-line); color: var(--iw-sand); }
+.iws-footer .iws-wrap { padding-top: 72px; padding-bottom: 36px; }
+.iws-footer-top { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 48px; }
+.iws-footer-brand { flex: 1 1 300px; max-width: 420px; }
+.iws-footer-brand p { margin: 18px 0 0; font-size: 15px; line-height: 1.6; }
+.iws-logo-lg { font-size: 26px; letter-spacing: .08em; color: var(--iw-parchment); min-height: 0; }
+.iws-footer-cols { display: flex; flex-wrap: wrap; gap: 40px 80px; }
+.iws-footer-head { margin: 0 0 10px; font-size: 12px; font-weight: 700; letter-spacing: .16em; text-transform: uppercase; color: var(--iw-stone); }
+.iws-footer nav a { display: flex; align-items: center; min-height: 44px; font-size: 15px; color: var(--iw-parchment); text-decoration: none; }
+.iws-footer nav a:hover { color: var(--iw-gold); }
+.iws-footer-base { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 12px 32px; margin-top: 64px; padding-top: 24px; border-top: 1px solid var(--iw-line); font-size: 12px; line-height: 1.6; color: var(--iw-stone); }
+.iws-footer-legal { display: inline-flex; gap: 20px; }
+.iws-footer-legal a { display: inline-flex; align-items: center; min-height: 44px; color: var(--iw-sand); text-decoration: none; }
+.iws-footer-legal a:hover { color: var(--iw-ivory); }
+
+/* Dialog overlay shared by Ask Noor and the account prompt */
+.iws-overlay { position: fixed; inset: 0; z-index: 90; display: flex; align-items: flex-end; justify-content: center; background: rgba(12,9,7,.62); animation: iws-fade .2s ease both; }
+@media (min-width: 768px) { .iws-overlay { align-items: center; } }
+@media (prefers-reduced-motion: reduce) { .iws-overlay { animation: none; } }
+.iws-icon-btn { display: inline-flex; align-items: center; justify-content: center; width: 44px; height: 44px; padding: 0; background: transparent; border: 0; color: var(--iw-sand); cursor: pointer; }
+.iws-icon-btn:hover { color: var(--iw-ivory); }
+
+/* Ask Noor panel: bottom sheet on phones, side panel from 768px */
+.iws-noor { display: flex; flex-direction: column; width: 100%; max-height: 90svh; background: var(--iw-field); border-top: 1px solid var(--iw-line-strong); color: var(--iw-parchment); }
+@media (min-width: 768px) {
+  .iws-overlay:has(.iws-noor) { justify-content: flex-end; align-items: stretch; }
+  .iws-noor { width: 420px; max-height: none; height: 100%; border-top: 0; border-left: 1px solid var(--iw-line-strong); }
+}
+.iws-noor-head { display: flex; align-items: center; justify-content: space-between; padding: 12px 12px 0 24px; }
+.iws-noor-head h2 { display: flex; align-items: center; gap: 10px; margin: 0; font-family: 'Marcellus', serif; font-weight: 400; font-size: 26px; color: var(--iw-ivory); }
+.iws-noor-head h2 .iws-noor-mark { color: var(--iw-gold); }
+.iws-noor-note { margin: 8px 24px 0; font-size: 14px; line-height: 1.55; color: var(--iw-stone); }
+.iws-noor-body { flex: 1; overflow-y: auto; padding: 20px 24px; }
+.iws-noor-answer { padding-bottom: 20px; margin-bottom: 20px; border-bottom: 1px solid var(--iw-line); }
+.iws-noor-answer p { margin: 0 0 12px; font-size: 15px; line-height: 1.6; }
+.iws-noor-q { font-family: 'Marcellus', serif; font-size: 20px !important; line-height: 1.3 !important; color: var(--iw-ivory); overflow-wrap: anywhere; }
+.iws-noor-answer dl { margin: 0 0 12px; }
+.iws-noor-answer dl div { padding: 10px 0; border-top: 1px solid var(--iw-line); }
+.iws-noor-answer dt { font-size: 14px; font-weight: 700; color: var(--iw-ivory); }
+.iws-noor-answer dd { margin: 2px 0 0; font-size: 14px; line-height: 1.5; color: var(--iw-sand); }
+.iws-noor-foot { color: var(--iw-gold-light); }
+.iws-noor-try { margin: 0 0 6px; font-size: 12px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: var(--iw-stone); }
+.iws-noor-qs { list-style: none; margin: 0; padding: 0; }
+.iws-noor-qs button { display: block; width: 100%; min-height: 44px; padding: 10px 0; background: none; border: 0; border-bottom: 1px solid var(--iw-line); color: var(--iw-parchment); font-family: 'Nunito Sans', sans-serif; font-size: 15px; line-height: 1.45; text-align: left; cursor: pointer; }
+.iws-noor-qs button:hover { color: var(--iw-gold-light); }
+.iws-noor-form { display: flex; gap: 8px; padding: 16px 24px 0; border-top: 1px solid var(--iw-line); }
+.iws-noor-form input { flex: 1; min-width: 0; min-height: 48px; padding: 0 14px; background: var(--iw-ink); border: 1px solid var(--iw-line-strong); border-radius: 2px; color: var(--iw-ivory); font-family: 'Nunito Sans', sans-serif; font-size: 16px; outline: none; }
+.iws-noor-form input:focus-visible { border-color: var(--iw-gold); outline: none !important; }
+.iws-noor-cta { display: flex; flex-wrap: wrap; align-items: center; gap: 12px 24px; padding: 16px 24px max(20px, env(safe-area-inset-bottom)); }
+
+/* Account prompt */
+.iws-prompt { width: 100%; max-width: 480px; padding: 32px clamp(24px, 5vw, 40px) max(28px, env(safe-area-inset-bottom)); background: var(--iw-field); border-top: 1px solid var(--iw-line-strong); }
+@media (min-width: 768px) { .iws-prompt { border: 1px solid var(--iw-line-strong); } }
+.iws-prompt h2 { margin: 0; font-family: 'Marcellus', serif; font-weight: 400; font-size: clamp(26px, 3vw, 32px); line-height: 1.15; color: var(--iw-ivory); text-wrap: balance; }
+.iws-prompt p { margin: 14px 0 0; font-size: 15px; line-height: 1.6; color: var(--iw-sand); }
+.iws-prompt-actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 28px; }
+.iws-prompt-actions .iws-btn { flex: 1 1 160px; min-height: 52px; font-size: 15px; }
+.iws-prompt-later { display: block; min-height: 44px; margin: 12px auto 0; padding: 0 12px; background: none; border: 0; color: var(--iw-stone); font-family: 'Nunito Sans', sans-serif; font-size: 14px; font-weight: 600; cursor: pointer; }
+.iws-prompt-later:hover { color: var(--iw-ivory); }

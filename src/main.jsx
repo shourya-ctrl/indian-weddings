@@ -1,5 +1,8 @@
+import { lazy, Suspense, useMemo } from 'react';
 import { createRoot } from 'react-dom/client';
 import Landing from './Landing';
+import { useLocation } from './router';
+import { matchRoute } from './routes';
 import './fonts.css';
 import './styles.css';
 
@@ -53,6 +56,23 @@ document.addEventListener('keydown', e => {
   to.click();
 });
 
+// Destination pages load on demand, so the homepage bundle stays as it was.
+const VendorsPage = lazy(() => import('./pages/vendors/VendorsPage'));
+const NotFoundPage = lazy(() => import('./pages/NotFoundPage'));
+
+function App() {
+  const { pathname, search } = useLocation();
+  const route = matchRoute(pathname);
+  // The homepage keeps its own presentation options, read from the URL as before.
+  const homeProps = useMemo(() => (route.page === 'home' ? readProps() : null), [route.page, search]);
+  if (route.page === 'home') return <Landing {...homeProps} />;
+  return (
+    <Suspense fallback={null}>
+      {route.page === 'vendors' ? <VendorsPage /> : <NotFoundPage />}
+    </Suspense>
+  );
+}
+
 // No StrictMode: the page logic starts animation loops and listeners on mount,
 // and the design runtime it came from mounted exactly once.
-createRoot(document.getElementById('root')).render(<Landing {...readProps()} />);
+createRoot(document.getElementById('root')).render(<App />);

@@ -1,0 +1,1439 @@
+{
+  "source": "Luxury Indian Wedding Vendor Taxonomy (Luxury_Indian_Wedding_Vendor_Taxonomy_and_Claude_Prompt.md), with category IDs and service families from IndianWeddings Couples Web App V3 (TX_CATS).",
+  "categories": [
+    {
+      "id": "planning",
+      "slug": "planning",
+      "order": 1,
+      "label": "Planning & Coordination",
+      "short": "Planning",
+      "blurb": "Find the people who will run your wedding week.",
+      "discovery": "primary",
+      "families": [
+        {
+          "name": "Planning",
+          "types": [
+            {
+              "id": "planning:full-service-wedding-planner",
+              "slug": "full-service-wedding-planner",
+              "name": "Full-service wedding planner"
+            },
+            {
+              "id": "planning:destination-wedding-planner-destination-management-company",
+              "slug": "destination-wedding-planner-destination-management-company",
+              "name": "Destination wedding planner / destination management company"
+            },
+            {
+              "id": "planning:month-of-day-of-coordinator",
+              "slug": "month-of-day-of-coordinator",
+              "name": "Month-of / day-of coordinator"
+            },
+            {
+              "id": "planning:budget-and-planning-consultant",
+              "slug": "budget-and-planning-consultant",
+              "name": "Budget & planning consultant"
+            },
+            {
+              "id": "planning:vendor-sourcing-procurement-concierge",
+              "slug": "vendor-sourcing-procurement-concierge",
+              "name": "Vendor sourcing / procurement concierge"
+            },
+            {
+              "id": "planning:personal-wedding-concierge",
+              "slug": "personal-wedding-concierge",
+              "name": "Personal wedding concierge"
+            }
+          ]
+        },
+        {
+          "name": "Production & on-site",
+          "types": [
+            {
+              "id": "planning:wedding-producer-event-production-agency",
+              "slug": "wedding-producer-event-production-agency",
+              "name": "Wedding producer / event production agency"
+            },
+            {
+              "id": "planning:wedding-design-and-styling-agency",
+              "slug": "wedding-design-and-styling-agency",
+              "name": "Wedding design & styling agency"
+            },
+            {
+              "id": "planning:on-site-wedding-management-team",
+              "slug": "on-site-wedding-management-team",
+              "name": "On-site wedding management team"
+            },
+            {
+              "id": "planning:wedding-operations-run-of-show-management",
+              "slug": "wedding-operations-run-of-show-management",
+              "name": "Wedding operations / run-of-show management"
+            },
+            {
+              "id": "planning:family-vip-protocol-and-liaison-service",
+              "slug": "family-vip-protocol-and-liaison-service",
+              "name": "Family / VIP protocol & liaison service"
+            },
+            {
+              "id": "planning:rsvp-and-guest-list-management-service",
+              "slug": "rsvp-and-guest-list-management-service",
+              "name": "RSVP & guest-list management service"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "venues",
+      "slug": "venues",
+      "order": 2,
+      "label": "Venues & Stay",
+      "short": "Venue",
+      "blurb": "Find where every function happens, and where your families stay.",
+      "discovery": "primary",
+      "families": [
+        {
+          "name": "Properties",
+          "types": [
+            {
+              "id": "venues:luxury-hotel-resort",
+              "slug": "luxury-hotel-resort",
+              "name": "Luxury hotel / resort"
+            },
+            {
+              "id": "venues:palace-heritage-property",
+              "slug": "palace-heritage-property",
+              "name": "Palace / heritage property"
+            },
+            {
+              "id": "venues:private-estate-villa",
+              "slug": "private-estate-villa",
+              "name": "Private estate / villa"
+            },
+            {
+              "id": "venues:boutique-hotel",
+              "slug": "boutique-hotel",
+              "name": "Boutique hotel"
+            },
+            {
+              "id": "venues:destination-wedding-resort",
+              "slug": "destination-wedding-resort",
+              "name": "Destination wedding resort"
+            }
+          ]
+        },
+        {
+          "name": "Function spaces",
+          "types": [
+            {
+              "id": "venues:banquet-convention-property",
+              "slug": "banquet-convention-property",
+              "name": "Banquet / convention property"
+            },
+            {
+              "id": "venues:farmhouse-outdoor-estate",
+              "slug": "farmhouse-outdoor-estate",
+              "name": "Farmhouse / outdoor estate"
+            },
+            {
+              "id": "venues:religious-ceremony-venue",
+              "slug": "religious-ceremony-venue",
+              "name": "Religious / ceremony venue"
+            },
+            {
+              "id": "venues:after-party-nightlife-venue",
+              "slug": "after-party-nightlife-venue",
+              "name": "After-party / nightlife venue"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "decor",
+      "slug": "decor",
+      "order": 3,
+      "label": "Decor, Floral & Event Design",
+      "short": "Décor",
+      "blurb": "Find the people who will shape how it looks.",
+      "discovery": "primary",
+      "families": [
+        {
+          "name": "Design & styling",
+          "types": [
+            {
+              "id": "decor:wedding-decorator",
+              "slug": "wedding-decorator",
+              "name": "Wedding decorator"
+            },
+            {
+              "id": "decor:luxury-wedding-designer-event-stylist",
+              "slug": "luxury-wedding-designer-event-stylist",
+              "name": "Luxury wedding designer / event stylist"
+            },
+            {
+              "id": "decor:mandap-designer-and-builder",
+              "slug": "mandap-designer-and-builder",
+              "name": "Mandap designer & builder"
+            },
+            {
+              "id": "decor:stage-and-set-designer",
+              "slug": "stage-and-set-designer",
+              "name": "Stage & set designer"
+            },
+            {
+              "id": "decor:tabletop-and-tablescape-stylist",
+              "slug": "tabletop-and-tablescape-stylist",
+              "name": "Tabletop & tablescape stylist"
+            },
+            {
+              "id": "decor:guest-experience-lounge-decor-specialist",
+              "slug": "guest-experience-lounge-decor-specialist",
+              "name": "Guest-experience / lounge decor specialist"
+            }
+          ]
+        },
+        {
+          "name": "Florals & fabric",
+          "types": [
+            {
+              "id": "decor:floral-designer-florist",
+              "slug": "floral-designer-florist",
+              "name": "Floral designer / florist"
+            },
+            {
+              "id": "decor:ceiling-overhead-installation-specialist",
+              "slug": "ceiling-overhead-installation-specialist",
+              "name": "Ceiling / overhead installation specialist"
+            },
+            {
+              "id": "decor:draping-and-fabric-specialist",
+              "slug": "draping-and-fabric-specialist",
+              "name": "Draping & fabric specialist"
+            },
+            {
+              "id": "decor:entry-aisle-walkway-decor-specialist",
+              "slug": "entry-aisle-walkway-decor-specialist",
+              "name": "Entry / aisle / walkway decor specialist"
+            }
+          ]
+        },
+        {
+          "name": "Build & rentals",
+          "types": [
+            {
+              "id": "decor:furniture-and-lounge-styling-rental",
+              "slug": "furniture-and-lounge-styling-rental",
+              "name": "Furniture & lounge styling / rental"
+            },
+            {
+              "id": "decor:props-and-art-installation-fabricator",
+              "slug": "props-and-art-installation-fabricator",
+              "name": "Props & art-installation fabricator"
+            },
+            {
+              "id": "decor:tent-marquee-canopy-specialist",
+              "slug": "tent-marquee-canopy-specialist",
+              "name": "Tent / marquee / canopy specialist"
+            },
+            {
+              "id": "decor:event-signage-physical-wayfinding-fabricator",
+              "slug": "event-signage-physical-wayfinding-fabricator",
+              "name": "Event signage / physical wayfinding fabricator"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "production",
+      "slug": "production",
+      "order": 4,
+      "label": "Production, AV & Infrastructure",
+      "short": "Production",
+      "blurb": "Find the sound, light and structure behind every function.",
+      "discovery": "extended",
+      "families": [
+        {
+          "name": "Sound & light",
+          "types": [
+            {
+              "id": "production:sound-pa-production-company",
+              "slug": "sound-pa-production-company",
+              "name": "Sound / PA production company"
+            },
+            {
+              "id": "production:dj-sound-and-technical-systems-provider",
+              "slug": "dj-sound-and-technical-systems-provider",
+              "name": "DJ sound & technical systems provider"
+            },
+            {
+              "id": "production:event-lighting-designer-production",
+              "slug": "event-lighting-designer-production",
+              "name": "Event lighting designer / production"
+            },
+            {
+              "id": "production:special-effects-production-haze-co2-confetti-cold-spark",
+              "slug": "special-effects-production-haze-co2-confetti-cold-spark",
+              "name": "Special-effects production (haze, CO2, confetti, cold spark)"
+            }
+          ]
+        },
+        {
+          "name": "Screens & stream",
+          "types": [
+            {
+              "id": "production:led-wall-video-wall-provider",
+              "slug": "led-wall-video-wall-provider",
+              "name": "LED wall / video wall provider"
+            },
+            {
+              "id": "production:av-screens-and-projection-provider",
+              "slug": "av-screens-and-projection-provider",
+              "name": "AV, screens & projection provider"
+            },
+            {
+              "id": "production:technical-livestream-production",
+              "slug": "technical-livestream-production",
+              "name": "Technical livestream production"
+            }
+          ]
+        },
+        {
+          "name": "Structure & power",
+          "types": [
+            {
+              "id": "production:stage-truss-and-rigging-provider",
+              "slug": "stage-truss-and-rigging-provider",
+              "name": "Stage, truss & rigging provider"
+            },
+            {
+              "id": "production:power-generator-backup-power-provider",
+              "slug": "power-generator-backup-power-provider",
+              "name": "Power / generator / backup power provider"
+            },
+            {
+              "id": "production:dance-floor-provider",
+              "slug": "dance-floor-provider",
+              "name": "Dance-floor provider"
+            },
+            {
+              "id": "production:structural-temporary-infrastructure-engineering",
+              "slug": "structural-temporary-infrastructure-engineering",
+              "name": "Structural / temporary-infrastructure engineering"
+            },
+            {
+              "id": "production:technical-production-management",
+              "slug": "technical-production-management",
+              "name": "Technical production management"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "food",
+      "slug": "food",
+      "order": 5,
+      "label": "Food, Beverage & Culinary",
+      "short": "Food",
+      "blurb": "Find who will feed every function, from mehendi lunch to the last dance.",
+      "discovery": "primary",
+      "families": [
+        {
+          "name": "Catering",
+          "types": [
+            {
+              "id": "food:wedding-caterer",
+              "slug": "wedding-caterer",
+              "name": "Wedding caterer"
+            },
+            {
+              "id": "food:regional-cuisine-specialist-caterer",
+              "slug": "regional-cuisine-specialist-caterer",
+              "name": "Regional / cuisine-specialist caterer"
+            },
+            {
+              "id": "food:fine-dining-plated-service-caterer",
+              "slug": "fine-dining-plated-service-caterer",
+              "name": "Fine-dining / plated-service caterer"
+            },
+            {
+              "id": "food:live-food-station-interactive-food-vendor",
+              "slug": "live-food-station-interactive-food-vendor",
+              "name": "Live food-station / interactive food vendor"
+            },
+            {
+              "id": "food:late-night-after-party-food-vendor",
+              "slug": "late-night-after-party-food-vendor",
+              "name": "Late-night / after-party food vendor"
+            }
+          ]
+        },
+        {
+          "name": "Sweets & cake",
+          "types": [
+            {
+              "id": "food:dessert-and-patisserie-studio",
+              "slug": "dessert-and-patisserie-studio",
+              "name": "Dessert & patisserie studio"
+            },
+            {
+              "id": "food:wedding-cake-designer",
+              "slug": "wedding-cake-designer",
+              "name": "Wedding cake designer"
+            },
+            {
+              "id": "food:mithai-artisanal-sweets-house",
+              "slug": "mithai-artisanal-sweets-house",
+              "name": "Mithai / artisanal sweets house"
+            }
+          ]
+        },
+        {
+          "name": "Bar & beverage",
+          "types": [
+            {
+              "id": "food:bar-beverage-program-designer",
+              "slug": "bar-beverage-program-designer",
+              "name": "Bar / beverage program designer"
+            },
+            {
+              "id": "food:bartending-cocktail-service",
+              "slug": "bartending-cocktail-service",
+              "name": "Bartending / cocktail service"
+            },
+            {
+              "id": "food:coffee-tea-specialty-beverage-service",
+              "slug": "coffee-tea-specialty-beverage-service",
+              "name": "Coffee / tea / specialty beverage service"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "photo",
+      "slug": "photo",
+      "order": 6,
+      "label": "Photography, Film & Content",
+      "short": "Photography",
+      "blurb": "Find the team that will capture your wedding.",
+      "discovery": "primary",
+      "families": [
+        {
+          "name": "Photography",
+          "types": [
+            {
+              "id": "photo:wedding-photographer",
+              "slug": "wedding-photographer",
+              "name": "Wedding photographer"
+            },
+            {
+              "id": "photo:editorial-fine-art-photographer",
+              "slug": "editorial-fine-art-photographer",
+              "name": "Editorial / fine-art photographer"
+            },
+            {
+              "id": "photo:documentary-photojournalist-photographer",
+              "slug": "documentary-photojournalist-photographer",
+              "name": "Documentary / photojournalist photographer"
+            },
+            {
+              "id": "photo:pre-wedding-shoot-photographer-filmmaker",
+              "slug": "pre-wedding-shoot-photographer-filmmaker",
+              "name": "Pre-wedding shoot photographer / filmmaker"
+            }
+          ]
+        },
+        {
+          "name": "Film",
+          "types": [
+            {
+              "id": "photo:cinematic-wedding-filmmaker",
+              "slug": "cinematic-wedding-filmmaker",
+              "name": "Cinematic wedding filmmaker"
+            },
+            {
+              "id": "photo:traditional-wedding-videographer",
+              "slug": "traditional-wedding-videographer",
+              "name": "Traditional wedding videographer"
+            },
+            {
+              "id": "photo:same-day-edit-highlight-film-team",
+              "slug": "same-day-edit-highlight-film-team",
+              "name": "Same-day edit / highlight-film team"
+            },
+            {
+              "id": "photo:drone-aerial-capture-provider",
+              "slug": "drone-aerial-capture-provider",
+              "name": "Drone / aerial capture provider"
+            }
+          ]
+        },
+        {
+          "name": "Content & keepsakes",
+          "types": [
+            {
+              "id": "photo:wedding-social-content-creator",
+              "slug": "wedding-social-content-creator",
+              "name": "Wedding social / content creator"
+            },
+            {
+              "id": "photo:photo-booth-360-booth-provider",
+              "slug": "photo-booth-360-booth-provider",
+              "name": "Photo booth / 360 booth provider"
+            },
+            {
+              "id": "photo:live-portrait-illustration-artist",
+              "slug": "live-portrait-illustration-artist",
+              "name": "Live portrait / illustration artist"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "entertainment",
+      "slug": "entertainment",
+      "order": 7,
+      "label": "Entertainment, Artists & Dance",
+      "short": "Entertainment",
+      "blurb": "Find the music, hosting and performances for each night.",
+      "discovery": "primary",
+      "families": [
+        {
+          "name": "Music",
+          "types": [
+            {
+              "id": "entertainment:dj",
+              "slug": "dj",
+              "name": "DJ"
+            },
+            {
+              "id": "entertainment:live-band",
+              "slug": "live-band",
+              "name": "Live band"
+            },
+            {
+              "id": "entertainment:bollywood-pop-singer",
+              "slug": "bollywood-pop-singer",
+              "name": "Bollywood / pop singer"
+            },
+            {
+              "id": "entertainment:classical-musician-ensemble",
+              "slug": "classical-musician-ensemble",
+              "name": "Classical musician / ensemble"
+            },
+            {
+              "id": "entertainment:folk-regional-performance-group",
+              "slug": "folk-regional-performance-group",
+              "name": "Folk / regional performance group"
+            },
+            {
+              "id": "entertainment:dhol-tasha-nadaswaram-shehnai-wedding-band",
+              "slug": "dhol-tasha-nadaswaram-shehnai-wedding-band",
+              "name": "Dhol / tasha / nadaswaram / shehnai / wedding band"
+            }
+          ]
+        },
+        {
+          "name": "Dance",
+          "types": [
+            {
+              "id": "entertainment:sangeet-choreographer",
+              "slug": "sangeet-choreographer",
+              "name": "Sangeet choreographer"
+            },
+            {
+              "id": "entertainment:dance-troupe",
+              "slug": "dance-troupe",
+              "name": "Dance troupe"
+            }
+          ]
+        },
+        {
+          "name": "Hosts & acts",
+          "types": [
+            {
+              "id": "entertainment:emcee-anchor-host",
+              "slug": "emcee-anchor-host",
+              "name": "Emcee / anchor / host"
+            },
+            {
+              "id": "entertainment:celebrity-artist-performer",
+              "slug": "celebrity-artist-performer",
+              "name": "Celebrity artist / performer"
+            },
+            {
+              "id": "entertainment:stand-up-comedian",
+              "slug": "stand-up-comedian",
+              "name": "Stand-up comedian"
+            },
+            {
+              "id": "entertainment:magician-illusionist",
+              "slug": "magician-illusionist",
+              "name": "Magician / illusionist"
+            },
+            {
+              "id": "entertainment:specialty-live-performance-act",
+              "slug": "specialty-live-performance-act",
+              "name": "Specialty live performance act"
+            },
+            {
+              "id": "entertainment:artist-management-agency",
+              "slug": "artist-management-agency",
+              "name": "Artist management agency"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "fashion",
+      "slug": "fashion",
+      "order": 8,
+      "label": "Fashion, Attire & Styling",
+      "short": "Fashion",
+      "blurb": "Find who will dress you both, and your families.",
+      "discovery": "primary",
+      "families": [
+        {
+          "name": "Designers & houses",
+          "types": [
+            {
+              "id": "fashion:bridal-fashion-designer",
+              "slug": "bridal-fashion-designer",
+              "name": "Bridal fashion designer"
+            },
+            {
+              "id": "fashion:groom-fashion-designer",
+              "slug": "groom-fashion-designer",
+              "name": "Groom fashion designer"
+            },
+            {
+              "id": "fashion:couture-house",
+              "slug": "couture-house",
+              "name": "Couture house"
+            },
+            {
+              "id": "fashion:bridal-boutique-multi-designer-store",
+              "slug": "bridal-boutique-multi-designer-store",
+              "name": "Bridal boutique / multi-designer store"
+            },
+            {
+              "id": "fashion:footwear-designer-specialist",
+              "slug": "footwear-designer-specialist",
+              "name": "Footwear designer / specialist"
+            }
+          ]
+        },
+        {
+          "name": "Styling",
+          "types": [
+            {
+              "id": "fashion:bridal-stylist-fashion-director",
+              "slug": "bridal-stylist-fashion-director",
+              "name": "Bridal stylist / fashion director"
+            },
+            {
+              "id": "fashion:personal-stylist",
+              "slug": "personal-stylist",
+              "name": "Personal stylist"
+            },
+            {
+              "id": "fashion:personal-shopper-trousseau-consultant",
+              "slug": "personal-shopper-trousseau-consultant",
+              "name": "Personal shopper / trousseau consultant"
+            },
+            {
+              "id": "fashion:family-and-guest-styling-team",
+              "slug": "family-and-guest-styling-team",
+              "name": "Family & guest styling team"
+            },
+            {
+              "id": "fashion:luxury-outfit-rental-fashion-rental-house",
+              "slug": "luxury-outfit-rental-fashion-rental-house",
+              "name": "Luxury outfit rental / fashion rental house"
+            }
+          ]
+        },
+        {
+          "name": "Craft & fitting",
+          "types": [
+            {
+              "id": "fashion:custom-tailor",
+              "slug": "custom-tailor",
+              "name": "Custom tailor"
+            },
+            {
+              "id": "fashion:blouse-specialist",
+              "slug": "blouse-specialist",
+              "name": "Blouse specialist"
+            },
+            {
+              "id": "fashion:embroidery-karigari-specialist",
+              "slug": "embroidery-karigari-specialist",
+              "name": "Embroidery / karigari specialist"
+            },
+            {
+              "id": "fashion:saree-draper-pleating-artist",
+              "slug": "saree-draper-pleating-artist",
+              "name": "Saree draper / pleating artist"
+            },
+            {
+              "id": "fashion:turban-pagdi-stylist",
+              "slug": "turban-pagdi-stylist",
+              "name": "Turban / pagdi stylist"
+            },
+            {
+              "id": "fashion:outfit-alteration-and-fitting-service",
+              "slug": "outfit-alteration-and-fitting-service",
+              "name": "Outfit alteration & fitting service"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "jewelry",
+      "slug": "jewelry",
+      "order": 9,
+      "label": "Jewelry & Accessories",
+      "short": "Jewelry",
+      "blurb": "Find the pieces you will wear and keep.",
+      "discovery": "primary",
+      "families": [
+        {
+          "name": "",
+          "types": [
+            {
+              "id": "jewelry:bridal-jewelry-designer",
+              "slug": "bridal-jewelry-designer",
+              "name": "Bridal jewelry designer"
+            },
+            {
+              "id": "jewelry:heritage-jeweller",
+              "slug": "heritage-jeweller",
+              "name": "Heritage jeweller"
+            },
+            {
+              "id": "jewelry:polki-jadau-specialist",
+              "slug": "polki-jadau-specialist",
+              "name": "Polki / jadau specialist"
+            },
+            {
+              "id": "jewelry:diamond-jewelry-specialist",
+              "slug": "diamond-jewelry-specialist",
+              "name": "Diamond jewelry specialist"
+            },
+            {
+              "id": "jewelry:gold-temple-jewelry-specialist",
+              "slug": "gold-temple-jewelry-specialist",
+              "name": "Gold / temple jewelry specialist"
+            },
+            {
+              "id": "jewelry:kundan-meenakari-specialist",
+              "slug": "kundan-meenakari-specialist",
+              "name": "Kundan / meenakari specialist"
+            },
+            {
+              "id": "jewelry:statement-fashion-jewelry-designer",
+              "slug": "statement-fashion-jewelry-designer",
+              "name": "Statement / fashion jewelry designer"
+            },
+            {
+              "id": "jewelry:floral-jewelry-provider",
+              "slug": "floral-jewelry-provider",
+              "name": "Floral jewelry provider"
+            },
+            {
+              "id": "jewelry:jewelry-rental-house",
+              "slug": "jewelry-rental-house",
+              "name": "Jewelry rental house"
+            },
+            {
+              "id": "jewelry:groom-and-luxury-accessories-specialist",
+              "slug": "groom-and-luxury-accessories-specialist",
+              "name": "Groom & luxury accessories specialist"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "beauty",
+      "slug": "beauty",
+      "order": 10,
+      "label": "Hair, Makeup & Beauty",
+      "short": "Beauty",
+      "blurb": "Find who will get you both ready, every function.",
+      "discovery": "primary",
+      "families": [
+        {
+          "name": "Hair & makeup",
+          "types": [
+            {
+              "id": "beauty:bridal-makeup-artist",
+              "slug": "bridal-makeup-artist",
+              "name": "Bridal makeup artist"
+            },
+            {
+              "id": "beauty:groom-grooming-specialist",
+              "slug": "groom-grooming-specialist",
+              "name": "Groom grooming specialist"
+            },
+            {
+              "id": "beauty:hair-stylist",
+              "slug": "hair-stylist",
+              "name": "Hair stylist"
+            },
+            {
+              "id": "beauty:saree-draping-dressing-service",
+              "slug": "saree-draping-dressing-service",
+              "name": "Saree draping / dressing service"
+            },
+            {
+              "id": "beauty:family-and-guest-makeup-team",
+              "slug": "family-and-guest-makeup-team",
+              "name": "Family & guest makeup team"
+            },
+            {
+              "id": "beauty:on-site-glam-beauty-production-team",
+              "slug": "on-site-glam-beauty-production-team",
+              "name": "On-site glam / beauty production team"
+            }
+          ]
+        },
+        {
+          "name": "Beauty & wellness",
+          "types": [
+            {
+              "id": "beauty:nail-artist-nail-studio",
+              "slug": "nail-artist-nail-studio",
+              "name": "Nail artist / nail studio"
+            },
+            {
+              "id": "beauty:beauty-salon-makeup-studio",
+              "slug": "beauty-salon-makeup-studio",
+              "name": "Beauty salon / makeup studio"
+            },
+            {
+              "id": "beauty:skincare-aesthetics-clinic",
+              "slug": "skincare-aesthetics-clinic",
+              "name": "Skincare / aesthetics clinic"
+            },
+            {
+              "id": "beauty:pre-wedding-beauty-concierge",
+              "slug": "pre-wedding-beauty-concierge",
+              "name": "Pre-wedding beauty concierge"
+            },
+            {
+              "id": "beauty:spa-wellness-service",
+              "slug": "spa-wellness-service",
+              "name": "Spa / wellness service"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "mehendi",
+      "slug": "mehendi",
+      "order": 11,
+      "label": "Mehendi & Ceremony Services",
+      "short": "Mehendi & ceremony",
+      "blurb": "Find the artists and ritual specialists for each ceremony.",
+      "discovery": "extended",
+      "families": [
+        {
+          "name": "Mehendi",
+          "types": [
+            {
+              "id": "mehendi:mehendi-artist",
+              "slug": "mehendi-artist",
+              "name": "Mehendi artist"
+            },
+            {
+              "id": "mehendi:bridal-mehendi-specialist",
+              "slug": "bridal-mehendi-specialist",
+              "name": "Bridal mehendi specialist"
+            },
+            {
+              "id": "mehendi:family-guest-mehendi-team",
+              "slug": "family-guest-mehendi-team",
+              "name": "Family / guest mehendi team"
+            }
+          ]
+        },
+        {
+          "name": "Ceremony",
+          "types": [
+            {
+              "id": "mehendi:pandit-priest-religious-ceremony-specialist",
+              "slug": "pandit-priest-religious-ceremony-specialist",
+              "name": "Pandit / priest / religious ceremony specialist"
+            },
+            {
+              "id": "mehendi:ceremony-officiant-including-secular-interfaith",
+              "slug": "ceremony-officiant-including-secular-interfaith",
+              "name": "Ceremony officiant (including secular / interfaith)"
+            },
+            {
+              "id": "mehendi:ritual-consultant-ceremony-coordinator",
+              "slug": "ritual-consultant-ceremony-coordinator",
+              "name": "Ritual consultant / ceremony coordinator"
+            },
+            {
+              "id": "mehendi:pooja-ritual-supplies-provider",
+              "slug": "pooja-ritual-supplies-provider",
+              "name": "Pooja / ritual supplies provider"
+            },
+            {
+              "id": "mehendi:ceremony-music-ritual-ensemble",
+              "slug": "ceremony-music-ritual-ensemble",
+              "name": "Ceremony music / ritual ensemble"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "stationery",
+      "slug": "stationery",
+      "order": 12,
+      "label": "Invitations, Stationery & Wedding Identity",
+      "short": "Invitations",
+      "blurb": "Find who will design how your wedding is announced and signed.",
+      "discovery": "primary",
+      "families": [
+        {
+          "name": "Invitations",
+          "types": [
+            {
+              "id": "stationery:wedding-invitation-designer",
+              "slug": "wedding-invitation-designer",
+              "name": "Wedding invitation designer"
+            },
+            {
+              "id": "stationery:luxury-invitation-house-printer",
+              "slug": "luxury-invitation-house-printer",
+              "name": "Luxury invitation house / printer"
+            },
+            {
+              "id": "stationery:digital-invitation-e-invite-studio",
+              "slug": "digital-invitation-e-invite-studio",
+              "name": "Digital invitation / e-invite studio"
+            },
+            {
+              "id": "stationery:save-the-date-designer",
+              "slug": "save-the-date-designer",
+              "name": "Save-the-date designer"
+            },
+            {
+              "id": "stationery:rsvp-and-guest-communications-service",
+              "slug": "rsvp-and-guest-communications-service",
+              "name": "RSVP & guest communications service"
+            }
+          ]
+        },
+        {
+          "name": "Identity & craft",
+          "types": [
+            {
+              "id": "stationery:monogram-crest-logo-designer",
+              "slug": "monogram-crest-logo-designer",
+              "name": "Monogram / crest / logo designer"
+            },
+            {
+              "id": "stationery:wedding-identity-branding-studio",
+              "slug": "wedding-identity-branding-studio",
+              "name": "Wedding identity / branding studio"
+            },
+            {
+              "id": "stationery:event-stationery-designer-printer",
+              "slug": "event-stationery-designer-printer",
+              "name": "Event stationery designer / printer"
+            },
+            {
+              "id": "stationery:signage-and-wayfinding-designer",
+              "slug": "signage-and-wayfinding-designer",
+              "name": "Signage & wayfinding designer"
+            },
+            {
+              "id": "stationery:calligrapher-hand-lettering-artist",
+              "slug": "calligrapher-hand-lettering-artist",
+              "name": "Calligrapher / hand-lettering artist"
+            },
+            {
+              "id": "stationery:print-embellishment-specialist-foil-emboss-letterpress-wax",
+              "slug": "print-embellishment-specialist-foil-emboss-letterpress-wax",
+              "name": "Print embellishment specialist (foil, emboss, letterpress, wax)"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "gifting",
+      "slug": "gifting",
+      "order": 13,
+      "label": "Gifting, Trousseau & Favors",
+      "short": "Gifting",
+      "blurb": "Find the gifts, trousseau and favours your families will remember.",
+      "discovery": "extended",
+      "families": [
+        {
+          "name": "",
+          "types": [
+            {
+              "id": "gifting:luxury-wedding-gifting-studio",
+              "slug": "luxury-wedding-gifting-studio",
+              "name": "Luxury wedding gifting studio"
+            },
+            {
+              "id": "gifting:gift-hamper-curation-specialist",
+              "slug": "gift-hamper-curation-specialist",
+              "name": "Gift hamper / curation specialist"
+            },
+            {
+              "id": "gifting:trousseau-packing-and-presentation-service",
+              "slug": "trousseau-packing-and-presentation-service",
+              "name": "Trousseau packing & presentation service"
+            },
+            {
+              "id": "gifting:custom-gift-box-packaging-maker",
+              "slug": "custom-gift-box-packaging-maker",
+              "name": "Custom gift-box / packaging maker"
+            },
+            {
+              "id": "gifting:wedding-favors-supplier",
+              "slug": "wedding-favors-supplier",
+              "name": "Wedding favors supplier"
+            },
+            {
+              "id": "gifting:invitation-gift-supplier",
+              "slug": "invitation-gift-supplier",
+              "name": "Invitation gift supplier"
+            },
+            {
+              "id": "gifting:mehendi-event-favor-supplier",
+              "slug": "mehendi-event-favor-supplier",
+              "name": "Mehendi / event favor supplier"
+            },
+            {
+              "id": "gifting:welcome-gift-room-drop-curator",
+              "slug": "welcome-gift-room-drop-curator",
+              "name": "Welcome gift / room-drop curator"
+            },
+            {
+              "id": "gifting:return-gift-supplier",
+              "slug": "return-gift-supplier",
+              "name": "Return-gift supplier"
+            },
+            {
+              "id": "gifting:family-corporate-luxury-gifting-specialist",
+              "slug": "family-corporate-luxury-gifting-specialist",
+              "name": "Family / corporate luxury gifting specialist"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "hospitality",
+      "slug": "hospitality",
+      "order": 14,
+      "label": "Guest Hospitality & Destination Services",
+      "short": "Hospitality",
+      "blurb": "Find who will look after your guests from arrival to send-off.",
+      "discovery": "extended",
+      "families": [
+        {
+          "name": "Travel & stay",
+          "types": [
+            {
+              "id": "hospitality:destination-management-company-dmc",
+              "slug": "destination-management-company-dmc",
+              "name": "Destination management company (DMC)"
+            },
+            {
+              "id": "hospitality:hotel-booking-room-block-manager",
+              "slug": "hotel-booking-room-block-manager",
+              "name": "Hotel booking / room-block manager"
+            },
+            {
+              "id": "hospitality:guest-travel-concierge",
+              "slug": "guest-travel-concierge",
+              "name": "Guest travel concierge"
+            },
+            {
+              "id": "hospitality:airport-railway-meet-and-greet-team",
+              "slug": "airport-railway-meet-and-greet-team",
+              "name": "Airport / railway meet-and-greet team"
+            },
+            {
+              "id": "hospitality:visa-travel-assistance-service",
+              "slug": "visa-travel-assistance-service",
+              "name": "Visa / travel assistance service"
+            },
+            {
+              "id": "hospitality:excursion-local-experience-operator",
+              "slug": "excursion-local-experience-operator",
+              "name": "Excursion / local-experience operator"
+            }
+          ]
+        },
+        {
+          "name": "On-site care",
+          "types": [
+            {
+              "id": "hospitality:wedding-hospitality-helpdesk-operator",
+              "slug": "wedding-hospitality-helpdesk-operator",
+              "name": "Wedding hospitality / helpdesk operator"
+            },
+            {
+              "id": "hospitality:vip-protocol-escort-service",
+              "slug": "vip-protocol-escort-service",
+              "name": "VIP protocol / escort service"
+            },
+            {
+              "id": "hospitality:guest-staffing-volunteer-team",
+              "slug": "guest-staffing-volunteer-team",
+              "name": "Guest staffing / volunteer team"
+            },
+            {
+              "id": "hospitality:kids-family-concierge",
+              "slug": "kids-family-concierge",
+              "name": "Kids / family concierge"
+            },
+            {
+              "id": "hospitality:multilingual-guest-translation-service",
+              "slug": "multilingual-guest-translation-service",
+              "name": "Multilingual guest / translation service"
+            },
+            {
+              "id": "hospitality:hospitality-kit-room-drop-operations-team",
+              "slug": "hospitality-kit-room-drop-operations-team",
+              "name": "Hospitality kit / room-drop operations team"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "transport",
+      "slug": "transport",
+      "order": 15,
+      "label": "Transport & Mobility",
+      "short": "Transport",
+      "blurb": "Find how everyone gets there — the baraat included.",
+      "discovery": "extended",
+      "families": [
+        {
+          "name": "",
+          "types": [
+            {
+              "id": "transport:luxury-car-fleet-provider",
+              "slug": "luxury-car-fleet-provider",
+              "name": "Luxury car fleet provider"
+            },
+            {
+              "id": "transport:vintage-classic-car-provider",
+              "slug": "vintage-classic-car-provider",
+              "name": "Vintage / classic car provider"
+            },
+            {
+              "id": "transport:wedding-car-decorated-car-service",
+              "slug": "wedding-car-decorated-car-service",
+              "name": "Wedding car / decorated car service"
+            },
+            {
+              "id": "transport:chauffeur-driven-rental-service",
+              "slug": "chauffeur-driven-rental-service",
+              "name": "Chauffeur-driven rental service"
+            },
+            {
+              "id": "transport:coach-bus-operator",
+              "slug": "coach-bus-operator",
+              "name": "Coach / bus operator"
+            },
+            {
+              "id": "transport:airport-transfer-provider",
+              "slug": "airport-transfer-provider",
+              "name": "Airport transfer provider"
+            },
+            {
+              "id": "transport:shuttle-golf-cart-operator",
+              "slug": "shuttle-golf-cart-operator",
+              "name": "Shuttle / golf-cart operator"
+            },
+            {
+              "id": "transport:tempo-traveller-minibus-provider",
+              "slug": "tempo-traveller-minibus-provider",
+              "name": "Tempo traveller / minibus provider"
+            },
+            {
+              "id": "transport:boat-yacht-charter",
+              "slug": "boat-yacht-charter",
+              "name": "Boat / yacht charter"
+            },
+            {
+              "id": "transport:air-charter-private-aviation-helicopter-provider",
+              "slug": "air-charter-private-aviation-helicopter-provider",
+              "name": "Air charter / private aviation / helicopter provider"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "tech",
+      "slug": "tech",
+      "order": 16,
+      "label": "Wedding Tech & Digital",
+      "short": "Tech",
+      "blurb": "Find the tools your guests will use before and during the week.",
+      "discovery": "extended",
+      "families": [
+        {
+          "name": "",
+          "types": [
+            {
+              "id": "tech:wedding-website-designer-developer",
+              "slug": "wedding-website-designer-developer",
+              "name": "Wedding website designer / developer"
+            },
+            {
+              "id": "tech:rsvp-guest-management-platform",
+              "slug": "rsvp-guest-management-platform",
+              "name": "RSVP / guest-management platform"
+            },
+            {
+              "id": "tech:digital-invitation-technology-provider",
+              "slug": "digital-invitation-technology-provider",
+              "name": "Digital invitation technology provider"
+            },
+            {
+              "id": "tech:wedding-app-guest-app-provider",
+              "slug": "wedding-app-guest-app-provider",
+              "name": "Wedding app / guest-app provider"
+            },
+            {
+              "id": "tech:live-streaming-platform",
+              "slug": "live-streaming-platform",
+              "name": "Live-streaming platform"
+            },
+            {
+              "id": "tech:qr-check-in-access-control-system",
+              "slug": "qr-check-in-access-control-system",
+              "name": "QR check-in / access-control system"
+            },
+            {
+              "id": "tech:digital-seating-itinerary-platform",
+              "slug": "digital-seating-itinerary-platform",
+              "name": "Digital seating / itinerary platform"
+            },
+            {
+              "id": "tech:wedding-photo-sharing-live-gallery-provider",
+              "slug": "wedding-photo-sharing-live-gallery-provider",
+              "name": "Wedding photo-sharing / live gallery provider"
+            },
+            {
+              "id": "tech:on-site-wi-fi-connectivity-provider",
+              "slug": "on-site-wi-fi-connectivity-provider",
+              "name": "On-site Wi-Fi / connectivity provider"
+            },
+            {
+              "id": "tech:interactive-event-tech-digital-installation-provider",
+              "slug": "interactive-event-tech-digital-installation-provider",
+              "name": "Interactive event-tech / digital installation provider"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "experiences",
+      "slug": "experiences",
+      "order": 17,
+      "label": "Experiences & Specialty Services",
+      "short": "Experiences",
+      "blurb": "Find the moments your guests will talk about afterwards.",
+      "discovery": "extended",
+      "families": [
+        {
+          "name": "",
+          "types": [
+            {
+              "id": "experiences:astrologer-muhurat-consultant",
+              "slug": "astrologer-muhurat-consultant",
+              "name": "Astrologer / muhurat consultant"
+            },
+            {
+              "id": "experiences:tarot-spiritual-experience-provider",
+              "slug": "tarot-spiritual-experience-provider",
+              "name": "Tarot / spiritual-experience provider"
+            },
+            {
+              "id": "experiences:live-sketch-artist",
+              "slug": "live-sketch-artist",
+              "name": "Live sketch artist"
+            },
+            {
+              "id": "experiences:caricature-artist",
+              "slug": "caricature-artist",
+              "name": "Caricature artist"
+            },
+            {
+              "id": "experiences:tattoo-artist",
+              "slug": "tattoo-artist",
+              "name": "Tattoo artist"
+            },
+            {
+              "id": "experiences:interactive-guest-activity-game-provider",
+              "slug": "interactive-guest-activity-game-provider",
+              "name": "Interactive guest-activity / game provider"
+            },
+            {
+              "id": "experiences:kids-entertainment-provider",
+              "slug": "kids-entertainment-provider",
+              "name": "Kids entertainment provider"
+            },
+            {
+              "id": "experiences:selfie-mirror-immersive-photo-experience",
+              "slug": "selfie-mirror-immersive-photo-experience",
+              "name": "Selfie mirror / immersive photo experience"
+            },
+            {
+              "id": "experiences:fireworks-pyrotechnics-provider",
+              "slug": "fireworks-pyrotechnics-provider",
+              "name": "Fireworks / pyrotechnics provider"
+            },
+            {
+              "id": "experiences:drone-light-show-provider",
+              "slug": "drone-light-show-provider",
+              "name": "Drone light-show provider"
+            },
+            {
+              "id": "experiences:themed-installation-immersive-experience-studio",
+              "slug": "themed-installation-immersive-experience-studio",
+              "name": "Themed installation / immersive experience studio"
+            },
+            {
+              "id": "experiences:surprise-flash-mob-production-team",
+              "slug": "surprise-flash-mob-production-team",
+              "name": "Surprise / flash-mob production team"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "safety",
+      "slug": "safety",
+      "order": 18,
+      "label": "Safety, Security & On-ground Support",
+      "short": "Safety",
+      "blurb": "Find the people who keep every function safe and running.",
+      "discovery": "extended",
+      "families": [
+        {
+          "name": "",
+          "types": [
+            {
+              "id": "safety:private-security-provider",
+              "slug": "private-security-provider",
+              "name": "Private security provider"
+            },
+            {
+              "id": "safety:venue-security-management",
+              "slug": "venue-security-management",
+              "name": "Venue security management"
+            },
+            {
+              "id": "safety:fire-safety-emergency-compliance-provider",
+              "slug": "fire-safety-emergency-compliance-provider",
+              "name": "Fire-safety / emergency-compliance provider"
+            },
+            {
+              "id": "safety:medical-ambulance-standby-provider",
+              "slug": "medical-ambulance-standby-provider",
+              "name": "Medical / ambulance standby provider"
+            },
+            {
+              "id": "safety:first-aid-paramedic-team",
+              "slug": "first-aid-paramedic-team",
+              "name": "First-aid / paramedic team"
+            },
+            {
+              "id": "safety:crowd-and-access-control-team",
+              "slug": "crowd-and-access-control-team",
+              "name": "Crowd & access-control team"
+            },
+            {
+              "id": "safety:valet-parking-service",
+              "slug": "valet-parking-service",
+              "name": "Valet parking service"
+            },
+            {
+              "id": "safety:on-site-housekeeping-cleaning-crew",
+              "slug": "on-site-housekeeping-cleaning-crew",
+              "name": "On-site housekeeping / cleaning crew"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "legal",
+      "slug": "legal",
+      "order": 19,
+      "label": "Legal, Finance, Insurance & Permissions",
+      "short": "Legal & finance",
+      "blurb": "Find the cover, contracts and permissions behind it all.",
+      "discovery": "extended",
+      "families": [
+        {
+          "name": "",
+          "types": [
+            {
+              "id": "legal:wedding-insurance-broker-provider",
+              "slug": "wedding-insurance-broker-provider",
+              "name": "Wedding insurance broker / provider"
+            },
+            {
+              "id": "legal:contract-legal-review-service",
+              "slug": "contract-legal-review-service",
+              "name": "Contract / legal-review service"
+            },
+            {
+              "id": "legal:payment-escrow-service",
+              "slug": "payment-escrow-service",
+              "name": "Payment / escrow service"
+            },
+            {
+              "id": "legal:international-payment-fx-service",
+              "slug": "international-payment-fx-service",
+              "name": "International payment / FX service"
+            },
+            {
+              "id": "legal:tax-accounting-support",
+              "slug": "tax-accounting-support",
+              "name": "Tax / accounting support"
+            },
+            {
+              "id": "legal:permit-licensing-permissions-consultant",
+              "slug": "permit-licensing-permissions-consultant",
+              "name": "Permit / licensing / permissions consultant"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "counts": {
+    "categories": 19,
+    "types": 207,
+    "primary": 10
+  }
+}

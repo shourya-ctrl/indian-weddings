@@ -6,8 +6,8 @@ import React from 'react';
 import { DCLogic } from './dc';
 
 const U = (id, w) => `https://images.unsplash.com/${id}?w=${w}&q=72&auto=format&fit=crop`;
-const CATS = [['venues', 'Venues'], ['photo', 'Photography'], ['decor', 'Décor and florals'], ['food', 'Food and drink']];
-const VENDORS = {
+export const CATS = [['venues', 'Venues'], ['photo', 'Photography'], ['decor', 'Décor and florals'], ['food', 'Food and drink']];
+export const VENDORS = {
   venues: [
     { name: 'Villa Rajputana', kind: 'Heritage hotel', place: 'Jaipur', img: 'https://www.ptaufiqphotography.com/wp-content/uploads/2025/08/luxury-wedding-photography-boston-ptaufiq.jpg', alt: 'A luxury wedding venue' },
     { name: 'The Lake Pavilion', kind: 'Lakeside courtyards', place: 'Udaipur', img: 'https://www.ptaufiqphotography.com/wp-content/uploads/2025/08/destination-wedding-photographer-india-ptaufiq.jpg', alt: 'A destination wedding in India' },
@@ -43,7 +43,7 @@ const EASE = 'cubic-bezier(.2,.7,.1,1)';
 const Rnd = Math.random, RAD = Math.PI / 180, ROT0 = 0.578, BETA = -0.646;
 const UMA = [[11.0621, 61.751, 1.8], [11.0307, 56.383, 2.3], [11.8972, 53.695, 2.4], [12.2571, 57.033, 3.3], [12.9005, 55.96, 1.8], [13.3988, 54.925, 2.2], [13.4204, 54.988, 4.0], [13.7924, 49.313, 1.9]];
 const UMA_LINES = [[0, 1], [1, 2], [2, 3], [3, 0], [3, 4], [4, 5], [5, 7]];
-const IWU = 'https://www.ptaufiqphotography.com/wp-content/uploads/';
+export const IWU = 'https://www.ptaufiqphotography.com/wp-content/uploads/';
 const ORBIT = [
   { n: 'The roka', d: 'Where it begins', img: IWU + '2024/07/ptaufiq-indian-wedding-capadoccia-engagement-9.jpg' },
   { n: 'Mehendi', d: 'Thursday afternoon', img: IWU + '2024/07/ptaufiq-indian-wedding-como-castello-del-nero-florence-italy-mehendi1.jpg' },
@@ -68,7 +68,7 @@ const DEALS = [
   { r: 'india', name: 'Haveli Saanjh', place: 'Fort palace · Jodhpur', dates: 'Sat 23 to Mon 25 January 2027', inc: 'Released by a cancellation, rooms for 180', price: '₹21L', was: '₹30L', save: 'Save ₹9L', hold: 'Held at this price until 25 November', img: IWU + '2025/08/destination-wedding-venue-ptaufiq-photography.jpg', alt: 'A destination wedding venue' },
   { r: 'abroad', name: 'Quinta da Serra', place: 'Hillside estate · Sintra', dates: 'Fri 14 to Sun 16 May 2027', inc: 'Three nights, the gardens and the chapel lawn', price: '€72K', was: '€98K', save: 'Save €26K', hold: 'Held at this price until 10 December', img: IWU + '2025/08/scenic-wedding-ptaufiq-photography.jpg', alt: 'A couple in a scenic landscape' }
 ];
-const ADV_NAMES = {
+export const ADV_NAMES = {
   Noor: { nav: 'Meet Noor', over: 'Meet Noor · your AI advisor', card: 'Noor · your advisor', tabs: 'Moments with Noor', sample: 'Sample advice, written to show how Noor works.',
     lede: 'You don’t know what you don’t know. Noor does. Think of a best friend who has been to a thousand Indian weddings and remembers every one: the venues, the seasons, the costs and the customs. Noor learns your taste as you plan, and speaks up with the ideas and the catches nobody else would.',
     trust: 'Noor suggests; you decide. It never books, pays or messages anyone without you, and it always tells you why.' },
@@ -104,12 +104,12 @@ const NW_PAGES = [
   { when: 'Saturday · 8 pm · the ballroom', title: 'One night, every song', bg: 'linear-gradient(160deg,#2A0B3D,#110420)', fg: '#F3E6FF', acc: '#E7B8FF', pat: 'radial-gradient(circle,rgba(255,255,255,.75) 0 1px,transparent 1.5px) 0 0/24px 24px', img: NWA_IMG.couple2 },
   { when: 'Sunday · 4 pm · the beach mandap', title: 'The wedding', bg: '#F3EDE2', fg: '#2B1D12', acc: '#7A5A2E', img: NWA_IMG.mandap }
 ];
-const ASK = [
+export const ASK = [
   { q: 'Where could we marry in February, with 150 guests?', a: 'February is peak season, so the famous places book a year out. Three that suit 150 guests and still have weekends open:', rows: [['Udaipur', 'Lake palaces, warm days, fly in from Delhi or Mumbai'], ['Cancún', 'A beach mandap, a warm sea, direct flights from New York'], ['Kandy, Sri Lanka', 'Tea-country estates, cool evenings, three hours from Colombo']], foot: 'In the app, I can check which of these still have your dates.' },
   { q: 'What do couples forget for a destination mehendi?', a: 'Time and shade. Bridal mehendi takes five to six hours, and henna darkens best away from the heat.', rows: [['Book it early', 'Thursday for the bride, Friday for everyone else'], ['Two artists', 'So guests aren’t queueing through the sangeet'], ['Natural henna only', 'No chemical dye, and a patch test the week before']] },
   { q: 'Is ₹10L enough for décor for 250 guests?', a: 'For a simple mandap and table florals, yes. For the hanging installations you’ve probably been saving, weddings like that usually spend ₹14L to ₹16L.', rows: [['Simple and elegant', '₹8L to ₹10L'], ['Hanging florals over the mandap', '₹14L to ₹16L'], ['Where the difference could come from', 'Food and drink, travel and the rest']], foot: 'In the app, I can rebalance your budget without moving the total.' }
 ];
-const ASK_FREE = { a: 'Good question, and the honest answer depends on your dates, your guests and your budget. Noor answers from your own plan, so start planning and ask again there.', rows: [] };
+export const ASK_FREE = { a: 'Good question, and the honest answer depends on your dates, your guests and your budget. Noor answers from your own plan, so start planning and ask again there.', rows: [] };
 const ADVICE = [
   { id: 'idea', tab: 'An idea you hadn’t had', sub: 'Read from the photographs you save', img: IWU + '2025/08/mountain-view-wedding-ptaufiq-photography.jpg', alt: 'A wedding with a mountain view',
     head: 'Have you thought about the Dolomites?',
