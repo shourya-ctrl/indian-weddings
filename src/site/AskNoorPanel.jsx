@@ -15,9 +15,12 @@ export default function AskNoorPanel({ open, seed, onClose, onPersonalise }) {
   const [lastSeed, setLastSeed] = useState(null);
 
   // A seeded question (from a page) is asked when the panel opens with it.
+  // A known sample question gets its written answer; anything else gets the
+  // honest general reply.
   if (open && seed && seed !== lastSeed) {
     setLastSeed(seed);
-    setAnswer({ q: seed, ...ASK_FREE });
+    const known = ASK.find(item => item.q === seed);
+    setAnswer(known || { q: seed, ...ASK_FREE });
   }
   if (!open) return null;
 

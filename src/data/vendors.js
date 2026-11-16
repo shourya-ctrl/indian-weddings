@@ -41,3 +41,6 @@ export const VENDOR_RECORDS = Object.entries(VENDORS).flatMap(([categoryId, list
 export const LOCATIONS = [...new Set(VENDOR_RECORDS.flatMap(v => v.serviceAreas))].sort();
 
 export const isFeatured = v => Boolean(v.editorial && v.editorial.featured);
+
+export const vendorById = id => VENDOR_RECORDS.find(v => v.id === id) || null;
+export const vendorBySlug = slug => VENDOR_RECORDS.find(v => v.slug === slug) || null;

@@ -22,6 +22,7 @@
 
 /* Header */
 .iws-header { position: fixed; top: 0; left: 0; right: 0; z-index: 50; border-bottom: 1px solid transparent; transition: background-color .35s ease, border-color .35s ease; }
+.iws-header:not(.is-solid) { background: linear-gradient(180deg, rgba(12,9,7,.72), rgba(12,9,7,.32) 65%, rgba(12,9,7,0)); }
 .iws-header.is-solid { background: rgba(12,9,7,.88); border-bottom-color: var(--iw-line); -webkit-backdrop-filter: blur(14px) saturate(1.1); backdrop-filter: blur(14px) saturate(1.1); }
 .iws-bar { max-width: 1320px; margin: 0 auto; height: 72px; padding: 0 clamp(20px, 4vw, 56px); display: flex; align-items: center; justify-content: space-between; gap: clamp(12px, 3vw, 24px); }
 .iws-logo { display: flex; align-items: center; min-height: 44px; flex-shrink: 0; font-family: 'Marcellus', serif; font-size: clamp(15px, 3.6vw + 1.5px, 19px); letter-spacing: .04em; line-height: 1; white-space: nowrap; color: var(--iw-ivory); text-decoration: none; }

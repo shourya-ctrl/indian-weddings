@@ -72,7 +72,7 @@ export default function VendorSearch({ examples }) {
   return (
     <div className="vd-search">
       <form role="search" onSubmit={submit} className="vd-search-form">
-        <label htmlFor={`${uid}-input`} className="vd-sr">Search vendors, services or places</label>
+        <label htmlFor={`${uid}-input`} className="pg-sr">Search vendors, services or places</label>
         <svg className="vd-search-icon" width="22" height="22" viewBox="0 0 22 22" aria-hidden="true" focusable="false">
           <circle cx="9.5" cy="9.5" r="6.5" fill="none" stroke="currentColor" strokeWidth="1.5" />
           <path d="M14.5 14.5L20 20" stroke="currentColor" strokeWidth="1.5" />

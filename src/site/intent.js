@@ -10,6 +10,10 @@ export const INTENT_COPY = {
   'vendor-save': { title: name => `Save ${name} to your shortlist`, body: 'Create an account to keep a shortlist. You will come straight back here, with this vendor saved.' },
   'vendors-personalise': { title: 'Make it personal with Noor', body: 'Tell Noor about your celebration, and vendor discovery starts from your dates, places, guests and taste.' },
   'noor-personalise': { title: 'Make it personal with Noor', body: 'In your plan, Noor answers from your own dates, guests and budget, not in general.' },
+  'vendor-enquiry': { title: name => `Send your enquiry to ${name}`, body: 'Create an account to send enquiries. Your message is kept, and nothing is sent until you press Send.' },
+  'vendor-availability': { title: name => `Ask ${name} about your dates`, body: 'Create an account to request availability. Your request is kept, and nothing is sent until you confirm.' },
+  'compare-save': { title: 'Keep this comparison', body: 'Create an account to save comparisons and come back to them as quotes arrive.' },
+  'story-inspire': { title: 'Start a plan inspired by this wedding', body: 'Create an account, and the places and style you liked can be your starting points. You choose what to keep.' },
   'profile-complete': { title: 'Finish your wedding profile', body: 'Add where, when and how many, and recommendations here start from your wedding.' },
 };
 

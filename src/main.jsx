@@ -1,7 +1,8 @@
-import { lazy, Suspense, useMemo } from 'react';
+import { lazy, Suspense, useEffect, useMemo } from 'react';
 import { createRoot } from 'react-dom/client';
 import Landing from './Landing';
-import { useLocation } from './router';
+import SiteShell from './site/SiteShell';
+import { navigate, useLocation } from './router';
 import { matchRoute } from './routes';
 import './fonts.css';
 import './styles.css';
@@ -57,18 +58,51 @@ document.addEventListener('keydown', e => {
 });
 
 // Destination pages load on demand, so the homepage bundle stays as it was.
-const VendorsPage = lazy(() => import('./pages/vendors/VendorsPage'));
-const NotFoundPage = lazy(() => import('./pages/NotFoundPage'));
+const LOADERS = {
+  vendors: () => import('./pages/vendors/VendorsPage'),
+  categories: () => import('./pages/vendors/CategoriesPage'),
+  category: () => import('./pages/vendors/CategoryPage'),
+  search: () => import('./pages/vendors/SearchPage'),
+  vendor: () => import('./pages/vendors/VendorProfilePage'),
+  compare: () => import('./pages/vendors/ComparePage'),
+  noor: () => import('./pages/NoorPage'),
+  'our-approach': () => import('./pages/OurApproachPage'),
+  'real-weddings': () => import('./pages/stories/RealWeddingsPage'),
+  'wedding-story': () => import('./pages/stories/WeddingStoryPage'),
+  'edit-story': () => import('./pages/stories/EditStoryPage'),
+  'account-create': () => import('./pages/AccountPage'),
+  'account-login': () => import('./pages/AccountPage'),
+  'not-found': () => import('./pages/NotFoundPage'),
+};
+const PAGES = Object.fromEntries(Object.entries(LOADERS).map(([k, load]) => [k, lazy(load)]));
+
+// Fetch every page in the background once the first page is idle, so page
+// transitions never wait on a download.
+const preload = () => Object.values(LOADERS).forEach(load => load().catch(() => {}));
+if ('requestIdleCallback' in window) window.requestIdleCallback(preload, { timeout: 4000 });
+else setTimeout(preload, 2500);
 
 function App() {
   const { pathname, search } = useLocation();
   const route = matchRoute(pathname);
   // The homepage keeps its own presentation options, read from the URL as before.
   const homeProps = useMemo(() => (route.page === 'home' ? readProps() : null), [route.page, search]);
-  if (route.page === 'home') return <Landing {...homeProps} />;
+  useEffect(() => { if (route.page === 'redirect') navigate(route.to, { replace: true }); }, [route.page, route.to]);
+  useEffect(() => { if (route.page === 'home') document.title = 'IndianWeddings — A wedding that feels like you'; }, [route.page]);
+  // The homepage sits in the same site shell as every other page: one header,
+  // one footer, one Ask Noor entry.
+  if (route.page === 'home') {
+    return (
+      <SiteShell home footerCredit="All photography by PTaufiq Photography, used for design review. These are not IndianWeddings couples.">
+        <Landing {...homeProps} />
+      </SiteShell>
+    );
+  }
+  if (route.page === 'redirect') return null;
+  const Page = PAGES[route.page] || PAGES['not-found'];
   return (
     <Suspense fallback={null}>
-      {route.page === 'vendors' ? <VendorsPage /> : <NotFoundPage />}
+      <Page key={pathname} {...route.params} mode={route.page === 'account-login' ? 'login' : 'create'} />
     </Suspense>
   );
 }

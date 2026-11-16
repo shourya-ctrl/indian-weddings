@@ -18,6 +18,8 @@
   /* Text on filled buttons */
   --iw-on-ivory:#1E1915;
   --iw-on-gold:#150E06;
+  /* Form errors */
+  --iw-error:#E8A898;
 }
 *,*::before,*::after{box-sizing:border-box}
 html,body{margin:0;padding:0;background:var(--iw-ink);color:var(--iw-parchment);font-family:'Nunito Sans','Avenir Next',system-ui,sans-serif;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}

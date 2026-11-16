@@ -1,6 +1,6 @@
 // Site-wide footer for destination pages, matching the homepage footer.
 import { Link } from '../router';
-import { paths } from '../routes';
+import { LEGAL_PAGES_LIVE, paths } from '../routes';
 
 export default function SiteFooter({ credit }) {
   return (
@@ -23,16 +23,18 @@ export default function SiteFooter({ credit }) {
               <p className="iws-footer-head">Your wedding</p>
               <Link to={paths.accountCreate({ intent: 'begin-planning' })}>Begin planning</Link>
               <Link to={paths.accountLogin()}>Log in</Link>
-              <Link to={paths.contact}>Contact</Link>
+              {LEGAL_PAGES_LIVE ? <Link to={paths.contact}>Contact</Link> : null}
             </nav>
           </div>
         </div>
         <div className="iws-footer-base">
           <span>© 2026 IndianWeddings</span>
-          <span className="iws-footer-legal">
-            <Link to={paths.privacy}>Privacy</Link>
-            <Link to={paths.terms}>Terms</Link>
-          </span>
+          {LEGAL_PAGES_LIVE ? (
+            <span className="iws-footer-legal">
+              <Link to={paths.privacy}>Privacy</Link>
+              <Link to={paths.terms}>Terms</Link>
+            </span>
+          ) : null}
           {credit ? <span>{credit}</span> : null}
         </div>
       </div>

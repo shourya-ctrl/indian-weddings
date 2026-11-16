@@ -5,7 +5,7 @@ Companion documents: [page inventory](website-page-inventory.md), [conversion fl
 
 ## 1. Scope and ground rules
 
-- **The homepage stays as it is.** `/` keeps its current design, sections and behaviour (see `src/LandingView.jsx`). The website grows through separate destination pages linked from it; the homepage does not gain new sections.
+- **The homepage is the condensed overview.** `/` renders inside the shared site shell and every link leads to a destination page; its section list is in the [page inventory](website-page-inventory.md#1-home-).
 - **Pre-launch evidence rules apply** (from `PRODUCT.md`): no real vendors, couples, testimonials, metrics or press exist yet. Every page below that shows vendors, weddings or stories depends on real, approved data before it can launch; none of it is to be filled with invented records. The homepage's sample content stays labelled as sample.
 - **Vendor categories come only from the Luxury Indian Wedding Vendor Taxonomy** (19 categories, 207 vendor types). This document does not add, rename or merge categories.
 - **No placeholder pages.** Routes for capabilities that do not exist yet are listed as dependencies, not built as empty screens.
@@ -61,9 +61,9 @@ Legal pages (privacy, terms, cookies) are required before launch but are outside
 - Drawer (full width, below the header): Noor, Vendors, Real Weddings, Our Approach as large rows; then Ask Noor; then **Begin planning** and **Log in**. This extends the existing mobile menu in `LandingView.jsx`.
 - Persistent Ask Noor: discreet fixed button in the lower inline-end corner, rules in [conversion flows §2](website-conversion-flows.md#2-persistent-ask-noor-entry).
 
-### Homepage navigation change
+### Homepage navigation
 
-The homepage header currently links to in-page anchors (`#open-dates`, `#advisor`, `#planning`, `#real-weddings`, `#vendors`). When the destination pages exist, the header becomes the site-wide header above; the in-page sections keep their anchors and each gains a link to its destination page (e.g. the Vendors section's "Find your people" links to `/vendors`). The homepage sections themselves do not change.
+The homepage uses the same header, drawer and footer as every other page. Homepage sections no longer use in-page anchors for navigation; each section's links lead to its destination page.
 
 ### Footer
 

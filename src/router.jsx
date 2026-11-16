@@ -3,6 +3,7 @@
 // against the route table in routes.js, links use the History API, and the
 // browser's back and forward buttons work as normal.
 import { useSyncExternalStore } from 'react';
+import { flushSync } from 'react-dom';
 
 const NAV_EVENT = 'iw:navigate';
 
@@ -37,13 +38,22 @@ export function navigate(to, { replace = false, hard = false } = {}) {
   const url = new URL(to, window.location.href);
   if (url.origin !== window.location.origin) { window.location.assign(to); return; }
   const same = url.pathname === window.location.pathname && url.search === window.location.search;
-  window.history[replace ? 'replaceState' : 'pushState']({}, '', url.pathname + url.search + url.hash);
-  window.dispatchEvent(new Event(NAV_EVENT));
-  if (url.hash) {
-    const el = document.getElementById(decodeURIComponent(url.hash.slice(1)));
-    if (el) { el.scrollIntoView(); return; }
-  }
-  if (!same) window.scrollTo(0, 0);
+  const animate = !same && !replace && document.startViewTransition && !window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const update = () => {
+    window.history[replace ? 'replaceState' : 'pushState']({}, '', url.pathname + url.search + url.hash);
+    // A view transition needs the new page rendered before its snapshot.
+    if (animate) flushSync(() => window.dispatchEvent(new Event(NAV_EVENT)));
+    else window.dispatchEvent(new Event(NAV_EVENT));
+    if (url.hash) {
+      const el = document.getElementById(decodeURIComponent(url.hash.slice(1)));
+      if (el) { el.scrollIntoView(); return; }
+    }
+    if (!same) window.scrollTo(0, 0);
+  };
+  // Between pages (not filter changes on the same page), browsers with View
+  // Transitions crossfade, and a shared photograph can morph into place.
+  if (animate) document.startViewTransition(update);
+  else update();
 }
 
 /** An anchor that navigates in-app unless the visitor asks for a new tab or window. */

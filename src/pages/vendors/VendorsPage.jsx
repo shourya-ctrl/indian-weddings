@@ -12,11 +12,14 @@ import { IWU } from '../../landingLogic';
 import { APP_LIVE, APP_URL } from '../../links';
 import SiteShell from '../../site/SiteShell';
 import { useSite } from '../../site/siteContext';
+import NoorOrb from '../../site/NoorOrb';
 import { hasCompleteProfile } from '../../site/session';
 import { categoryById, categoryImage, EXTENDED_CATEGORIES, PRIMARY_CATEGORIES, typeCount } from '../../data/taxonomy';
-import { VENDOR_RECORDS, isFeatured } from '../../data/vendors';
+import { VENDOR_RECORDS } from '../../data/vendors';
 import { COLLECTIONS } from '../../data/collections';
 import VendorSearch from './VendorSearch';
+import { KineticTitle, Marquee } from '../../site/motion';
+import VendorCard, { Arrow } from '../../site/VendorCard';
 import './vendors.css';
 
 const SEARCH_EXAMPLES = [
@@ -34,6 +37,7 @@ export default function VendorsPage() {
   return (
     <SiteShell footerCredit="Photography: PTaufiq Photography (design review only) and Unsplash">
       <Intro />
+      <CategoryBand />
       <BestFit />
       <Categories />
       <Collections />
@@ -49,17 +53,41 @@ function Intro() {
     <section className="vd-intro" aria-labelledby="vd-intro-h">
       <div className="iws-wrap vd-intro-grid">
         <div className="vd-intro-copy">
-          <h1 id="vd-intro-h">The right people make the celebration.</h1>
-          <p className="vd-lede">Discover exceptional professionals for every detail of your wedding.</p>
-          <VendorSearch examples={SEARCH_EXAMPLES} />
+          <KineticTitle id="vd-intro-h" text="The right people make the celebration." />
+          <p className="pg-lede" data-reveal="up" style={{ '--i': 4 }}>Discover exceptional professionals for every detail of your wedding.</p>
+          <div data-reveal="up" style={{ '--i': 6 }}><VendorSearch examples={SEARCH_EXAMPLES} /></div>
         </div>
         <figure className="vd-intro-figure">
-          <div className="vd-arch">
-            <img src={IWU + '2025/08/destination-wedding-venue-ptaufiq-photography.jpg'} alt="A couple on desert dunes" fetchpriority="high" decoding="async" />
+          <div className="vd-collage">
+            <div className="vd-arch drift keep-arch" data-reveal="arch" data-parallax="0.06">
+              <img src={IWU + '2025/08/destination-wedding-venue-ptaufiq-photography.jpg'} alt="A couple on desert dunes" fetchpriority="high" decoding="async" />
+            </div>
+            <span className="vd-float vd-float-a pg-frame" data-reveal="arch" data-parallax="0.18" style={{ '--i': 3 }}>
+              <img src={IWU + '2024/07/ptaufiq-indian-wedding-the-ritz-carlton-abama-spain-haldi.jpg'} alt="" decoding="async" />
+            </span>
+            <span className="vd-float vd-float-b pg-frame" data-reveal="arch" data-parallax="-0.12" style={{ '--i': 5 }}>
+              <img src={IWU + '2019/02/ptaufiq-indian-wedding-costa-mujeres-mexico-destination-mehendi.jpg'} alt="" decoding="async" />
+            </span>
           </div>
           <figcaption>Photography: PTaufiq Photography</figcaption>
         </figure>
       </div>
+    </section>
+  );
+}
+
+/* A moving band of every primary category, between the introduction and discovery. */
+function CategoryBand() {
+  return (
+    <section className="vd-band" aria-label="Browse by category">
+      <Marquee duration={70} gap={16}>
+        {PRIMARY_CATEGORIES.map(c => (
+          <Link key={c.id} to={paths.category(c.slug)} className="vd-band-item">
+            <span className="vd-band-img"><img src={categoryImage(c.id, 200, 250)} alt="" loading="lazy" decoding="async" /></span>
+            <span className="vd-band-name">{c.label}</span>
+          </Link>
+        ))}
+      </Marquee>
     </section>
   );
 }
@@ -76,22 +104,22 @@ function BestFit() {
   if (hasCompleteProfile(session)) return <BestFitForWedding profile={session.profile} />;
   const signedIn = session.status === 'signed-in';
   return (
-    <section className="vd-section vd-start" aria-labelledby="vd-start-h">
+    <section className="pg-section vd-start" aria-labelledby="vd-start-h">
       <div className="iws-wrap">
-        <div className="vd-head">
-          <h2 id="vd-start-h">A considered place to begin.</h2>
-          <p className="vd-lede">Most weddings come together in the same order: the place, the people who run it, then the people who keep it.</p>
+        <div className="pg-head">
+          <KineticTitle as="h2" id="vd-start-h" text="A considered place to begin." />
+          <p className="pg-lede">Most weddings come together in the same order: the place, the people who run it, then the people who keep it.</p>
         </div>
         <div className="vd-start-grid">
           {STARTS.map((s, i) => {
             const cat = categoryById(s.cat);
             return (
               <Link key={s.cat} to={paths.category(cat.slug)} className={'vd-start-item' + (i === 0 ? ' is-lead' : '')}>
-                <span className="vd-frame"><img src={s.img} alt={s.alt} loading="lazy" decoding="async" /></span>
+                <span className="pg-frame lamp" data-reveal="arch" style={{ '--i': i }}><img src={s.img} alt={s.alt} loading="lazy" decoding="async" /></span>
                 <span className="vd-start-cat">{cat.label}</span>
                 <span className="vd-start-title">{s.title}</span>
                 <span className="vd-start-body">{s.body}</span>
-                <span className="vd-arrow-link">{s.link}<Arrow /></span>
+                <span className="pg-arrow-link">{s.link}<Arrow /></span>
               </Link>
             );
           })}
@@ -116,19 +144,19 @@ function BestFitForWedding({ profile }) {
   // wedding's city). There is no score and no generated explanation.
   const matches = VENDOR_RECORDS.filter(v => v.serviceAreas.includes(profile.city));
   return (
-    <section className="vd-section vd-fit" aria-labelledby="vd-fit-h">
+    <section className="pg-section vd-fit" aria-labelledby="vd-fit-h">
       <div className="iws-wrap">
-        <div className="vd-head">
+        <div className="pg-head">
           <h2 id="vd-fit-h">Best fit for your wedding</h2>
-          <p className="vd-lede">For your celebration in {profile.city}: {profile.month}, {profile.guests} guests.</p>
-          {profile.sample ? <p className="vd-note">Sample wedding profile and sample listings, for design review.</p> : null}
+          <p className="pg-lede">For your celebration in {profile.city}: {profile.month}, {profile.guests} guests.</p>
+          {profile.sample ? <p className="pg-note">Sample wedding profile and sample listings, for design review.</p> : null}
         </div>
         {matches.length ? (
-          <ul className="vd-cards vd-cards-fit" role="list">
-            {matches.map(v => <li key={v.id}><VendorCard vendor={v} reason={`Based in ${v.location}, where you are celebrating`} /></li>)}
+          <ul className="pg-cards pg-cards-fit" role="list">
+            {matches.map((v, i) => <li key={v.id}><VendorCard vendor={v} index={i} reason={`Based in ${v.location}, where you are celebrating`} /></li>)}
           </ul>
         ) : (
-          <div className="vd-empty">
+          <div className="pg-empty">
             <p>We couldn’t find a close match in {profile.city} yet.</p>
             <Link className="iws-underlined" to={paths.search()}>Broaden the search</Link>
           </div>
@@ -143,21 +171,21 @@ function BestFitForWedding({ profile }) {
 function Categories() {
   const [active, setActive] = useState(PRIMARY_CATEGORIES[1].id);
   return (
-    <section className="vd-section vd-cats" aria-labelledby="vd-cats-h">
+    <section className="pg-section vd-cats" aria-labelledby="vd-cats-h">
       <div className="iws-wrap">
-        <div className="vd-head">
-          <h2 id="vd-cats-h">Find exactly what you’re looking for.</h2>
-          <p className="vd-lede">Every part of the wedding, from the people who plan it to the people who light it.</p>
+        <div className="pg-head">
+          <KineticTitle as="h2" id="vd-cats-h" text="Find exactly what you’re looking for." />
+          <p className="pg-lede">Every part of the wedding, from the people who plan it to the people who light it.</p>
         </div>
         <div className="vd-cats-grid">
-          <div className="vd-cats-preview" aria-hidden="true">
+          <div className="vd-cats-preview" aria-hidden="true" data-reveal="arch">
             {PRIMARY_CATEGORIES.map(c => (
               <img key={c.id} src={categoryImage(c.id, 900, 1125)} alt="" loading="lazy" decoding="async" className={c.id === active ? 'is-on' : ''} />
             ))}
           </div>
           <ul className="vd-cats-list" role="list">
-            {PRIMARY_CATEGORIES.map(c => (
-              <li key={c.id}>
+            {PRIMARY_CATEGORIES.map((c, i) => (
+              <li key={c.id} data-reveal="up" style={{ '--i': i }}>
                 <Link
                   to={paths.category(c.slug)}
                   className={'vd-cat' + (c.id === active ? ' is-on' : '')}
@@ -192,18 +220,18 @@ function Categories() {
 /* 04 · Curated collections (prototype fixtures) */
 function Collections() {
   return (
-    <section className="vd-section vd-cols" aria-labelledby="vd-cols-h">
+    <section className="pg-section vd-cols" aria-labelledby="vd-cols-h">
       <div className="iws-wrap">
-        <div className="vd-head">
-          <h2 id="vd-cols-h">Collections, gathered by theme.</h2>
-          <p className="vd-lede">Starting points built around a setting, a craft or a kind of celebration.</p>
-          <p className="vd-note">Prototype collections. They show how collections will work; they are not editorial selections, and no vendors are assigned to them yet.</p>
+        <div className="pg-head">
+          <KineticTitle as="h2" id="vd-cols-h" text="Collections, gathered by theme." />
+          <p className="pg-lede">Starting points built around a setting, a craft or a kind of celebration.</p>
+          <p className="pg-note">Prototype collections. They show how collections will work; they are not editorial selections, and no vendors are assigned to them yet.</p>
         </div>
         <ul className="vd-cols-grid" role="list">
           {COLLECTIONS.map((c, i) => (
             <li key={c.slug} className={i === 0 ? 'is-lead' : ''}>
               <Link to={paths.search({ collection: c.slug })} className="vd-col">
-                <span className="vd-frame"><img src={c.image} alt={c.alt} loading="lazy" decoding="async" /></span>
+                <span className="pg-frame lamp" data-reveal="arch" style={{ '--i': i % 3 }}><img src={c.image} alt={c.alt} loading="lazy" decoding="async" /></span>
                 <span className="vd-col-text">
                   <span className="vd-col-cats">{c.categories.map(id => categoryById(id).short).join(' · ')}</span>
                   <span className="vd-col-title">{c.title}</span>
@@ -224,17 +252,17 @@ const SHOWN = ['the-lake-pavilion', 'vermilion-films', 'marigold-works', 'chai-a
 function Professionals() {
   const vendors = SHOWN.map(slug => VENDOR_RECORDS.find(v => v.slug === slug)).filter(Boolean);
   return (
-    <section className="vd-section vd-pros" aria-labelledby="vd-pros-h">
+    <section className="pg-section vd-pros" aria-labelledby="vd-pros-h">
       <div className="iws-wrap">
-        <div className="vd-head vd-head-row">
+        <div className="pg-head pg-head-row">
           <div>
-            <h2 id="vd-pros-h">Professionals to know.</h2>
-            <p className="vd-note">{SAMPLE_NOTE}</p>
+            <KineticTitle as="h2" id="vd-pros-h" text="Professionals to know." />
+            <p className="pg-note">{SAMPLE_NOTE}</p>
           </div>
           <Link className="iws-underlined" to={paths.search()}>See every vendor</Link>
         </div>
-        <ul className="vd-cards vd-cards-pros" role="list">
-          {vendors.map(v => <li key={v.id}><VendorCard vendor={v} /></li>)}
+        <ul className="pg-cards pg-cards-pros" role="list">
+          {vendors.map((v, i) => <li key={v.id}><VendorCard vendor={v} index={i} /></li>)}
         </ul>
       </div>
     </section>
@@ -244,50 +272,15 @@ function Professionals() {
 /* 06 · Noor */
 function NoorLink() {
   return (
-    <section className="vd-section vd-noor" aria-labelledby="vd-noor-h">
+    <section className="pg-section vd-noor" aria-labelledby="vd-noor-h">
       <div className="iws-wrap vd-noor-grid">
-        <svg className="vd-noor-rings" viewBox="0 0 240 240" aria-hidden="true" focusable="false">
-          <ellipse cx="120" cy="120" rx="108" ry="32" />
-          <ellipse cx="120" cy="120" rx="108" ry="40" transform="rotate(60 120 120)" />
-          <ellipse cx="120" cy="120" rx="108" ry="48" transform="rotate(120 120 120)" />
-          <circle cx="120" cy="120" r="20" className="vd-noor-core" />
-        </svg>
+        <NoorOrb className="vd-noor-rings" />
         <div>
-          <h2 id="vd-noor-h">Finding the right people should feel effortless.</h2>
-          <p className="vd-lede">Noor helps you discover professionals based on your celebration, preferences and personal taste.</p>
+          <KineticTitle as="h2" id="vd-noor-h" text="Finding the right people should feel effortless." />
+          <p className="pg-lede">Noor helps you discover professionals based on your celebration, preferences and personal taste.</p>
           <Link className="iws-btn iws-btn-primary vd-noor-btn" to={paths.noor}>Discover Noor</Link>
         </div>
       </div>
     </section>
-  );
-}
-
-/* Shared: vendor card */
-function VendorCard({ vendor, reason }) {
-  const { requestAccount } = useSite();
-  const cat = categoryById(vendor.primaryCategory);
-  return (
-    <article className="vd-card">
-      <Link to={paths.vendor(vendor.slug)} className="vd-card-link">
-        <span className="vd-frame"><img src={vendor.image} alt={vendor.imageAlt} loading="lazy" decoding="async" /></span>
-        <span className="vd-card-cat">{cat ? cat.short : ''}{isFeatured(vendor) ? ' · Featured' : ''}</span>
-        <span className="vd-card-name">{vendor.name}</span>
-        <span className="vd-card-meta">{vendor.speciality} · {vendor.location}</span>
-        {reason ? <span className="vd-card-reason">{reason}</span> : null}
-        {vendor.priceGuide ? <span className="vd-card-price">{vendor.priceGuide}</span> : null}
-        <span className="vd-arrow-link">View profile<Arrow /></span>
-      </Link>
-      <button type="button" className="vd-save" aria-label={`Save ${vendor.name}`} onClick={() => requestAccount('vendor-save', { vendorId: vendor.id, vendorName: vendor.name })}>
-        <svg width="20" height="20" viewBox="0 0 20 20" aria-hidden="true" focusable="false"><path d="M10 16.5s-6-3.6-6-8.1A3.4 3.4 0 0110 6a3.4 3.4 0 016 2.4c0 4.5-6 8.1-6 8.1z" fill="none" stroke="currentColor" strokeWidth="1.4" /></svg>
-      </button>
-    </article>
-  );
-}
-
-function Arrow() {
-  return (
-    <svg className="vd-arrow" width="16" height="16" viewBox="0 0 16 16" aria-hidden="true" focusable="false">
-      <path d="M2 8h11M9 4l4 4-4 4" fill="none" stroke="currentColor" strokeWidth="1.4" />
-    </svg>
   );
 }

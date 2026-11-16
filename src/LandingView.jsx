@@ -3,7 +3,12 @@
 // LandingLogic.renderVals() as `v`; behaviour lives in landingLogic.js.
 import { Fragment } from 'react';
 import { arr, sx } from './dc';
-import { APP_LIVE, APP_URL, OPENING_SOON_ID, SIGNIN_URL } from './links';
+import { Link } from './router';
+import NoorCarousel from './home/NoorCarousel';
+import { paths } from './routes';
+
+const BEGIN = paths.accountCreate({ intent: 'begin-planning' });
+const NOOR_PERSONAL = paths.accountCreate({ intent: 'noor-personalise' });
 
 export default function LandingView({ v }) {
   return (
@@ -11,65 +16,6 @@ export default function LandingView({ v }) {
     <div ref={v.rootRef} style={{ position: "relative", zIndex: "0", background: "var(--iw-ink)", color: "var(--iw-parchment)", minHeight: "100vh", overflowX: "clip" }}>
       <canvas ref={v.skyRef} aria-hidden="true" style={sx(`position:fixed;top:0;left:0;width:100vw;height:100vh;z-index:-1;pointer-events:none;display:${v.skyDisp ?? ""}`)} />
       <canvas ref={v.sparkRef} aria-hidden="true" style={sx(`position:fixed;top:0;left:0;width:100vw;height:100vh;z-index:40;pointer-events:none;mix-blend-mode:screen;display:${v.sparkDisp ?? ""}`)} />
-      <header style={sx(`position:fixed;top:0;left:0;right:0;z-index:50;background:${v.navBg ?? ""};border-bottom:1px solid ${v.navLine ?? ""};backdrop-filter:${v.navBlur ?? ""};-webkit-backdrop-filter:${v.navBlur ?? ""};transition:background-color .35s ease,border-color .35s ease`)}>
-        <nav aria-label="Primary" style={{ maxWidth: "1320px", margin: "0 auto", height: "72px", padding: "0 clamp(20px,4vw,56px)", display: "flex", alignItems: "center", justifyContent: "space-between", gap: "clamp(12px,3vw,24px)" }}>
-          <a className="iw-focus-1" href="#top" aria-label="IndianWeddings, back to top" style={{ display: "flex", alignItems: "center", minHeight: "44px", flexShrink: "0", fontFamily: "'Marcellus',serif", fontSize: "clamp(15px,3.6vw + 1.5px,19px)", letterSpacing: v.navNarrow ? ".04em" : ".08em", lineHeight: "1", whiteSpace: "nowrap", color: "var(--iw-ivory)", textDecoration: "none" }}>INDIAN
-            <span style={{ color: "var(--iw-gold)" }}>WEDDINGS
-            </span>
-          </a>{" "}
-          {v.navWide ? (<>
-            <div style={{ display: "flex", alignItems: "center", gap: "clamp(18px,2.2vw,36px)" }}>
-              <a className="iw-hover-0 iw-focus-1" href="#open-dates" style={{ display: "inline-flex", alignItems: "center", minHeight: "44px", fontSize: "14px", fontWeight: "600", letterSpacing: ".02em", color: "var(--iw-parchment)", textDecoration: "none", whiteSpace: "nowrap", transition: "color .2s ease" }}>Open dates
-              </a>{" "}
-              <a className="iw-hover-0 iw-focus-1" href="#advisor" style={{ display: "inline-flex", alignItems: "center", minHeight: "44px", fontSize: "14px", fontWeight: "600", letterSpacing: ".02em", color: "var(--iw-parchment)", textDecoration: "none", whiteSpace: "nowrap", transition: "color .2s ease" }}>{v.advNav}
-              </a>{" "}
-              <a className="iw-hover-0 iw-focus-1" href="#planning" style={{ display: "inline-flex", alignItems: "center", minHeight: "44px", fontSize: "14px", fontWeight: "600", letterSpacing: ".02em", color: "var(--iw-parchment)", textDecoration: "none", whiteSpace: "nowrap", transition: "color .2s ease" }}>Planning
-              </a>{" "}
-              <a className="iw-hover-0 iw-focus-1" href="#real-weddings" style={{ display: "inline-flex", alignItems: "center", minHeight: "44px", fontSize: "14px", fontWeight: "600", letterSpacing: ".02em", color: "var(--iw-parchment)", textDecoration: "none", whiteSpace: "nowrap", transition: "color .2s ease" }}>Real weddings
-              </a>{" "}
-              <a className="iw-hover-0 iw-focus-1" href="#vendors" style={{ display: "inline-flex", alignItems: "center", minHeight: "44px", fontSize: "14px", fontWeight: "600", letterSpacing: ".02em", color: "var(--iw-parchment)", textDecoration: "none", whiteSpace: "nowrap", transition: "color .2s ease" }}>Vendors
-              </a>
-            </div>
-            <div style={{ display: "flex", alignItems: "center", gap: "28px" }}>
-              <a className="iw-hover-0 iw-focus-1" href={SIGNIN_URL} style={{ display: "inline-flex", alignItems: "center", minHeight: "44px", fontSize: "14px", fontWeight: "600", color: "var(--iw-parchment)", textDecoration: "none", transition: "color .2s ease" }}>Sign in
-              </a>{" "}
-              <a className="iw-hover-2 iw-active-3 iw-focus-4" href={APP_URL} style={{ display: "inline-flex", alignItems: "center", justifyContent: "center", minHeight: "44px", padding: "0 22px", background: "var(--iw-ivory)", color: "var(--iw-on-ivory)", fontSize: "14px", fontWeight: "700", letterSpacing: ".03em", textDecoration: "none", borderRadius: "2px", transition: "background-color .25s ease,transform .2s ease" }}>Start planning
-              </a>
-            </div>
-          </>) : null}{" "}
-          {v.navNarrow ? (<>
-            <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
-              {v.navCta ? (
-                <a className="iw-hover-2 iw-focus-4" href={APP_URL} style={{ display: "inline-flex", alignItems: "center", minHeight: "44px", padding: "0 14px", background: "var(--iw-ivory)", color: "var(--iw-on-ivory)", fontSize: "14px", fontWeight: "700", whiteSpace: "nowrap", textDecoration: "none", borderRadius: "2px" }}>Start planning
-                </a>
-              ) : null}{" "}
-              <button className="iw-focus-1" type="button" onClick={v.toggleMenu} aria-expanded={v.menuExpanded} aria-controls="mobile-menu" aria-label={v.menuOpen ? "Close menu" : "Menu"} style={{ appearance: "none", display: "inline-flex", alignItems: "center", justifyContent: "center", flexShrink: "0", width: "44px", height: "44px", padding: "0", background: "transparent", border: "1px solid rgba(244,238,228,.4)", borderRadius: "2px", color: "var(--iw-ivory)", cursor: "pointer" }}>
-                <svg width="20" height="20" viewBox="0 0 20 20" aria-hidden="true" focusable="false" style={{ display: "block" }}>
-                  <path d={v.menuOpen ? "M4.5 4.5l11 11M15.5 4.5l-11 11" : "M3 7h14M3 13h14"} fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="square" />
-                </svg>
-              </button>
-            </div>
-          </>) : null}
-        </nav>
-        {v.menuOpen ? (<>
-          <div id="mobile-menu" style={{ background: "var(--iw-ink)", borderTop: "1px solid var(--iw-line)", padding: "8px clamp(20px,4vw,56px) 28px" }}>
-            <a className="iw-focus-1" href="#open-dates" onClick={v.closeMenu} style={{ display: "flex", alignItems: "center", minHeight: "60px", borderBottom: "1px solid var(--iw-line)", fontFamily: "'Marcellus',serif", fontSize: "26px", color: "var(--iw-ivory)", textDecoration: "none" }}>Open dates
-            </a>{" "}
-            <a className="iw-focus-1" href="#advisor" onClick={v.closeMenu} style={{ display: "flex", alignItems: "center", minHeight: "60px", borderBottom: "1px solid var(--iw-line)", fontFamily: "'Marcellus',serif", fontSize: "26px", color: "var(--iw-ivory)", textDecoration: "none" }}>{v.advNav}
-            </a>{" "}
-            <a className="iw-focus-1" href="#planning" onClick={v.closeMenu} style={{ display: "flex", alignItems: "center", minHeight: "60px", borderBottom: "1px solid var(--iw-line)", fontFamily: "'Marcellus',serif", fontSize: "26px", color: "var(--iw-ivory)", textDecoration: "none" }}>Planning
-            </a>{" "}
-            <a className="iw-focus-1" href="#real-weddings" onClick={v.closeMenu} style={{ display: "flex", alignItems: "center", minHeight: "60px", borderBottom: "1px solid var(--iw-line)", fontFamily: "'Marcellus',serif", fontSize: "26px", color: "var(--iw-ivory)", textDecoration: "none" }}>Real weddings
-            </a>{" "}
-            <a className="iw-focus-1" href="#vendors" onClick={v.closeMenu} style={{ display: "flex", alignItems: "center", minHeight: "60px", borderBottom: "1px solid var(--iw-line)", fontFamily: "'Marcellus',serif", fontSize: "26px", color: "var(--iw-ivory)", textDecoration: "none" }}>Vendors
-            </a>{" "}
-            <a className="iw-hover-2 iw-focus-4" href={APP_URL} onClick={v.closeMenu} style={{ display: "flex", alignItems: "center", justifyContent: "center", minHeight: "52px", marginTop: "24px", background: "var(--iw-ivory)", color: "var(--iw-on-ivory)", fontSize: "15px", fontWeight: "700", letterSpacing: ".03em", textDecoration: "none", borderRadius: "2px" }}>Start planning
-            </a>{" "}
-            <a className="iw-focus-1" href={SIGNIN_URL} style={{ display: "flex", alignItems: "center", justifyContent: "center", minHeight: "52px", fontSize: "15px", fontWeight: "600", color: "var(--iw-sand)", textDecoration: "none" }}>Sign in
-            </a>
-          </div>
-        </>) : null}
-      </header>
       {v.showSwitcher ? (<>
         <nav aria-label="Hero options for presenting" onMouseEnter={v.swEnter} onMouseLeave={v.swLeave} onFocus={v.swEnter} onBlur={v.swBlur} style={{ position: "fixed", left: "50%", bottom: "18px", transform: "translateX(-50%)", zIndex: "60", display: "flex", alignItems: "center", gap: "2px", padding: "4px", background: "rgba(12,9,7,.9)", border: "1px solid var(--iw-line-strong)", borderRadius: "3px", backdropFilter: "blur(12px)", WebkitBackdropFilter: "blur(12px)", maxWidth: "calc(100vw - 24px)", overflowX: "auto", scrollbarWidth: "none" }}>
           <span style={{ padding: "0 6px 0 8px", fontSize: "10px", fontWeight: "700", letterSpacing: ".16em", textTransform: "uppercase", color: "var(--iw-stone)", whiteSpace: "nowrap" }}>Hero
@@ -103,8 +49,6 @@ export default function LandingView({ v }) {
             <div style={{ position: "absolute", inset: "0", background: v.heroScrim }} />
           </div>
           <div style={{ position: "relative", width: "100%", maxWidth: "1320px", margin: "0 auto", padding: "0 clamp(20px,4vw,56px) clamp(36px,6vh,64px)" }}>
-            <p data-hero="320" style={{ margin: "0", fontSize: "12px", fontWeight: "700", letterSpacing: ".16em", textTransform: "uppercase", color: "var(--iw-gold-light)" }}>For the wedding you’ve imagined
-            </p>
             <h1 id="hero-h" style={{ margin: "22px 0 0", maxWidth: "13em", fontFamily: "'Marcellus',serif", fontWeight: "400", fontSize: "clamp(42px,6vw,98px)", lineHeight: "1.02", letterSpacing: "-.012em", color: "var(--iw-ivory)" }}>
               <span data-hero="400" style={{ display: "block", textWrap: "balance" }}>A wedding that feels like you.
               </span>{" "}
@@ -116,10 +60,10 @@ export default function LandingView({ v }) {
                 <p data-hero="620" style={{ margin: "0", maxWidth: "30em", fontSize: "clamp(16px,1.25vw,19px)", lineHeight: "1.6", color: "var(--iw-parchment)", textWrap: "pretty" }}>From finding your people to bringing every celebration together, plan it with Noor beside you, an AI advisor who knows what you don’t yet. More clarity, and more room to enjoy it.
                 </p>
                 <div data-hero="720" style={{ display: "flex", flexWrap: "wrap", alignItems: "center", gap: "16px 30px", marginTop: "30px" }}>
-                  <a className="iw-hover-2 iw-active-3 iw-focus-4" href={APP_URL} style={{ display: "inline-flex", alignItems: "center", justifyContent: "center", minHeight: "54px", padding: "0 30px", background: "var(--iw-ivory)", color: "var(--iw-on-ivory)", fontSize: "15px", fontWeight: "700", letterSpacing: ".03em", textDecoration: "none", borderRadius: "2px", transition: "background-color .25s ease,transform .2s ease" }}>Start planning
-                  </a>{" "}
-                  <a className="iw-hover-6 iw-focus-4" href="#experience" style={{ display: "inline-flex", alignItems: "center", padding: "15px 0 8px", borderBottom: "1px solid var(--iw-ivory)", color: "var(--iw-ivory)", fontSize: "15px", fontWeight: "600", textDecoration: "none", transition: "color .2s ease,border-color .2s ease" }}>Explore the experience
-                  </a>
+                  <Link className="iw-hover-2 iw-active-3 iw-focus-4" to={BEGIN} style={{ display: "inline-flex", alignItems: "center", justifyContent: "center", minHeight: "54px", padding: "0 30px", background: "var(--iw-ivory)", color: "var(--iw-on-ivory)", fontSize: "15px", fontWeight: "700", letterSpacing: ".03em", textDecoration: "none", borderRadius: "2px", transition: "background-color .25s ease,transform .2s ease" }}>Begin planning
+                  </Link>{" "}
+                  <Link className="iw-hover-6 iw-focus-4" to={paths.ourApproach} style={{ display: "inline-flex", alignItems: "center", padding: "15px 0 8px", borderBottom: "1px solid var(--iw-ivory)", color: "var(--iw-ivory)", fontSize: "15px", fontWeight: "600", textDecoration: "none", transition: "color .2s ease,border-color .2s ease" }}>Explore the experience
+                  </Link>
                 </div>
               </div>
               <div data-hero="820" style={sx(`display:${v.slideCtlDisp ?? ""};align-items:center;gap:18px`)}>
@@ -144,8 +88,6 @@ export default function LandingView({ v }) {
           {v.wide ? (<>
             <div style={{ maxWidth: "1320px", margin: "0 auto", height: "calc(min(100svh, 1040px) - 88px - clamp(20px,3vh,32px))", minHeight: "560px", display: "grid", gridTemplateColumns: "repeat(12,minmax(0,1fr))", gridTemplateRows: "repeat(6,minmax(0,1fr))", gap: "4px" }}>
               <div style={{ gridColumn: "1 / 6", gridRow: "1 / 5", display: "flex", flexDirection: "column", justifyContent: "flex-end", padding: "0 clamp(16px,2.4vw,40px) clamp(12px,2vw,24px) 0", minWidth: "0" }}>
-                <p data-hero="80" style={{ margin: "0", fontSize: "12px", fontWeight: "700", letterSpacing: ".16em", textTransform: "uppercase", color: "var(--iw-gold-light)" }}>For the wedding you’ve imagined
-                </p>
                 <h1 id="hero-h" style={{ margin: "20px 0 0", fontFamily: "'Marcellus',serif", fontWeight: "400", fontSize: "clamp(34px,3.4vw,60px)", lineHeight: "1.04", letterSpacing: "-.012em", color: "var(--iw-ivory)" }}>
                   <span data-hero="160" style={{ display: "block", textWrap: "balance" }}>A wedding that feels like you.
                   </span>
@@ -155,10 +97,10 @@ export default function LandingView({ v }) {
                 <p data-hero="380" style={{ margin: "22px 0 0", maxWidth: "30em", fontSize: "clamp(15px,1.1vw,17px)", lineHeight: "1.6", color: "var(--iw-parchment)", textWrap: "pretty" }}>From finding your people to bringing every celebration together, plan it with Noor beside you, an AI advisor who knows what you don’t yet. More clarity, and more room to enjoy it.
                 </p>
                 <div data-hero="460" style={{ display: "flex", flexWrap: "wrap", alignItems: "center", justifyContent: "flex-start", gap: "14px 28px", marginTop: "26px" }}>
-                  <a className="iw-hover-2 iw-active-3 iw-focus-4" href={APP_URL} style={{ display: "inline-flex", alignItems: "center", justifyContent: "center", minHeight: "52px", padding: "0 28px", background: "var(--iw-ivory)", color: "var(--iw-on-ivory)", fontSize: "15px", fontWeight: "700", letterSpacing: ".03em", textDecoration: "none", borderRadius: "2px", transition: "background-color .25s ease,transform .2s ease" }}>Start planning
-                  </a>
-                  <a className="iw-hover-6 iw-focus-4" href="#experience" style={{ display: "inline-flex", alignItems: "center", padding: "15px 0 8px", borderBottom: "1px solid var(--iw-ivory)", color: "var(--iw-ivory)", fontSize: "15px", fontWeight: "600", textDecoration: "none", transition: "color .2s ease,border-color .2s ease" }}>Explore the experience
-                  </a>
+                  <Link className="iw-hover-2 iw-active-3 iw-focus-4" to={BEGIN} style={{ display: "inline-flex", alignItems: "center", justifyContent: "center", minHeight: "52px", padding: "0 28px", background: "var(--iw-ivory)", color: "var(--iw-on-ivory)", fontSize: "15px", fontWeight: "700", letterSpacing: ".03em", textDecoration: "none", borderRadius: "2px", transition: "background-color .25s ease,transform .2s ease" }}>Begin planning
+                  </Link>
+                  <Link className="iw-hover-6 iw-focus-4" to={paths.ourApproach} style={{ display: "inline-flex", alignItems: "center", padding: "15px 0 8px", borderBottom: "1px solid var(--iw-ivory)", color: "var(--iw-ivory)", fontSize: "15px", fontWeight: "600", textDecoration: "none", transition: "color .2s ease,border-color .2s ease" }}>Explore the experience
+                  </Link>
                 </div>
               </div>
               <figure data-hero="220" style={{ gridColumn: "6 / 10", gridRow: "1 / 5", margin: "0", position: "relative", overflow: "hidden", background: "var(--iw-surface)", minHeight: "0" }}>
@@ -238,8 +180,6 @@ export default function LandingView({ v }) {
           {v.narrow ? (<>
             <div style={{ display: "flex", flexDirection: "column", gap: "32px", paddingTop: "16px" }}>
               <div>
-                <p data-hero="80" style={{ margin: "0", fontSize: "12px", fontWeight: "700", letterSpacing: ".16em", textTransform: "uppercase", color: "var(--iw-gold-light)" }}>For the wedding you’ve imagined
-                </p>
                 <h1 id="hero-h" style={{ margin: "20px 0 0", fontFamily: "'Marcellus',serif", fontWeight: "400", fontSize: "clamp(36px,9vw,52px)", lineHeight: "1.04", letterSpacing: "-.012em", color: "var(--iw-ivory)" }}>
                   <span data-hero="160" style={{ display: "block", textWrap: "balance" }}>A wedding that feels like you.
                   </span>
@@ -249,10 +189,10 @@ export default function LandingView({ v }) {
                 <p data-hero="380" style={{ margin: "22px 0 0", maxWidth: "30em", fontSize: "clamp(15px,1.15vw,18px)", lineHeight: "1.6", color: "var(--iw-parchment)", textWrap: "pretty" }}>From finding your people to bringing every celebration together, plan it with Noor beside you, an AI advisor who knows what you don’t yet. More clarity, and more room to enjoy it.
                 </p>
                 <div data-hero="460" style={{ display: "flex", flexWrap: "wrap", alignItems: "center", justifyContent: "flex-start", gap: "14px 28px", marginTop: "26px" }}>
-                  <a className="iw-hover-2 iw-active-3 iw-focus-4" href={APP_URL} style={{ display: "inline-flex", alignItems: "center", justifyContent: "center", minHeight: "52px", padding: "0 28px", background: "var(--iw-ivory)", color: "var(--iw-on-ivory)", fontSize: "15px", fontWeight: "700", letterSpacing: ".03em", textDecoration: "none", borderRadius: "2px", transition: "background-color .25s ease,transform .2s ease" }}>Start planning
-                  </a>
-                  <a className="iw-hover-6 iw-focus-4" href="#experience" style={{ display: "inline-flex", alignItems: "center", padding: "15px 0 8px", borderBottom: "1px solid var(--iw-ivory)", color: "var(--iw-ivory)", fontSize: "15px", fontWeight: "600", textDecoration: "none", transition: "color .2s ease,border-color .2s ease" }}>Explore the experience
-                  </a>
+                  <Link className="iw-hover-2 iw-active-3 iw-focus-4" to={BEGIN} style={{ display: "inline-flex", alignItems: "center", justifyContent: "center", minHeight: "52px", padding: "0 28px", background: "var(--iw-ivory)", color: "var(--iw-on-ivory)", fontSize: "15px", fontWeight: "700", letterSpacing: ".03em", textDecoration: "none", borderRadius: "2px", transition: "background-color .25s ease,transform .2s ease" }}>Begin planning
+                  </Link>
+                  <Link className="iw-hover-6 iw-focus-4" to={paths.ourApproach} style={{ display: "inline-flex", alignItems: "center", padding: "15px 0 8px", borderBottom: "1px solid var(--iw-ivory)", color: "var(--iw-ivory)", fontSize: "15px", fontWeight: "600", textDecoration: "none", transition: "color .2s ease,border-color .2s ease" }}>Explore the experience
+                  </Link>
                 </div>
               </div>
               <div style={{ display: "grid", gridTemplateColumns: "repeat(2,minmax(0,1fr))", gap: "4px" }}>
@@ -345,8 +285,6 @@ export default function LandingView({ v }) {
           </div>
           <div ref={v.orbitTextRef} style={sx(`position:absolute;top:72px;left:0;right:0;bottom:0;z-index:4;display:flex;align-items:${v.orbitAlign ?? ""};justify-content:center;padding:0 24px ${v.orbitPadB ?? ""};pointer-events:none`)}>
             <div style={{ maxWidth: "620px", textAlign: "center", pointerEvents: "auto" }}>
-              <p data-hero="200" style={{ margin: "0", fontSize: "12px", fontWeight: "700", letterSpacing: ".16em", textTransform: "uppercase", color: "var(--iw-gold-light)" }}>For the wedding you’ve imagined
-              </p>
               <h1 id="hero-h" style={{ margin: "20px 0 0", fontFamily: "'Marcellus',serif", fontWeight: "400", fontSize: "clamp(34px,3.8vw,62px)", lineHeight: "1.04", letterSpacing: "-.012em", color: "var(--iw-ivory)" }}>
                 <span data-hero="280" style={{ display: "block", textWrap: "balance" }}>A wedding that feels like you.
                 </span>
@@ -356,10 +294,10 @@ export default function LandingView({ v }) {
               <p data-hero="500" style={{ margin: "22px 0 0", maxWidth: "30em", fontSize: "clamp(15px,1.15vw,18px)", lineHeight: "1.6", color: "var(--iw-parchment)", textWrap: "pretty", marginLeft: "auto", marginRight: "auto" }}>From finding your people to bringing every celebration together, plan it with Noor beside you, an AI advisor who knows what you don’t yet. More clarity, and more room to enjoy it.
               </p>
               <div data-hero="600" style={{ display: "flex", flexWrap: "wrap", alignItems: "center", justifyContent: "center", gap: "14px 28px", marginTop: "26px" }}>
-                <a className="iw-hover-2 iw-active-3 iw-focus-4" href={APP_URL} style={{ display: "inline-flex", alignItems: "center", justifyContent: "center", minHeight: "52px", padding: "0 28px", background: "var(--iw-ivory)", color: "var(--iw-on-ivory)", fontSize: "15px", fontWeight: "700", letterSpacing: ".03em", textDecoration: "none", borderRadius: "2px", transition: "background-color .25s ease,transform .2s ease" }}>Start planning
-                </a>
-                <a className="iw-hover-6 iw-focus-4" href="#experience" style={{ display: "inline-flex", alignItems: "center", padding: "15px 0 8px", borderBottom: "1px solid var(--iw-ivory)", color: "var(--iw-ivory)", fontSize: "15px", fontWeight: "600", textDecoration: "none", transition: "color .2s ease,border-color .2s ease" }}>Explore the experience
-                </a>
+                <Link className="iw-hover-2 iw-active-3 iw-focus-4" to={BEGIN} style={{ display: "inline-flex", alignItems: "center", justifyContent: "center", minHeight: "52px", padding: "0 28px", background: "var(--iw-ivory)", color: "var(--iw-on-ivory)", fontSize: "15px", fontWeight: "700", letterSpacing: ".03em", textDecoration: "none", borderRadius: "2px", transition: "background-color .25s ease,transform .2s ease" }}>Begin planning
+                </Link>
+                <Link className="iw-hover-6 iw-focus-4" to={paths.ourApproach} style={{ display: "inline-flex", alignItems: "center", padding: "15px 0 8px", borderBottom: "1px solid var(--iw-ivory)", color: "var(--iw-ivory)", fontSize: "15px", fontWeight: "600", textDecoration: "none", transition: "color .2s ease,border-color .2s ease" }}>Explore the experience
+                </Link>
               </div>
             </div>
           </div>
@@ -423,8 +361,6 @@ export default function LandingView({ v }) {
           <div style={{ position: "absolute", left: "0", right: "0", bottom: "0", padding: "0 clamp(20px,4vw,56px) clamp(36px,6vh,64px)", pointerEvents: "none" }}>
             <div style={{ maxWidth: "1320px", margin: "0 auto" }}>
               <div style={sx(`width:${v.seamCopyW ?? ""};max-width:620px;pointer-events:auto`)}>
-                <p data-hero="300" style={{ margin: "0", fontSize: "12px", fontWeight: "700", letterSpacing: ".16em", textTransform: "uppercase", color: "var(--iw-gold-light)" }}>For the wedding you’ve imagined
-                </p>
                 <h1 id="hero-h" style={{ margin: "20px 0 0", fontFamily: "'Marcellus',serif", fontWeight: "400", fontSize: "clamp(36px,4.4vw,76px)", lineHeight: "1.04", letterSpacing: "-.012em", color: "var(--iw-ivory)" }}>
                   <span data-hero="380" style={{ display: "block", textWrap: "balance" }}>A wedding that feels like you.
                   </span>
@@ -434,10 +370,10 @@ export default function LandingView({ v }) {
                 <p data-hero="600" style={{ margin: "22px 0 0", maxWidth: "30em", fontSize: "clamp(15px,1.15vw,18px)", lineHeight: "1.6", color: "var(--iw-parchment)", textWrap: "pretty" }}>From finding your people to bringing every celebration together, plan it with Noor beside you, an AI advisor who knows what you don’t yet. More clarity, and more room to enjoy it.
                 </p>
                 <div data-hero="700" style={{ display: "flex", flexWrap: "wrap", alignItems: "center", justifyContent: "flex-start", gap: "14px 28px", marginTop: "26px" }}>
-                  <a className="iw-hover-2 iw-active-3 iw-focus-4" href={APP_URL} style={{ display: "inline-flex", alignItems: "center", justifyContent: "center", minHeight: "52px", padding: "0 28px", background: "var(--iw-ivory)", color: "var(--iw-on-ivory)", fontSize: "15px", fontWeight: "700", letterSpacing: ".03em", textDecoration: "none", borderRadius: "2px", transition: "background-color .25s ease,transform .2s ease" }}>Start planning
-                  </a>
-                  <a className="iw-hover-6 iw-focus-4" href="#experience" style={{ display: "inline-flex", alignItems: "center", padding: "15px 0 8px", borderBottom: "1px solid var(--iw-ivory)", color: "var(--iw-ivory)", fontSize: "15px", fontWeight: "600", textDecoration: "none", transition: "color .2s ease,border-color .2s ease" }}>Explore the experience
-                  </a>
+                  <Link className="iw-hover-2 iw-active-3 iw-focus-4" to={BEGIN} style={{ display: "inline-flex", alignItems: "center", justifyContent: "center", minHeight: "52px", padding: "0 28px", background: "var(--iw-ivory)", color: "var(--iw-on-ivory)", fontSize: "15px", fontWeight: "700", letterSpacing: ".03em", textDecoration: "none", borderRadius: "2px", transition: "background-color .25s ease,transform .2s ease" }}>Begin planning
+                  </Link>
+                  <Link className="iw-hover-6 iw-focus-4" to={paths.ourApproach} style={{ display: "inline-flex", alignItems: "center", padding: "15px 0 8px", borderBottom: "1px solid var(--iw-ivory)", color: "var(--iw-ivory)", fontSize: "15px", fontWeight: "600", textDecoration: "none", transition: "color .2s ease,border-color .2s ease" }}>Explore the experience
+                  </Link>
                 </div>
               </div>
             </div>
@@ -450,8 +386,6 @@ export default function LandingView({ v }) {
             <span aria-hidden="true" style={{ position: "absolute", inset: "0", pointerEvents: "none", background: "radial-gradient(42% 56% at 24% 42%, rgba(201,169,110,.08) 0%, rgba(201,169,110,0) 70%), linear-gradient(180deg, rgba(12,9,7,0) 60%, rgba(12,9,7,.55) 100%)" }} />
             <div style={sx(`position:relative;width:100%;max-width:1160px;display:grid;grid-template-columns:${v.archCols ?? ""};justify-content:center;align-items:center;gap:${v.archGap ?? ""}`)}>
               <div style={sx(`position:relative;z-index:2;min-width:0;max-width:${v.archTextW ?? ""};justify-self:${v.archJs ?? ""};text-align:${v.archTA ?? ""}`)}>
-                <p data-hero="200" style={{ margin: "0", fontSize: "12px", fontWeight: "700", letterSpacing: ".18em", textTransform: "uppercase", color: "var(--iw-gold-light)" }}>For the wedding you’ve imagined
-                </p>
                 <h1 id="hero-h" style={{ margin: "26px 0 0", fontFamily: "'Marcellus',serif", fontWeight: "400", fontSize: "clamp(36px,3.6vw,58px)", lineHeight: "1.12", letterSpacing: "-.005em", color: "var(--iw-ivory)", textWrap: "balance" }}>
                   <span data-hero="420" style={{ display: "block" }}>A wedding that feels like you.
                   </span>{" "}
@@ -462,10 +396,10 @@ export default function LandingView({ v }) {
                 <p data-hero="660" style={sx(`margin:26px ${v.archRuleM ?? ""} 0;max-width:26em;font-size:16px;line-height:1.7;color:var(--iw-parchment);text-wrap:pretty`)}>From finding your people to bringing every celebration together, plan it with Noor beside you, an AI advisor who knows what you don’t yet. More clarity, and more room to enjoy it.
                 </p>
                 <div data-hero="760" style={sx(`display:flex;flex-wrap:wrap;align-items:center;justify-content:${v.archJs ?? ""};gap:14px 28px;margin-top:34px`)}>
-                  <a className="iw-hover-2 iw-active-3 iw-focus-4" href={APP_URL} style={{ display: "inline-flex", alignItems: "center", justifyContent: "center", minHeight: "52px", padding: "0 28px", background: "var(--iw-ivory)", color: "var(--iw-on-ivory)", fontSize: "15px", fontWeight: "700", letterSpacing: ".03em", textDecoration: "none", borderRadius: "2px", transition: "background-color .25s ease,transform .2s ease" }}>Start planning
-                  </a>
-                  <a className="iw-hover-6 iw-focus-4" href="#experience" style={{ display: "inline-flex", alignItems: "center", padding: "15px 0 8px", borderBottom: "1px solid var(--iw-ivory)", color: "var(--iw-ivory)", fontSize: "15px", fontWeight: "600", textDecoration: "none", transition: "color .2s ease,border-color .2s ease" }}>Explore the experience
-                  </a>
+                  <Link className="iw-hover-2 iw-active-3 iw-focus-4" to={BEGIN} style={{ display: "inline-flex", alignItems: "center", justifyContent: "center", minHeight: "52px", padding: "0 28px", background: "var(--iw-ivory)", color: "var(--iw-on-ivory)", fontSize: "15px", fontWeight: "700", letterSpacing: ".03em", textDecoration: "none", borderRadius: "2px", transition: "background-color .25s ease,transform .2s ease" }}>Begin planning
+                  </Link>
+                  <Link className="iw-hover-6 iw-focus-4" to={paths.ourApproach} style={{ display: "inline-flex", alignItems: "center", padding: "15px 0 8px", borderBottom: "1px solid var(--iw-ivory)", color: "var(--iw-ivory)", fontSize: "15px", fontWeight: "600", textDecoration: "none", transition: "color .2s ease,border-color .2s ease" }}>Explore the experience
+                  </Link>
                 </div>
               </div>
               <figure style={sx(`position:relative;z-index:1;margin:0;justify-self:center;width:${v.archW ?? ""}`)}>
@@ -522,12 +456,12 @@ export default function LandingView({ v }) {
             </label>{" "}
             <button className="iw-hover-c iw-focus-a" type="submit" style={{ minHeight: "52px", padding: "0 22px", background: "transparent", border: "1px solid var(--iw-gold)", borderRadius: "2px", color: "var(--iw-ivory)", fontFamily: "'Nunito Sans',sans-serif", fontSize: "15px", fontWeight: "700", letterSpacing: ".03em", cursor: "pointer", transition: "background-color .25s ease,color .25s ease" }}>See your sky
             </button>{" "}
-            <a className="iw-hover-2 iw-active-3 iw-focus-4" href={APP_URL} style={{ display: "inline-flex", alignItems: "center", justifyContent: "center", minHeight: "52px", padding: "0 28px", background: "var(--iw-ivory)", color: "var(--iw-on-ivory)", fontSize: "15px", fontWeight: "700", letterSpacing: ".03em", textDecoration: "none", borderRadius: "2px", transition: "background-color .25s ease,transform .2s ease" }}>Start planning
-            </a>
+            <Link className="iw-hover-2 iw-active-3 iw-focus-4" to={BEGIN} style={{ display: "inline-flex", alignItems: "center", justifyContent: "center", minHeight: "52px", padding: "0 28px", background: "var(--iw-ivory)", color: "var(--iw-on-ivory)", fontSize: "15px", fontWeight: "700", letterSpacing: ".03em", textDecoration: "none", borderRadius: "2px", transition: "background-color .25s ease,transform .2s ease" }}>Begin planning
+            </Link>
           </form>
           <div data-hero="660" style={{ marginTop: "14px" }}>
-            <a className="iw-hover-6 iw-focus-4" href="#experience" style={{ display: "inline-flex", alignItems: "center", padding: "15px 0 8px", borderBottom: "1px solid var(--iw-ivory)", color: "var(--iw-ivory)", fontSize: "15px", fontWeight: "600", textDecoration: "none", transition: "color .2s ease,border-color .2s ease" }}>Explore the experience
-            </a>
+            <Link className="iw-hover-6 iw-focus-4" to={paths.ourApproach} style={{ display: "inline-flex", alignItems: "center", padding: "15px 0 8px", borderBottom: "1px solid var(--iw-ivory)", color: "var(--iw-ivory)", fontSize: "15px", fontWeight: "600", textDecoration: "none", transition: "color .2s ease,border-color .2s ease" }}>Explore the experience
+            </Link>
           </div>
         </section>
       </>) : null}{" "}
@@ -535,8 +469,6 @@ export default function LandingView({ v }) {
         <section id="top" ref={v.petalRef} data-screen-label="01 Hero · Petals" aria-labelledby="hero-h" onPointerMove={v.petalMove} onPointerDown={v.petalDown} onPointerLeave={v.petalLeave} style={{ position: "relative", height: "100svh", minHeight: "640px", maxHeight: "1040px", overflow: "hidden", background: "radial-gradient(70% 60% at 50% 45%, rgba(58,30,18,.5) 0%, rgba(12,9,7,0) 72%)", color: "var(--iw-ivory)", display: "flex", alignItems: "center", justifyContent: "center", textAlign: "center", touchAction: "pan-y" }}>
           <canvas ref={v.petalBackRef} aria-hidden="true" style={{ position: "absolute", inset: "0", width: "100%", height: "100%", pointerEvents: "none" }} />
           <div style={{ position: "relative", zIndex: "1", maxWidth: "1180px", padding: "72px 24px 24px" }}>
-            <p data-hero="900" style={{ margin: "0", fontSize: "12px", fontWeight: "700", letterSpacing: ".16em", textTransform: "uppercase", color: "var(--iw-gold-light)" }}>For the wedding you’ve imagined
-            </p>
             <h1 id="hero-h" style={{ margin: "22px 0 0", fontFamily: "'Marcellus',serif", fontWeight: "400", fontSize: "clamp(44px,6.6vw,118px)", lineHeight: "1.02", letterSpacing: "-.014em", color: "var(--iw-ivory)" }}>
               <span data-hero="1000" style={{ display: "block", textWrap: "balance" }}>A wedding that feels like you.
               </span>
@@ -546,10 +478,10 @@ export default function LandingView({ v }) {
             <p data-hero="1260" style={{ margin: "26px auto 0", maxWidth: "32em", fontSize: "clamp(15px,1.2vw,19px)", lineHeight: "1.6", color: "var(--iw-parchment)", textWrap: "pretty" }}>From finding your people to bringing every celebration together, plan it with Noor beside you, an AI advisor who knows what you don’t yet. More clarity, and more room to enjoy it.
             </p>
             <div data-hero="1360" style={{ display: "flex", flexWrap: "wrap", alignItems: "center", justifyContent: "center", gap: "14px 28px", marginTop: "30px" }}>
-              <a className="iw-hover-2 iw-active-3 iw-focus-4" href={APP_URL} style={{ display: "inline-flex", alignItems: "center", justifyContent: "center", minHeight: "52px", padding: "0 28px", background: "var(--iw-ivory)", color: "var(--iw-on-ivory)", fontSize: "15px", fontWeight: "700", letterSpacing: ".03em", textDecoration: "none", borderRadius: "2px", transition: "background-color .25s ease,transform .2s ease" }}>Start planning
-              </a>
-              <a className="iw-hover-6 iw-focus-4" href="#experience" style={{ display: "inline-flex", alignItems: "center", padding: "15px 0 8px", borderBottom: "1px solid var(--iw-ivory)", color: "var(--iw-ivory)", fontSize: "15px", fontWeight: "600", textDecoration: "none", transition: "color .2s ease,border-color .2s ease" }}>Explore the experience
-              </a>
+              <Link className="iw-hover-2 iw-active-3 iw-focus-4" to={BEGIN} style={{ display: "inline-flex", alignItems: "center", justifyContent: "center", minHeight: "52px", padding: "0 28px", background: "var(--iw-ivory)", color: "var(--iw-on-ivory)", fontSize: "15px", fontWeight: "700", letterSpacing: ".03em", textDecoration: "none", borderRadius: "2px", transition: "background-color .25s ease,transform .2s ease" }}>Begin planning
+              </Link>
+              <Link className="iw-hover-6 iw-focus-4" to={paths.ourApproach} style={{ display: "inline-flex", alignItems: "center", padding: "15px 0 8px", borderBottom: "1px solid var(--iw-ivory)", color: "var(--iw-ivory)", fontSize: "15px", fontWeight: "600", textDecoration: "none", transition: "color .2s ease,border-color .2s ease" }}>Explore the experience
+              </Link>
             </div>
           </div>
           <canvas ref={v.petalFrontRef} aria-hidden="true" style={{ position: "absolute", inset: "0", width: "100%", height: "100%", pointerEvents: "none", zIndex: "2" }} />
@@ -557,19 +489,17 @@ export default function LandingView({ v }) {
           </p>
         </section>
       </>) : null}
-      <section id="open-dates" data-screen-label="02 Open dates" aria-labelledby="od-h" style={{ scrollMarginTop: "72px", padding: "clamp(96px,11vw,150px) 0 clamp(88px,10vw,130px)", borderBottom: "1px solid var(--iw-line)" }}>
+      <section id="open-dates" data-screen-label="02 Open dates" aria-labelledby="od-h" style={{ scrollMarginTop: "72px", padding: "clamp(64px,8vw,104px) 0", borderBottom: "1px solid var(--iw-line)" }}>
         <div style={{ maxWidth: "1320px", margin: "0 auto", padding: "0 clamp(20px,4vw,56px)" }}>
           <div style={{ display: "flex", flexWrap: "wrap", alignItems: "flex-end", justifyContent: "space-between", gap: "28px 72px" }}>
             <div style={{ flex: "1.4 1 520px", minWidth: "0" }}>
-              <p data-rv="up" style={{ margin: "0", fontSize: "12px", fontWeight: "700", letterSpacing: ".16em", textTransform: "uppercase", color: "var(--iw-gold)" }}>Open dates
-              </p>
-              <h2 id="od-h" data-rv="up" data-rv-d="80" style={{ margin: "24px 0 0", fontFamily: "'Marcellus',serif", fontWeight: "400", fontSize: "clamp(36px,4.4vw,68px)", lineHeight: "1.07", letterSpacing: "-.01em", color: "var(--iw-ivory)", textWrap: "balance", maxWidth: "13em" }}>{"Dates a venue would rather fill. "}
-                <span style={{ color: "#A89C8F" }}>At a price worth passing on.
+              <h2 id="od-h" data-rv="up" data-rv-d="80" style={{ margin: "24px 0 0", fontFamily: "'Marcellus',serif", fontWeight: "400", fontSize: "clamp(30px,3.4vw,50px)", lineHeight: "1.07", letterSpacing: "-.01em", color: "var(--iw-ivory)", textWrap: "balance", maxWidth: "13em" }}>{"The places everyone wants. "}
+                <span style={{ color: "#A89C8F" }}>On dates that rarely open.
                 </span>
               </h2>
             </div>
             <div style={{ flex: "0 1 430px", minWidth: "0" }}>
-              <p data-rv="up" data-rv-d="140" style={{ margin: "0", fontSize: "17px", lineHeight: "1.65", color: "var(--iw-sand)", textWrap: "pretty" }}>Now and then a venue has a weekend it would rather fill than leave empty. We ask for a price worth telling you about, check what it includes, and list it here for as long as it holds.
+              <p data-rv="up" data-rv-d="140" style={{ margin: "0", fontSize: "17px", lineHeight: "1.65", color: "var(--iw-sand)", textWrap: "pretty" }}>Now and then a heritage hotel, a fort palace or a lakeside estate releases a date: a cancellation, or a midweek stretch. We check what each one includes and list it here, for as long as it holds..
               </p>
               <div role="tablist" aria-label="Where the open dates are" data-rv="up" data-rv-d="200" style={{ display: "flex", gap: "28px", marginTop: "28px", borderBottom: "1px solid var(--iw-line-strong)" }}>
                 {arr(v.dealTabs).map((t, $index) => (<Fragment key={$index}>
@@ -584,7 +514,7 @@ export default function LandingView({ v }) {
               <article style={{ flex: "0 0 clamp(250px,23%,300px)", minWidth: "0", scrollSnapAlign: "start" }}>
                 <div style={{ position: "relative", overflow: "hidden", aspectRatio: "4/5", background: "var(--iw-surface)" }}>
                   <img className="iw-hover-9" src={d?.img} alt={d?.alt} loading="lazy" decoding="async" style={{ width: "100%", height: "100%", objectFit: "cover", transition: "transform .9s cubic-bezier(.2,.7,.1,1)" }} />{" "}
-                  <span style={{ position: "absolute", top: "14px", left: "14px", padding: "5px 8px", background: "var(--iw-ivory)", color: "var(--iw-on-ivory)", fontSize: "12px", fontWeight: "700", letterSpacing: ".12em", textTransform: "uppercase" }}>{d?.save}
+                  <span style={{ position: "absolute", top: "14px", left: "14px", padding: "5px 8px", background: "var(--iw-ivory)", color: "var(--iw-on-ivory)", fontSize: "12px", fontWeight: "700", letterSpacing: ".12em", textTransform: "uppercase" }}>{d?.when}
                   </span>
                 </div>
                 <p style={{ margin: "18px 0 0", fontSize: "12px", fontWeight: "700", letterSpacing: ".16em", textTransform: "uppercase", color: "var(--iw-stone)" }}>{d?.place}
@@ -599,11 +529,9 @@ export default function LandingView({ v }) {
                   <span style={{ display: "flex", alignItems: "baseline", gap: "10px" }}>
                     <span style={{ fontFamily: "'Marcellus',serif", fontSize: "26px", lineHeight: "1", color: "var(--iw-gold)" }}>{d?.price}
                     </span>
-                    <span style={{ fontSize: "13px", color: "var(--iw-stone)" }}>{"usually "}{d?.was}
-                    </span>
                   </span>{" "}
-                  <a className="iw-hover-b iw-focus-1" href={APP_URL} aria-label={d?.aria} style={{ display: "inline-flex", alignItems: "center", minHeight: "44px", fontSize: "13px", fontWeight: "700", color: "var(--iw-gold-light)", textDecoration: "none", transition: "color .2s ease" }}>Ask about it
-                  </a>
+                  <Link className="iw-hover-b iw-focus-1" to={d?.href} aria-label={d?.aria} style={{ display: "inline-flex", alignItems: "center", minHeight: "44px", fontSize: "13px", fontWeight: "700", color: "var(--iw-gold-light)", textDecoration: "none", transition: "color .2s ease" }}>Ask about it
+                  </Link>
                 </div>
                 <p style={{ margin: "0", fontSize: "12px", lineHeight: "1.5", color: "var(--iw-stone)" }}>{d?.hold}
                 </p>
@@ -614,1075 +542,62 @@ export default function LandingView({ v }) {
           </p>
         </div>
       </section>
-      <section id="experience" data-screen-label="03 Little details" aria-labelledby="premise-h" style={{ scrollMarginTop: "72px", padding: "clamp(112px,13vw,184px) 0 clamp(96px,11vw,150px)" }}>
+      <section id="vendors" data-screen-label="08 Vendors" aria-labelledby="vd-h" style={{ scrollMarginTop: "72px", padding: "clamp(64px,8vw,104px) 0", borderTop: "1px solid var(--iw-line)" }}>
         <div style={{ maxWidth: "1320px", margin: "0 auto", padding: "0 clamp(20px,4vw,56px)" }}>
           <div style={{ display: "flex", flexWrap: "wrap", alignItems: "flex-end", justifyContent: "space-between", gap: "28px 72px" }}>
-            <div style={{ flex: "1.5 1 520px", minWidth: "0" }}>
-              <p data-rv="up" style={{ margin: "0", fontSize: "12px", fontWeight: "700", letterSpacing: ".16em", textTransform: "uppercase", color: "var(--iw-gold)" }}>The experience
-              </p>
-              <h2 id="premise-h" data-rv="up" data-rv-d="80" style={{ margin: "24px 0 0", maxWidth: "12.5em", fontFamily: "'Marcellus',serif", fontWeight: "400", fontSize: "clamp(36px,4.4vw,68px)", lineHeight: "1.07", letterSpacing: "-.01em", color: "var(--iw-ivory)", textWrap: "balance" }}>{"A thousand little details. "}
-                <span style={{ color: "#A89C8F" }}>A few moments that mean everything.
-                </span>
+            <div style={{ flex: "1 1 440px", maxWidth: "640px" }}>
+              <h2 id="vd-h" data-rv="up" data-rv-d="80" style={{ margin: "24px 0 0", fontFamily: "'Marcellus',serif", fontWeight: "400", fontSize: "clamp(30px,3.4vw,50px)", lineHeight: "1.07", letterSpacing: "-.01em", color: "var(--iw-ivory)" }}>Find your people.
               </h2>
             </div>
-            <p data-rv="up" data-rv-d="160" style={{ flex: "0 1 430px", margin: "0", fontSize: "17px", lineHeight: "1.65", color: "var(--iw-sand)", textWrap: "pretty" }}>A wedding brings together two families, their traditions, your own taste, a guest list, a budget and more decisions than anyone admits to. IndianWeddings gives all of it one considered place, so the moments themselves get your full attention.
-            </p>
-          </div>
-          <div style={{ display: "flex", flexWrap: "wrap", justifyContent: "space-between", alignItems: "flex-start", gap: "36px 16px", marginTop: "clamp(56px,7vw,100px)" }}>
-            <figure style={{ flex: "0 0 clamp(150px,19%,260px)", margin: "0" }}>
-              <div data-rv="mask" style={{ overflow: "hidden", aspectRatio: "4/5", background: "var(--iw-surface)" }}>
-                <img className="iw-hover-9" src="https://www.ptaufiqphotography.com/wp-content/uploads/2024/07/ptaufiq-indian-wedding-como-castello-del-nero-florence-italy-mehendi1.jpg" alt="A mehendi celebration in Florence" loading="lazy" decoding="async" style={{ width: "100%", height: "100%", objectFit: "cover", transition: "transform .9s cubic-bezier(.2,.7,.1,1)" }} />
-              </div>
-              <figcaption style={{ paddingTop: "16px" }}>
-                <span style={{ display: "block", fontSize: "12px", fontWeight: "700", letterSpacing: ".16em", color: "var(--iw-stone)" }}>01
-                </span>
-                <span style={{ display: "block", marginTop: "6px", fontSize: "15px", lineHeight: "1.5", color: "var(--iw-parchment)" }}>Rose petals for the entrance
-                </span>
-              </figcaption>
-            </figure>
-            <figure style={{ flex: "0 0 clamp(130px,13%,190px)", margin: "clamp(16px,7vw,110px) 0 0" }}>
-              <div data-rv="mask" style={{ overflow: "hidden", aspectRatio: "1/1", background: "var(--iw-surface)" }}>
-                <img className="iw-hover-9" src="https://www.ptaufiqphotography.com/wp-content/uploads/2025/08/cultural-wedding-tradition-photography-ptaufiq.jpg" alt="A wedding tradition being observed" loading="lazy" decoding="async" style={{ width: "100%", height: "100%", objectFit: "cover", transition: "transform .9s cubic-bezier(.2,.7,.1,1)" }} />
-              </div>
-              <figcaption style={{ paddingTop: "16px" }}>
-                <span style={{ display: "block", fontSize: "12px", fontWeight: "700", letterSpacing: ".16em", color: "var(--iw-stone)" }}>02
-                </span>
-                <span style={{ display: "block", marginTop: "6px", fontSize: "15px", lineHeight: "1.5", color: "var(--iw-parchment)" }}>Who holds the rings
-                </span>
-              </figcaption>
-            </figure>
-            <figure style={{ flex: "0 0 clamp(150px,17%,240px)", margin: "clamp(0px,2vw,28px) 0 0" }}>
-              <div data-rv="mask" style={{ overflow: "hidden", aspectRatio: "3/4", background: "var(--iw-surface)" }}>
-                <img className="iw-hover-9" src="https://www.ptaufiqphotography.com/wp-content/uploads/2025/08/luxury-wedding-bride-veil-ptaufiq.jpg" alt="A bride beneath her veil" loading="lazy" decoding="async" style={{ width: "100%", height: "100%", objectFit: "cover", transition: "transform .9s cubic-bezier(.2,.7,.1,1)" }} />
-              </div>
-              <figcaption style={{ paddingTop: "16px" }}>
-                <span style={{ display: "block", fontSize: "12px", fontWeight: "700", letterSpacing: ".16em", color: "var(--iw-stone)" }}>03
-                </span>
-                <span style={{ display: "block", marginTop: "6px", fontSize: "15px", lineHeight: "1.5", color: "var(--iw-parchment)" }}>Flowers to match the lehenga
-                </span>
-              </figcaption>
-            </figure>
-            <figure style={{ flex: "0 0 clamp(130px,14%,200px)", margin: "clamp(16px,9vw,140px) 0 0" }}>
-              <div data-rv="mask" style={{ overflow: "hidden", aspectRatio: "4/5", background: "var(--iw-surface)" }}>
-                <img className="iw-hover-9" src="https://www.ptaufiqphotography.com/wp-content/uploads/2025/08/bridal-portrait-under-veil.jpg" alt="A bridal portrait under the veil" loading="lazy" decoding="async" style={{ width: "100%", height: "100%", objectFit: "cover", transition: "transform .9s cubic-bezier(.2,.7,.1,1)" }} />
-              </div>
-              <figcaption style={{ paddingTop: "16px" }}>
-                <span style={{ display: "block", fontSize: "12px", fontWeight: "700", letterSpacing: ".16em", color: "var(--iw-stone)" }}>04
-                </span>
-                <span style={{ display: "block", marginTop: "6px", fontSize: "15px", lineHeight: "1.5", color: "var(--iw-parchment)" }}>The nath your mother wore
-                </span>
-              </figcaption>
-            </figure>
-            <figure style={{ flex: "0 0 clamp(150px,17%,240px)", margin: "clamp(0px,3vw,40px) 0 0" }}>
-              <div data-rv="mask" style={{ overflow: "hidden", aspectRatio: "4/5", background: "var(--iw-surface)" }}>
-                <img className="iw-hover-9" src="https://www.ptaufiqphotography.com/wp-content/uploads/2025/08/ptaufiq-bride-groom-first-look-moment.jpg" alt="A bride and groom at their first look" loading="lazy" decoding="async" style={{ width: "100%", height: "100%", objectFit: "cover", transition: "transform .9s cubic-bezier(.2,.7,.1,1)" }} />
-              </div>
-              <figcaption style={{ paddingTop: "16px" }}>
-                <span style={{ display: "block", fontSize: "12px", fontWeight: "700", letterSpacing: ".16em", color: "var(--iw-stone)" }}>05
-                </span>
-                <span style={{ display: "block", marginTop: "6px", fontSize: "15px", lineHeight: "1.5", color: "var(--iw-parchment)" }}>A first look, before the guests
-                </span>
-              </figcaption>
-            </figure>
-            <figure style={{ flex: "0 0 clamp(130px,12%,180px)", margin: "clamp(16px,6vw,90px) 0 0" }}>
-              <div data-rv="mask" style={{ overflow: "hidden", aspectRatio: "1/1", background: "var(--iw-surface)" }}>
-                <img className="iw-hover-9" src="https://www.ptaufiqphotography.com/wp-content/uploads/2024/06/ptaufiq-indian-wedding-rajkot-India-ceremony-couple-portraits.jpg" alt="A couple’s ceremony portrait in Rajkot" loading="lazy" decoding="async" style={{ width: "100%", height: "100%", objectFit: "cover", transition: "transform .9s cubic-bezier(.2,.7,.1,1)" }} />
-              </div>
-              <figcaption style={{ paddingTop: "16px" }}>
-                <span style={{ display: "block", fontSize: "12px", fontWeight: "700", letterSpacing: ".16em", color: "var(--iw-stone)" }}>06
-                </span>
-                <span style={{ display: "block", marginTop: "6px", fontSize: "15px", lineHeight: "1.5", color: "var(--iw-parchment)" }}>Garlands that survive the varmala
-                </span>
-              </figcaption>
-            </figure>
-          </div>
-          <p style={{ margin: "40px 0 0", fontSize: "12px", lineHeight: "1.6", color: "var(--iw-stone)" }}>A few from the list. Yours will have its own. Photography: PTaufiq Photography.
-          </p>
-        </div>
-      </section>
-      <section id="advisor" data-screen-label="04 Your advisor" aria-labelledby="adv-h" style={{ scrollMarginTop: "72px", background: "rgba(18,14,11,.6)", padding: "clamp(104px,12vw,168px) 0 clamp(96px,11vw,150px)", borderTop: "1px solid var(--iw-line)" }}>
-        <div style={{ maxWidth: "1320px", margin: "0 auto", padding: "0 clamp(20px,4vw,56px)" }}>
-          <div style={{ display: "flex", flexWrap: "wrap", alignItems: "flex-end", justifyContent: "space-between", gap: "28px 72px" }}>
-            <div style={{ flex: "1.4 1 520px", minWidth: "0" }}>
-              <p data-rv="up" style={{ margin: "0", fontSize: "12px", fontWeight: "700", letterSpacing: ".16em", textTransform: "uppercase", color: "var(--iw-gold)" }}>{v.advOver}
-              </p>
-              <h2 id="adv-h" data-rv="up" data-rv-d="80" style={{ margin: "24px 0 0", fontFamily: "'Marcellus',serif", fontWeight: "400", fontSize: "clamp(36px,4.4vw,68px)", lineHeight: "1.07", letterSpacing: "-.01em", color: "var(--iw-ivory)", textWrap: "balance", maxWidth: "13em" }}>{"The friend who has been to every wedding. "}
-                <span style={{ color: "#A89C8F" }}>And noticed everything.
-                </span>
-              </h2>
-            </div>
-            <p data-rv="up" data-rv-d="140" style={{ flex: "0 1 450px", margin: "0", fontSize: "17px", lineHeight: "1.65", color: "var(--iw-sand)", textWrap: "pretty" }}>{v.advLede}
+            <p data-rv="up" data-rv-d="140" style={{ flex: "0 1 440px", margin: "0", fontSize: "17px", lineHeight: "1.65", color: "var(--iw-sand)", textWrap: "pretty" }}>Venues, photographers, décor studios and caterers, chosen the way you’d choose them: by how their work makes you feel. Enquire, compare and book without leaving your plan.
             </p>
           </div>
           <div style={{ display: "flex", flexWrap: "wrap", alignItems: "flex-start", gap: "48px clamp(40px,6vw,96px)", marginTop: "clamp(56px,7vw,96px)" }}>
-            <div style={{ flex: "1 1 300px", maxWidth: "440px" }}>
-              <div role="tablist" aria-label={v.advTabsLabel} aria-orientation="vertical" style={{ borderTop: "1px solid var(--iw-line-strong)" }}>
-                {arr(v.advTabs).map((a, $index) => (<Fragment key={$index}>
-                  <button className="iw-hover-b iw-focus-d" type="button" role="tab" id={a?.tid} aria-selected={a?.sel} aria-controls="adv-panel" onClick={a?.on} style={sx(`appearance:none;position:relative;width:100%;display:flex;align-items:baseline;gap:18px;padding:20px 0;background:none;border:0;border-bottom:1px solid var(--iw-line-strong);text-align:left;cursor:pointer;color:${a?.color ?? ""};outline:none;transition:color .25s ease,background-color .25s ease`)}>
-                    <span aria-hidden="true" style={sx(`position:absolute;left:0;bottom:-1px;height:1px;width:${a?.lineW ?? ""};background:var(--iw-gold);transition:width .6s cubic-bezier(.2,.7,.1,1)`)} />{" "}
-                    <span style={{ flex: "0 0 26px", fontFamily: "'Nunito Sans',sans-serif", fontSize: "12px", fontWeight: "700", letterSpacing: ".14em", color: "var(--iw-gold)" }}>{a?.no}
-                    </span>{" "}
-                    <span style={{ flex: "1", minWidth: "0" }}>
-                      <span style={{ display: "block", fontFamily: "'Marcellus',serif", fontSize: "clamp(24px,2.4vw,34px)", lineHeight: "1.12" }}>{a?.label}
-                      </span>
-                      <span style={{ display: "block", marginTop: "6px", fontFamily: "'Nunito Sans',sans-serif", fontSize: "13px", lineHeight: "1.5", color: "var(--iw-stone)" }}>{a?.sub}
-                      </span>
-                    </span>{" "}
-                    <span aria-hidden="true" style={sx(`font-size:20px;color:var(--iw-gold);opacity:${a?.arrow ?? ""};transition:opacity .25s ease`)}>→
-                    </span>
-                  </button>
-                </Fragment>))}
-              </div>
-              <p style={{ margin: "24px 0 0", maxWidth: "30em", fontSize: "15px", lineHeight: "1.6", color: "var(--iw-sand)", textWrap: "pretty" }}>{v.advTrust}
-              </p>
-            </div>
-            <div id="adv-panel" role="tabpanel" aria-labelledby={v.advLabelledBy} style={{ flex: "1.6 1 520px", minWidth: "0", background: "var(--iw-ink)", border: "1px solid var(--iw-line-strong)", borderRadius: "6px", overflow: "hidden" }}>
-              <div style={{ position: "relative", aspectRatio: "16/7", overflow: "hidden", background: "var(--iw-surface)" }}>
-                <img src={v.advImg} alt={v.advAlt} loading="lazy" decoding="async" style={{ width: "100%", height: "100%", objectFit: "cover" }} />{" "}
-                <span style={{ position: "absolute", inset: "0", background: "linear-gradient(180deg,rgba(12,9,7,0) 45%,rgba(12,9,7,.9) 100%)" }} />
-              </div>
-              <div aria-live="polite" style={{ padding: "clamp(22px,2.6vw,36px)" }}>
-                <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: "16px" }}>
-                  <span style={{ display: "flex", alignItems: "center", gap: "10px" }}>
-                    <span aria-hidden="true" style={{ flex: "0 0 22px", width: "22px", height: "22px", borderRadius: "50%", background: "conic-gradient(from 200deg,var(--iw-gold),#F0DDB3,#A9864C,var(--iw-gold))", display: "grid", placeItems: "center" }}>
-                      <span style={{ width: "8px", height: "8px", borderRadius: "50%", background: "var(--iw-ink)" }} />
-                    </span>
-                    <span style={{ fontSize: "12px", fontWeight: "700", letterSpacing: ".15em", textTransform: "uppercase", color: "var(--iw-gold-light)" }}>{v.advCard}
-                    </span>
+            <div role="tablist" aria-label="Vendor categories" aria-orientation="vertical" style={{ flex: "1 1 300px", maxWidth: "440px", borderTop: "1px solid var(--iw-line-strong)" }}>
+              {arr(v.cats).map((c, $index) => (<Fragment key={$index}>
+                <button className="iw-hover-b iw-focus-1" type="button" role="tab" aria-selected={c?.sel} aria-controls="vd-grid" onClick={c?.on} style={sx(`appearance:none;width:100%;display:flex;align-items:baseline;gap:18px;padding:18px 0;background:none;border:0;border-bottom:1px solid var(--iw-line-strong);text-align:left;cursor:pointer;color:${c?.color ?? ""};transition:color .25s ease`)}>
+                  <span style={{ flex: "0 0 26px", fontFamily: "'Nunito Sans',sans-serif", fontSize: "12px", fontWeight: "700", letterSpacing: ".14em", color: "var(--iw-gold)" }}>{c?.no}
                   </span>{" "}
-                  <span style={{ fontSize: "12px", color: "var(--iw-stone)" }}>Sample
-                  </span>
-                </div>
-                <p style={{ margin: "18px 0 0", fontFamily: "'Marcellus',serif", fontSize: "clamp(26px,2.4vw,34px)", lineHeight: "1.15", color: "var(--iw-ivory)", textWrap: "balance" }}>{v.advHead}
-                </p>
-                <p style={{ margin: "14px 0 0", maxWidth: "38em", fontSize: "16px", lineHeight: "1.65", color: "var(--iw-sand)", textWrap: "pretty" }}>{v.advBody}
-                </p>
-                <div style={{ marginTop: "22px", borderTop: "1px solid var(--iw-line-strong)" }}>
-                  {arr(v.advRows).map((r, $index) => (<Fragment key={$index}>
-                    <div style={{ display: "flex", flexWrap: "wrap", justifyContent: "space-between", alignItems: "baseline", gap: "4px 24px", padding: "13px 0", borderBottom: "1px solid var(--iw-line)" }}>
-                      <span style={{ fontSize: "12px", fontWeight: "700", letterSpacing: ".12em", textTransform: "uppercase", color: "var(--iw-stone)" }}>{r?.k}
-                      </span>
-                      <span style={{ fontSize: "15px", lineHeight: "1.5", color: "var(--iw-parchment)" }}>{r?.v}
-                      </span>
-                    </div>
-                  </Fragment>))}
-                </div>
-                {v.advHasFoot ? (<>
-                  <p style={{ margin: "12px 0 0", fontSize: "13px", color: "var(--iw-sand)" }}>{v.advFoot}
-                  </p>
-                </>) : null}{" "}
-                {v.advWhyOpen ? (<>
-                  <div style={{ marginTop: "20px", padding: "16px 18px", background: "var(--iw-surface)" }}>
-                    <p style={{ margin: "0", fontSize: "12px", fontWeight: "700", letterSpacing: ".15em", textTransform: "uppercase", color: "var(--iw-stone)" }}>Why it said this
-                    </p>
-                    <p style={{ margin: "8px 0 0", fontSize: "14px", lineHeight: "1.6", color: "var(--iw-sand)", textWrap: "pretty" }}>{v.advWhy}
-                    </p>
-                  </div>
-                </>) : null}{" "}
-                {v.advPending ? (<>
-                  <div style={{ display: "flex", flexWrap: "wrap", alignItems: "center", gap: "8px 28px", marginTop: "24px" }}>
-                    <button className="iw-hover-c iw-focus-a" type="button" onClick={v.advTake} style={{ appearance: "none", display: "inline-flex", alignItems: "center", minHeight: "48px", padding: "0 22px", background: "transparent", border: "1px solid var(--iw-gold)", borderRadius: "2px", color: "var(--iw-ivory)", fontFamily: "'Nunito Sans',sans-serif", fontSize: "14px", fontWeight: "700", letterSpacing: ".03em", cursor: "pointer", transition: "background-color .25s ease,color .25s ease" }}>{v.advYes}
-                    </button>{" "}
-                    <button className="iw-hover-b iw-focus-a" type="button" onClick={v.advSkip} style={{ appearance: "none", display: "inline-flex", alignItems: "center", minHeight: "48px", padding: "0", background: "none", border: "0", color: "var(--iw-sand)", fontFamily: "'Nunito Sans',sans-serif", fontSize: "14px", fontWeight: "700", cursor: "pointer", transition: "color .2s ease" }}>{v.advNo}
-                    </button>{" "}
-                    <button className="iw-hover-b iw-focus-a" type="button" onClick={v.advWhyToggle} aria-expanded={v.advWhyExp} style={{ appearance: "none", display: "inline-flex", alignItems: "center", minHeight: "48px", padding: "0", background: "none", border: "0", color: "var(--iw-sand)", textDecoration: "underline", textUnderlineOffset: "5px", textDecorationColor: "#5A4D42", fontFamily: "'Nunito Sans',sans-serif", fontSize: "14px", fontWeight: "700", cursor: "pointer", transition: "color .2s ease" }}>{v.advWhyLabel}
-                    </button>
-                  </div>
-                </>) : null}{" "}
-                {v.advSettled ? (<>
-                  <div style={{ display: "flex", flexWrap: "wrap", alignItems: "center", justifyContent: "space-between", gap: "4px 24px", marginTop: "24px", paddingTop: "12px", borderTop: "1px solid var(--iw-line-strong)" }}>
-                    <span style={{ flex: "1 1 300px", display: "flex", alignItems: "flex-start", gap: "10px", fontSize: "14px", lineHeight: "1.55", color: "var(--iw-parchment)" }}>
-                      {v.advTaken ? (<>
-                        <svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true" style={{ flex: "0 0 16px", marginTop: "3px" }}>
-                          <path d="M3 8.5l3.2 3L13 4.5" fill="none" stroke="#C9A96E" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
-                        </svg>
-                      </>) : null}{" "}
-                      <span>{v.advResult}
-                      </span>
-                    </span>{" "}
-                    <button className="iw-hover-b iw-focus-a" type="button" onClick={v.advUndo} style={{ appearance: "none", display: "inline-flex", alignItems: "center", minHeight: "48px", padding: "0", background: "none", border: "0", color: "var(--iw-sand)", fontFamily: "'Nunito Sans',sans-serif", fontSize: "14px", fontWeight: "700", cursor: "pointer", transition: "color .2s ease" }}>Undo
-                    </button>
-                  </div>
-                </>) : null}
-              </div>
-            </div>
-          </div>
-          <p style={{ margin: "28px 0 0", fontSize: "12px", lineHeight: "1.6", color: "var(--iw-stone)" }}>{v.advSample}{" Photography: PTaufiq Photography."}
-          </p>
-        </div>
-      </section>
-      <section id="noor" data-screen-label="04b Noor at work" aria-labelledby="nw-h" style={{ scrollMarginTop: "72px", padding: "clamp(104px,12vw,168px) 0 clamp(96px,11vw,150px)", borderTop: "1px solid var(--iw-line)" }}>
-        <div style={{ maxWidth: "1320px", margin: "0 auto", padding: "0 clamp(20px,4vw,56px)" }}>
-          <div onPointerMove={v.orbMove} onPointerLeave={v.orbLeave} style={{ display: "flex", flexWrap: "wrap", alignItems: "center", gap: "32px clamp(40px,6vw,96px)" }}>
-            <div data-rv="up" style={{ flex: "0 0 clamp(220px,28vw,380px)", maxWidth: "100%", margin: "0 auto" }}>
-              <canvas ref={v.orbRef} aria-hidden="true" style={{ display: "block", width: "100%", aspectRatio: "1" }} />
-            </div>
-            <div style={{ flex: "1 1 440px", minWidth: "0" }}>
-              <p data-rv="up" style={{ margin: "0", fontSize: "12px", fontWeight: "700", letterSpacing: ".16em", textTransform: "uppercase", color: "var(--iw-gold)" }}>Noor means light
-              </p>
-              <h2 id="nw-h" data-rv="up" data-rv-d="80" style={{ margin: "24px 0 0", fontFamily: "'Marcellus',serif", fontWeight: "400", fontSize: "clamp(36px,4.4vw,64px)", lineHeight: "1.07", letterSpacing: "-.01em", color: "var(--iw-ivory)", textWrap: "balance", maxWidth: "14em" }}>{"Not a chat window off to the side. "}
-                <span style={{ color: "#A89C8F" }}>Noor works inside your whole plan.
-                </span>
-              </h2>
-              <p data-rv="up" data-rv-d="140" style={{ margin: "24px 0 0", maxWidth: "34em", fontSize: "17px", lineHeight: "1.65", color: "var(--iw-sand)", textWrap: "pretty" }}>It reads your plan as it grows and shows you what you couldn’t see yet: in your budget, on your website, in your photographs and on the day itself. Here it is at work.
-              </p>
-            </div>
-          </div>
-          <div style={{ display: "flex", flexWrap: "wrap", alignItems: "flex-start", gap: "32px clamp(40px,5vw,80px)", marginTop: "clamp(64px,8vw,112px)" }}>
-            <div style={{ flex: "1 1 280px", maxWidth: "420px", display: "flex", flexDirection: "column" }}>
-              <div role="tablist" aria-label="Noor at work" style={sx(v.nwRailStyle)}>
-                {arr(v.nwTabs).map((t, $index) => (<Fragment key={$index}>
-                  <button className="iw-hover-b iw-focus-d" type="button" role="tab" id={t?.tid} aria-selected={t?.sel} aria-controls="nw-panel" onClick={t?.on} style={sx(t?.style)}>
-                    <span aria-hidden="true" style={sx(t?.lineStyle)} />{" "}
-                    <span style={{ flex: "0 0 26px", fontSize: "12px", fontWeight: "700", letterSpacing: ".14em", color: "var(--iw-gold)" }}>{t?.no}
-                    </span>{" "}
-                    <span style={{ flex: "1", minWidth: "0" }}>
-                      <span style={{ display: "block", fontFamily: "'Marcellus',serif", fontSize: "clamp(20px,2.2vw,30px)", lineHeight: "1.12" }}>{t?.label}
-                      </span>
-                      <span style={sx(t?.subStyle)}>{t?.sub}
-                      </span>
-                    </span>
-                  </button>
-                </Fragment>))}
-              </div>
-              {v.nwCanPause ? (<>
-                <button className="iw-hover-b iw-focus-a" type="button" onClick={v.nwPauseToggle} aria-pressed={v.nwPausedA} style={{ appearance: "none", alignSelf: "flex-start", display: "inline-flex", alignItems: "center", minHeight: "44px", marginTop: "14px", padding: "0", background: "none", border: "0", color: "var(--iw-sand)", fontFamily: "'Nunito Sans',sans-serif", fontSize: "13px", fontWeight: "700", textDecoration: "underline", textUnderlineOffset: "5px", textDecorationColor: "#5A4D42", cursor: "pointer", transition: "color .2s ease" }}>{v.nwPauseLabel}
-                </button>
-              </>) : null}
-            </div>
-            <div id="nw-panel" ref={v.nwStageRef} role="tabpanel" aria-labelledby={v.nwLabelledBy} style={{ flex: "1.7 1 540px", minWidth: "0", display: "flex", flexDirection: "column", background: "var(--iw-ink)", border: "1px solid var(--iw-line-strong)", borderRadius: "6px", overflow: "hidden" }}>
-              <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: "16px", minHeight: "56px", padding: "0 clamp(18px,2.2vw,28px)", borderBottom: "1px solid var(--iw-line)" }}>
-                <span style={{ display: "flex", alignItems: "center", gap: "12px", minWidth: "0" }}>
-                  <span aria-hidden="true" style={sx(v.nwSigStyle)}>
-                    <span style={{ width: "8px", height: "8px", borderRadius: "50%", background: "var(--iw-ink)" }} />
+                  <span style={{ flex: "1", fontFamily: "'Marcellus',serif", fontSize: "clamp(28px,3.2vw,46px)", lineHeight: "1.1" }}>{c?.label}
                   </span>{" "}
-                  <span aria-live="polite" style={{ minWidth: "0", fontSize: "12px", fontWeight: "700", letterSpacing: ".14em", textTransform: "uppercase", color: "var(--iw-gold-light)", whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>{v.nwStatus}
+                  <span aria-hidden="true" style={sx(`font-size:20px;color:var(--iw-gold);opacity:${c?.arrow ?? ""};transition:opacity .25s ease`)}>→
                   </span>
-                </span>{" "}
-                <span style={{ flex: "none", fontSize: "12px", color: "var(--iw-stone)" }}>Sample
-                </span>
-              </div>
-              <div style={sx(v.nwBodyStyle)}>
-                {v.nwIsBudget ? (<>
-                  <div data-nwa="1" style={{ display: "flex", flexDirection: "column", flex: "1", minWidth: "0", animation: "nwin .6s cubic-bezier(.2,.7,.1,1) both" }}>
-                    <div style={{ display: "flex", flexWrap: "wrap", alignItems: "baseline", justifyContent: "space-between", gap: "6px 20px" }}>
-                      <p style={{ margin: "0", fontFamily: "'Marcellus',serif", fontSize: "clamp(24px,2.2vw,30px)", color: "var(--iw-ivory)" }}>Budget · ₹85L
-                      </p>
-                      <p style={{ margin: "0", fontSize: "13px", color: "var(--iw-stone)" }}>Lakeside mandap · 250 guests
-                      </p>
-                    </div>
-                    <div style={{ position: "relative", marginTop: "20px", borderTop: "1px solid var(--iw-line-strong)", overflow: "hidden" }}>
-                      <span aria-hidden="true" style={sx(v.nwScanStyle)} />{" "}
-                      {arr(v.nwBudget).map((r, $index) => (<Fragment key={$index}>
-                        <div style={sx(r?.rowStyle)}>
-                          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "baseline", gap: "12px" }}>
-                            <span style={sx(r?.kStyle)}>{r?.k}
-                            </span>{" "}
-                            <span style={{ display: "flex", alignItems: "baseline", gap: "8px", fontVariantNumeric: "tabular-nums", whiteSpace: "nowrap" }}>
-                              <span style={sx(r?.fromStyle)}>{r?.from}
-                              </span>
-                              <span style={sx(r?.toStyle)}>{r?.to}
-                              </span>
-                            </span>
-                          </div>
-                          <div style={{ height: "4px", marginTop: "10px", background: "var(--iw-line)" }}>
-                            <span style={sx(r?.barStyle)} />
-                          </div>
-                        </div>
-                      </Fragment>))}
-                    </div>
-                    <div style={sx(v.nwNoteStyle)}>
-                      <span aria-hidden="true" style={{ flex: "0 0 22px", width: "22px", height: "22px", borderRadius: "50%", background: "conic-gradient(from 200deg,var(--iw-gold),#F0DDB3,#A9864C,var(--iw-gold))", display: "grid", placeItems: "center" }}>
-                        <span style={{ width: "8px", height: "8px", borderRadius: "50%", background: "var(--iw-ink)" }} />
-                      </span>
-                      <p style={{ margin: "0", fontSize: "15px", lineHeight: "1.6", color: "var(--iw-parchment)" }}>
-                        {arr(v.nwBudgetWords).map((w, $index) => (<Fragment key={$index}>
-                          <span style={sx(w?.s)}>{w?.w}
-                          </span>
-                        </Fragment>))}
-                      </p>
-                    </div>
-                    <div style={sx(v.nwBudDone)}>
-                      <svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true" style={{ flex: "0 0 16px", marginTop: "3px" }}>
-                        <path d="M3 8.5l3.2 3L13 4.5" fill="none" stroke="#C9A96E" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
-                      </svg>
-                      <span>Your total stays at ₹85L. Your old budget is saved, and nothing changes unless you keep it.
-                      </span>
-                    </div>
-                  </div>
-                </>) : null}{" "}
-                {v.nwIsSite ? (<>
-                  <div data-nwa="1" style={{ display: "flex", flexDirection: "column", flex: "1", minWidth: "0", animation: "nwin .6s cubic-bezier(.2,.7,.1,1) both" }}>
-                    <div style={{ display: "flex", alignItems: "center", gap: "10px", minHeight: "40px", padding: "0 14px", border: "1px solid var(--iw-line-strong)", borderRadius: "2px", fontSize: "13px", color: "var(--iw-sand)" }}>
-                      <span style={{ flex: "0 0 7px", width: "7px", height: "7px", borderRadius: "50%", background: "#6FAE93" }} />{" "}
-                      <span style={{ minWidth: "0", whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>anika-and-rohan.indianweddings.com
-                      </span>{" "}
-                      <span style={{ marginLeft: "auto", flex: "none", fontSize: "12px", color: "var(--iw-stone)", fontVariantNumeric: "tabular-nums" }}>{v.nwSiteCount}
-                      </span>
-                    </div>
-                    <div style={{ display: "flex", flexDirection: "column", gap: "8px", marginTop: "14px" }}>
-                      {arr(v.nwPages).map((p, $index) => (<Fragment key={$index}>
-                        <div style={sx(p?.style)}>
-                          {p?.band ? (<>
-                            <span aria-hidden="true" style={{ position: "absolute", left: "0", right: "0", top: "0", height: "8px", background: "linear-gradient(135deg,transparent 50%,#F4E6D3 50%) 0 0/12px 8px,repeating-linear-gradient(90deg,#E0457B 0 24px,#F2A93B 24px 48px,#1FA39A 48px 72px,#7C4DBA 72px 96px)" }} />
-                          </>) : null}{" "}
-                          <span aria-hidden="true" style={sx(p?.patStyle)} />{" "}
-                          <span style={{ position: "relative", minWidth: "0" }}>
-                            <span style={sx(p?.whenStyle)}>{p?.when}
-                            </span>
-                            <span style={sx(p?.titleStyle)}>{p?.title}
-                            </span>
-                          </span>{" "}
-                          <span style={{ position: "relative", flex: "none", width: "52px", height: "52px", overflow: "hidden", borderRadius: "2px" }}>
-                            <img src={p?.img} alt="" style={sx(p?.imgStyle)} />
-                          </span>{" "}
-                          <span aria-hidden="true" style={sx(p?.shimStyle)} />
-                        </div>
-                      </Fragment>))}
-                    </div>
-                    <div style={sx(v.nwSiteDone)}>
-                      <svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true" style={{ flex: "0 0 16px", marginTop: "3px" }}>
-                        <path d="M3 8.5l3.2 3L13 4.5" fill="none" stroke="#C9A96E" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
-                      </svg>
-                      <span>A page and a look for every event, from your list. Change any theme, word or photograph.
-                      </span>
-                    </div>
-                  </div>
-                </>) : null}{" "}
-                {v.nwIsPortraits ? (<>
-                  <div data-nwa="1" style={{ display: "flex", flexDirection: "column", flex: "1", minWidth: "0", animation: "nwin .6s cubic-bezier(.2,.7,.1,1) both" }}>
-                    <div style={{ display: "flex", gap: "clamp(16px,2.4vw,32px)", alignItems: "flex-start" }}>
-                      <div style={{ flex: "none", display: "flex", flexDirection: "column", gap: "10px" }}>
-                        <p style={{ margin: "0", fontSize: "12px", fontWeight: "700", letterSpacing: ".14em", textTransform: "uppercase", color: "var(--iw-stone)" }}>Your photos
-                        </p>
-                        {arr(v.nwSrc).map((p, $index) => (<Fragment key={$index}>
-                          <span style={sx(p?.style)}>
-                            <img src={p?.img} alt="" style={{ width: "100%", height: "100%", objectFit: "cover" }} />
-                          </span>
-                        </Fragment>))}
-                      </div>
-                      <div style={{ flex: "1", minWidth: "0", display: "flex", flexDirection: "column", alignItems: "center" }}>
-                        <div style={{ position: "relative", height: "clamp(280px,26vw,340px)", aspectRatio: "3/4", maxWidth: "100%", overflow: "hidden", borderRadius: "2px", background: "var(--iw-surface)" }}>
-                          <div style={sx(v.nwPosterStyle)}>
-                            <img src="/assets/website/poster-film.jpg" alt="" style={sx(v.nwPImgA)} />{" "}
-                            <img src="/assets/website/poster-haldi.jpg" alt="" style={sx(v.nwPImgB)} />{" "}
-                            <span aria-hidden="true" style={sx(v.nwPFrame)} />{" "}
-                            <span style={sx(v.nwPCapA)}>
-                              <span style={{ display: "block", fontFamily: "'Marcellus',serif", fontSize: "24px", lineHeight: "1.05" }}>{"Anika & Rohan"}
-                              </span>
-                              <span style={{ display: "block", marginTop: "6px", fontSize: "10px", letterSpacing: ".16em", textTransform: "uppercase" }}>Now showing · Cancún
-                              </span>
-                            </span>{" "}
-                            <span style={sx(v.nwPCapB)}>
-                              <span style={{ display: "block", fontFamily: "'Marcellus',serif", fontSize: "22px", lineHeight: "1.05" }}>The Great Haldi Tug of War
-                              </span>
-                              <span style={{ display: "block", marginTop: "6px", fontSize: "10px", letterSpacing: ".16em", textTransform: "uppercase" }}>Team Bride vs Team Groom
-                              </span>
-                            </span>{" "}
-                            <span style={sx(v.nwPTag)}>Made by Noor
-                            </span>
-                          </div>
-                        </div>
-                        <div style={{ display: "flex", flexWrap: "wrap", justifyContent: "center", gap: "2px 18px", marginTop: "14px" }}>
-                          {arr(v.nwStyles).map((x, $index) => (<Fragment key={$index}>
-                            <span style={sx(x?.style)}>{x?.label}
-                            </span>
-                          </Fragment>))}
-                        </div>
-                      </div>
-                    </div>
-                    <p style={{ margin: "auto 0 0", paddingTop: "16px", fontSize: "13px", lineHeight: "1.55", color: "var(--iw-stone)" }}>Made only from photographs you both approve. They stay private to your account.
-                    </p>
-                  </div>
-                </>) : null}{" "}
-                {v.nwIsDay ? (<>
-                  <div data-nwa="1" style={{ display: "flex", flexDirection: "column", flex: "1", minWidth: "0", animation: "nwin .6s cubic-bezier(.2,.7,.1,1) both" }}>
-                    <div style={{ display: "flex", flexWrap: "wrap", alignItems: "baseline", justifyContent: "space-between", gap: "6px 20px" }}>
-                      <p style={{ margin: "0", fontFamily: "'Marcellus',serif", fontSize: "clamp(24px,2.2vw,30px)", color: "var(--iw-ivory)" }}>Sangeet · tonight
-                      </p>
-                      <p style={{ display: "flex", alignItems: "center", gap: "8px", margin: "0", fontSize: "12px", fontWeight: "700", letterSpacing: ".15em", textTransform: "uppercase", color: "#6FAE93" }}>
-                        <span data-nwa="1" style={{ width: "8px", height: "8px", borderRadius: "50%", background: "#6FAE93", animation: "nwpulse 1.8s ease-in-out infinite" }} />Live
-                      </p>
-                    </div>
-                    <div style={{ marginTop: "16px", borderTop: "1px solid var(--iw-line-strong)" }}>
-                      {arr(v.nwRun).map((r, $index) => (<Fragment key={$index}>
-                        <div style={{ display: "grid", gridTemplateColumns: "112px minmax(0,1fr)", gap: "14px", padding: "12px 0", borderBottom: "1px solid var(--iw-line)" }}>
-                          <span style={{ fontSize: "15px", fontVariantNumeric: "tabular-nums", whiteSpace: "nowrap" }}>
-                            <span style={sx(r?.oldStyle)}>{r?.t}
-                            </span>
-                            <span style={sx(r?.newStyle)}>{r?.nt}
-                            </span>
-                          </span>{" "}
-                          <span style={{ minWidth: "0" }}>
-                            <span style={{ display: "block", fontSize: "15px", lineHeight: "1.45", color: "var(--iw-parchment)" }}>{r?.what}
-                            </span>
-                            <span style={sx(r?.flagStyle)}>{r?.flag}
-                            </span>
-                          </span>
-                        </div>
-                      </Fragment>))}
-                    </div>
-                    <div style={sx(v.nwAlertStyle)}>
-                      <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
-                        <span aria-hidden="true" style={{ flex: "0 0 18px", width: "18px", height: "18px", borderRadius: "50%", background: "conic-gradient(from 200deg,var(--iw-gold),#F0DDB3,#A9864C,var(--iw-gold))", display: "grid", placeItems: "center" }}>
-                          <span style={{ width: "6px", height: "6px", borderRadius: "50%", background: "var(--iw-ink)" }} />
-                        </span>
-                        <span style={{ fontSize: "12px", fontWeight: "700", letterSpacing: ".14em", textTransform: "uppercase", color: "var(--iw-gold-light)" }}>Noor’s draft · to 240 guests
-                        </span>
-                      </div>
-                      <p style={{ margin: "10px 0 0", fontSize: "15px", lineHeight: "1.6", color: "var(--iw-parchment)" }}>
-                        {arr(v.nwAlertWords).map((w, $index) => (<Fragment key={$index}>
-                          <span style={sx(w?.s)}>{w?.w}
-                          </span>
-                        </Fragment>))}
-                      </p>
-                      <div style={{ display: "flex", flexWrap: "wrap", alignItems: "center", gap: "8px 18px", marginTop: "14px" }}>
-                        <span style={sx(v.nwSendStyle)}>{v.nwSendLabel}
-                        </span>{" "}
-                        <span style={sx(v.nwReadStyle)}>212 of 240 read · shuttles unchanged
-                        </span>
-                      </div>
-                    </div>
-                  </div>
-                </>) : null}
-              </div>
-            </div>
-          </div>
-          <div style={{ display: "flex", flexWrap: "wrap", alignItems: "stretch", gap: "40px clamp(40px,5vw,80px)", marginTop: "clamp(80px,9vw,128px)", paddingTop: "clamp(40px,5vw,64px)", borderTop: "1px solid var(--iw-line-strong)" }}>
-            <div style={{ flex: "1 1 380px", minWidth: "0", maxWidth: "560px" }}>
-              <p data-rv="up" style={{ margin: "0", fontSize: "12px", fontWeight: "700", letterSpacing: ".16em", textTransform: "uppercase", color: "var(--iw-gold)" }}>Try it
-              </p>
-              <h3 data-rv="up" data-rv-d="80" style={{ margin: "18px 0 0", fontFamily: "'Marcellus',serif", fontWeight: "400", fontSize: "clamp(30px,3vw,44px)", lineHeight: "1.1", color: "var(--iw-ivory)", textWrap: "balance" }}>Ask what you’d ask a friend who knows.
-              </h3>
-              <div style={{ marginTop: "28px", borderTop: "1px solid var(--iw-line-strong)" }}>
-                {arr(v.askOpts).map((o, $index) => (<Fragment key={$index}>
-                  <button className="iw-hover-b iw-focus-a" type="button" onClick={o?.on} aria-pressed={o?.pressed} style={sx(o?.style)}>
-                    <span>{o?.q}
-                    </span>
-                    <span aria-hidden="true" style={sx(o?.arrowStyle)}>→
-                    </span>
-                  </button>
-                </Fragment>))}
-              </div>
-              <form onSubmit={v.askSubmit} style={{ display: "flex", gap: "8px", marginTop: "20px" }}>
-                <input className="iw-focus-e" type="text" value={v.askText ?? ""} onChange={v.askSet} placeholder="Or ask your own question" aria-label="Ask Noor a question" maxLength={160} enterKeyHint="send" style={{ flex: "1", minWidth: "0", minHeight: "52px", padding: "0 16px", background: "var(--iw-field)", border: "1px solid var(--iw-line-strong)", borderRadius: "2px", color: "var(--iw-ivory)", fontFamily: "'Nunito Sans',sans-serif", fontSize: "16px", outline: "none", transition: "border-color .2s ease" }} />{" "}
-                <button className="iw-hover-c iw-focus-a" type="submit" style={{ appearance: "none", flex: "none", minHeight: "52px", padding: "0 22px", background: "transparent", border: "1px solid var(--iw-gold)", borderRadius: "2px", color: "var(--iw-ivory)", fontFamily: "'Nunito Sans',sans-serif", fontSize: "14px", fontWeight: "700", letterSpacing: ".03em", cursor: "pointer", transition: "background-color .25s ease,color .25s ease" }}>Ask Noor
                 </button>
-              </form>
-            </div>
-            <div aria-live="polite" style={{ flex: "1.3 1 440px", minWidth: "0", minHeight: "380px", display: "flex", flexDirection: "column", padding: "clamp(22px,2.6vw,36px)", background: "var(--iw-ink)", border: "1px solid var(--iw-line-strong)", borderRadius: "6px" }}>
-              {v.askEmpty ? (<>
-                <div style={{ flex: "1", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", gap: "18px", textAlign: "center" }}>
-                  <span data-nwa="1" style={{ display: "grid", animation: "nwbreathe 3.6s ease-in-out infinite" }}>
-                    <span aria-hidden="true" style={{ flex: "0 0 44px", width: "44px", height: "44px", borderRadius: "50%", background: "conic-gradient(from 200deg,var(--iw-gold),#F0DDB3,#A9864C,var(--iw-gold))", display: "grid", placeItems: "center" }}>
-                      <span style={{ width: "16px", height: "16px", borderRadius: "50%", background: "var(--iw-ink)" }} />
-                    </span>
-                  </span>
-                  <p style={{ margin: "0", maxWidth: "22em", fontSize: "15px", lineHeight: "1.6", color: "var(--iw-stone)", textWrap: "pretty" }}>Pick a question, or ask your own. Noor answers the way a friend who has planned a thousand weddings would.
-                  </p>
-                </div>
-              </>) : null}{" "}
-              {v.askHas ? (<>
-                <p style={{ margin: "0", fontSize: "12px", fontWeight: "700", letterSpacing: ".14em", textTransform: "uppercase", color: "var(--iw-stone)" }}>You asked
-                </p>
-                <p style={{ margin: "8px 0 0", fontSize: "16px", lineHeight: "1.5", color: "var(--iw-sand)", overflowWrap: "anywhere" }}>{v.askQ}
-                </p>
-                <div style={{ display: "flex", gap: "14px", marginTop: "20px", paddingTop: "20px", borderTop: "1px solid var(--iw-line)" }}>
-                  <span aria-hidden="true" style={sx(v.askSigStyle)}>
-                    <span style={{ width: "9px", height: "9px", borderRadius: "50%", background: "var(--iw-ink)" }} />
-                  </span>
-                  <div style={{ flex: "1", minWidth: "0" }}>
-                    {v.askThinking ? (<>
-                      <p style={{ display: "flex", alignItems: "center", gap: "6px", margin: "0", minHeight: "26px", fontSize: "13px", color: "var(--iw-stone)" }}>
-                        <span data-nwa="1" style={{ width: "6px", height: "6px", borderRadius: "50%", background: "var(--iw-gold)", animation: "nwdot 1.2s ease-in-out infinite" }} />
-                        <span data-nwa="1" style={{ width: "6px", height: "6px", borderRadius: "50%", background: "var(--iw-gold)", animation: "nwdot 1.2s ease-in-out .15s infinite" }} />
-                        <span data-nwa="1" style={{ width: "6px", height: "6px", borderRadius: "50%", background: "var(--iw-gold)", animation: "nwdot 1.2s ease-in-out .3s infinite" }} />
-                        <span style={{ marginLeft: "6px" }}>Noor is thinking
-                        </span>
-                      </p>
-                    </>) : null}
-                    <p style={{ margin: "0", fontSize: "17px", lineHeight: "1.6", color: "var(--iw-parchment)" }}>
-                      {arr(v.askWords).map((w, $index) => (<Fragment key={$index}>
-                        <span style={sx(w?.s)}>{w?.w}
-                        </span>
-                      </Fragment>))}
-                    </p>
-                    {v.askHasRows ? (<>
-                      <div style={{ marginTop: "16px", borderTop: "1px solid var(--iw-line-strong)" }}>
-                        {arr(v.askRows).map((r, $index) => (<Fragment key={$index}>
-                          <div style={sx(r?.style)}>
-                            <span style={{ fontSize: "12px", fontWeight: "700", letterSpacing: ".12em", textTransform: "uppercase", color: "var(--iw-stone)" }}>{r?.k}
-                            </span>
-                            <span style={{ fontSize: "15px", lineHeight: "1.5", color: "var(--iw-parchment)" }}>{r?.v}
-                            </span>
-                          </div>
-                        </Fragment>))}
-                      </div>
-                    </>) : null}{" "}
-                    {v.askHasFoot ? (<>
-                      <p style={sx(v.askFootStyle)}>{v.askFoot}
-                      </p>
-                    </>) : null}{" "}
-                    {v.askIsFree ? (<>
-                      <a href={APP_URL} style={sx(v.askLinkStyle)}>Start planning with Noor
-                      </a>
-                    </>) : null}
-                  </div>
-                </div>
-              </>) : null}
-              <p style={{ margin: "auto 0 0", paddingTop: "20px", fontSize: "12px", lineHeight: "1.6", color: "var(--iw-stone)" }}>Sample answers. In the app, Noor answers from your own plan.
+              </Fragment>))}
+              <p style={{ margin: "20px 0 0", fontSize: "12px", lineHeight: "1.6", color: "var(--iw-stone)" }}>Sample listings from the IndianWeddings prototype, shown with PTaufiq Photography images. The names are not real vendors.
               </p>
             </div>
-          </div>
-          <div style={{ display: "flex", flexWrap: "wrap", alignItems: "center", gap: "16px 32px", marginTop: "clamp(56px,7vw,88px)" }}>
-            <a className="iw-hover-2 iw-active-3 iw-focus-4" href={APP_URL} style={{ display: "inline-flex", alignItems: "center", justifyContent: "center", minHeight: "56px", padding: "0 34px", background: "var(--iw-ivory)", color: "var(--iw-on-ivory)", fontSize: "15px", fontWeight: "700", letterSpacing: ".03em", textDecoration: "none", borderRadius: "2px", transition: "background-color .25s ease,transform .2s ease" }}>Start planning with Noor
-            </a>
-            <p style={{ flex: "1 1 300px", margin: "0", maxWidth: "34em", fontSize: "14px", lineHeight: "1.6", color: "var(--iw-stone)", textWrap: "pretty" }}>Noor comes with every IndianWeddings plan, on the web and in the app, from your first budget to the last song.
-            </p>
-          </div>
-        </div>
-      </section>
-      <section ref={v.showRef} data-screen-label="05 Showcase" aria-labelledby="show-h" style={sx(`--p:0;position:relative;height:${v.scH ?? ""};background:transparent;color:var(--iw-parchment);border-top:1px solid var(--iw-line)`)}>
-        <div style={sx(`position:${v.stPos ?? ""};top:0;height:${v.stH ?? ""};padding:${v.stPad ?? ""};overflow:hidden;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:clamp(22px,3.4vh,40px)`)}>
-          <div aria-hidden="true" style={{ position: "absolute", inset: "0", clipPath: "inset(calc(var(--p) * 6%) calc(var(--p) * 9%) round calc(var(--p) * 6px))", willChange: "clip-path" }}>
-            <img src="https://www.ptaufiqphotography.com/wp-content/uploads/2025/08/luxury-wedding-venue-photography-ptaufiq.jpg" alt="" loading="lazy" decoding="async" style={{ width: "100%", height: "100%", objectFit: "cover", transform: "scale(calc(1.1 - var(--p) * 0.1))" }} />
-            <div style={{ position: "absolute", inset: "0", background: "var(--iw-ink)", opacity: "calc(0.16 + var(--p) * 0.66)" }} />
-          </div>
-          <div style={sx(`position:absolute;inset:0;display:${v.textADisp ?? ""};align-items:center;justify-content:center;padding:0 24px;opacity:calc(1 - var(--p) * 3.2);transform:translateY(calc(var(--p) * -48px))`)}>
-            <p style={{ margin: "0", maxWidth: "13em", textAlign: "center", fontFamily: "'Marcellus',serif", fontSize: "clamp(38px,5.2vw,80px)", lineHeight: "1.06", color: "var(--iw-ivory)", textWrap: "balance" }}>It begins with how you want it to feel.
-            </p>
-          </div>
-          <div style={{ position: "relative", textAlign: "center", padding: "0 20px", opacity: "calc((var(--p) - 0.45) * 3)", transform: "translateY(calc((1 - var(--p)) * 32px))" }}>
-            <p style={{ margin: "0", fontSize: "12px", fontWeight: "700", letterSpacing: ".16em", textTransform: "uppercase", color: "var(--iw-gold)" }}>Your planning space
-            </p>
-            <h2 id="show-h" style={{ margin: "14px 0 0", fontFamily: "'Marcellus',serif", fontWeight: "400", fontSize: "clamp(30px,3.2vw,50px)", lineHeight: "1.1", color: "var(--iw-ivory)" }}>Then everything finds its place.
-            </h2>
-            <p style={{ margin: "14px auto 0", maxWidth: "34em", fontSize: "16px", lineHeight: "1.6", color: "var(--iw-sand)", textWrap: "pretty" }}>Your events, vendors, budget, guests and every decision between them, in one calm view that keeps up with you.
-            </p>
-          </div>
-          <div role="img" aria-label="Illustration of the IndianWeddings home screen for a sample wedding: four events, open decisions, a revised quote and the budget." style={sx(`position:relative;width:min(1120px,92vw);height:${v.frameH ?? ""};opacity:calc((var(--p) - 0.4) * 2.4);transform:translateY(calc((1 - var(--p)) * 80px)) scale(calc(0.965 + var(--p) * 0.035));background:var(--iw-ink);border:1px solid var(--iw-line-strong);border-radius:6px;overflow:hidden;display:flex;flex-direction:column;text-align:left`)}>
-            <div style={{ flex: "0 0 auto", height: "38px", display: "flex", alignItems: "center", justifyContent: "space-between", padding: "0 18px", borderBottom: "1px solid var(--iw-line)" }}>
-              <span style={{ fontSize: "12px", fontWeight: "700", letterSpacing: ".15em", textTransform: "uppercase", color: "var(--iw-stone)" }}>IndianWeddings · Home
-              </span>{" "}
-              <span style={{ fontSize: "12px", letterSpacing: ".04em", color: "var(--iw-stone)" }}>Illustrative · sample wedding
-              </span>
-            </div>
-            <div style={{ flex: "1", minHeight: "0", display: "flex" }}>
-              <div style={sx(`flex:0 0 190px;display:${v.railDisp ?? ""};flex-direction:column;gap:4px;padding:24px 18px;border-right:1px solid var(--iw-line)`)}>
-                <span style={{ display: "flex", fontFamily: "'Marcellus',serif", fontSize: "13px", letterSpacing: ".08em", color: "var(--iw-parchment)", marginBottom: "22px" }}>INDIAN
-                  <span style={{ color: "var(--iw-gold)" }}>WEDDINGS
-                  </span>
-                </span>{" "}
-                <span style={{ padding: "9px 0", fontSize: "13.5px", fontWeight: "700", color: "var(--iw-gold)" }}>Home
-                </span>{" "}
-                <span style={{ padding: "9px 0", fontSize: "13.5px", color: "var(--iw-sand)" }}>Plan
-                </span>{" "}
-                <span style={{ padding: "9px 0", fontSize: "13.5px", color: "var(--iw-sand)" }}>Vendors
-                </span>{" "}
-                <span style={{ padding: "9px 0", fontSize: "13.5px", color: "var(--iw-sand)" }}>Messages
-                </span>{" "}
-                <span style={{ padding: "9px 0", fontSize: "13.5px", color: "var(--iw-sand)" }}>Budget
-                </span>{" "}
-                <span style={{ padding: "9px 0", fontSize: "13.5px", color: "var(--iw-sand)" }}>Guests
-                </span>{" "}
-                <span style={{ padding: "9px 0", fontSize: "13.5px", color: "var(--iw-sand)" }}>Wedding website
-                </span>
-              </div>
-              <div style={{ flex: "1", minWidth: "0", padding: "clamp(20px,2.6vw,34px)", display: "flex", flexWrap: "wrap", gap: "clamp(24px,3vw,44px)", alignContent: "flex-start", overflow: "hidden" }}>
-                <div style={{ flex: "1.4 1 340px", minWidth: "0" }}>
-                  <p style={{ margin: "0", fontSize: "12px", fontWeight: "700", letterSpacing: ".15em", textTransform: "uppercase", color: "var(--iw-stone)" }}>Sample wedding · February 2027
-                  </p>
-                  <p style={{ margin: "10px 0 0", fontFamily: "'Marcellus',serif", fontSize: "clamp(24px,2.3vw,32px)", lineHeight: "1.15", color: "var(--iw-parchment)" }}>Good evening, Ananya
-                  </p>
-                  <div style={{ display: "flex", alignItems: "flex-start", gap: "12px", marginTop: "22px", padding: "16px 0", borderTop: "1px solid var(--iw-line-strong)", borderBottom: "1px solid var(--iw-line-strong)" }}>
-                    <span style={{ flex: "0 0 7px", height: "7px", marginTop: "6px", borderRadius: "50%", background: "#6FAE93" }} />{" "}
-                    <span style={{ fontSize: "14px", lineHeight: "1.5", color: "var(--iw-sand)" }}>
-                      <span style={{ color: "var(--iw-parchment)" }}>Vermilion Films sent a revised quote.
-                      </span>{" A second shooter is added for the sangeet."}
+            <div id="vd-grid" role="tabpanel" aria-label={v.catLabel} style={{ flex: "2 1 520px", minWidth: "0", display: "flex", alignItems: "flex-start", gap: "clamp(16px,2vw,24px)", overflowX: "auto", scrollSnapType: "x mandatory", scrollbarWidth: "none" }}>
+              {arr(v.vendors).map((v, $index) => (<Fragment key={$index}>
+                <Link className="iw-focus-h" to={v?.href} aria-label={v?.aria} style={sx(`flex:1 0 clamp(220px,31%,300px);min-width:0;display:block;margin-top:${v?.mt ?? ""};color:var(--iw-parchment);text-decoration:none;scroll-snap-align:start`)}>
+                  <span style={{ display: "block", overflow: "hidden", aspectRatio: "4/5", background: "var(--iw-surface)" }}>
+                    <img className="iw-hover-9" src={v?.img} alt={v?.alt} loading="lazy" decoding="async" style={{ width: "100%", height: "100%", objectFit: "cover", transition: "transform .9s cubic-bezier(.2,.7,.1,1)" }} />
+                  </span>{" "}
+                  <span style={{ display: "block", marginTop: "18px", fontSize: "12px", fontWeight: "700", letterSpacing: ".16em", textTransform: "uppercase", color: "var(--iw-stone)" }}>{v?.kind}
+                  </span>{" "}
+                  <span style={{ display: "block", marginTop: "8px", fontFamily: "'Marcellus',serif", fontSize: "24px", lineHeight: "1.12", color: "var(--iw-ivory)" }}>{v?.name}
+                  </span>{" "}
+                  <span style={{ display: "flex", justifyContent: "space-between", alignItems: "baseline", gap: "12px", marginTop: "10px", paddingTop: "12px", borderTop: "1px solid var(--iw-line-strong)" }}>
+                    <span style={{ fontSize: "15px", color: "var(--iw-sand)" }}>{v?.place}
                     </span>
-                  </div>
-                  <p style={{ margin: "24px 0 12px", fontSize: "12px", fontWeight: "700", letterSpacing: ".15em", textTransform: "uppercase", color: "var(--iw-stone)" }}>Your celebrations
-                  </p>
-                  <div style={{ display: "flex", flexWrap: "wrap", borderTop: "1px solid var(--iw-line-strong)" }}>
-                    <div style={{ flex: "1 1 120px", padding: "14px 14px 14px 0", borderBottom: "1px solid var(--iw-line)" }}>
-                      <span style={{ display: "block", fontFamily: "'Marcellus',serif", fontSize: "20px", color: "var(--iw-parchment)" }}>Mehendi
-                      </span>
-                      <span style={{ display: "block", marginTop: "4px", fontSize: "12px", color: "var(--iw-stone)" }}>Thu 11 Feb · Courtyard
-                      </span>
-                    </div>
-                    <div style={{ flex: "1 1 120px", padding: "14px 14px 14px 0", borderBottom: "1px solid var(--iw-line)" }}>
-                      <span style={{ display: "block", fontFamily: "'Marcellus',serif", fontSize: "20px", color: "var(--iw-parchment)" }}>Sangeet
-                      </span>
-                      <span style={{ display: "block", marginTop: "4px", fontSize: "12px", color: "var(--iw-stone)" }}>Fri 12 Feb · Lawns
-                      </span>
-                    </div>
-                    <div style={{ flex: "1 1 120px", padding: "14px 14px 14px 0", borderBottom: "1px solid var(--iw-line)" }}>
-                      <span style={{ display: "block", fontFamily: "'Marcellus',serif", fontSize: "20px", color: "var(--iw-parchment)" }}>Wedding
-                      </span>
-                      <span style={{ display: "block", marginTop: "4px", fontSize: "12px", color: "var(--iw-stone)" }}>Sat 13 Feb · Lakeside
-                      </span>
-                    </div>
-                    <div style={{ flex: "1 1 120px", padding: "14px 14px 14px 0", borderBottom: "1px solid var(--iw-line)" }}>
-                      <span style={{ display: "block", fontFamily: "'Marcellus',serif", fontSize: "20px", color: "var(--iw-parchment)" }}>Reception
-                      </span>
-                      <span style={{ display: "block", marginTop: "4px", fontSize: "12px", color: "var(--iw-stone)" }}>Sun 14 Feb · Ballroom
-                      </span>
-                    </div>
-                  </div>
-                </div>
-                <div style={{ flex: "1 1 280px", minWidth: "0" }}>
-                  <p style={{ margin: "0 0 12px", fontSize: "12px", fontWeight: "700", letterSpacing: ".15em", textTransform: "uppercase", color: "var(--iw-stone)" }}>With you
-                  </p>
-                  <div style={{ borderTop: "1px solid var(--iw-line-strong)" }}>
-                    <div style={{ padding: "13px 0", borderBottom: "1px solid var(--iw-line)" }}>
-                      <span style={{ display: "block", fontSize: "14px", color: "var(--iw-parchment)" }}>Photographer
-                      </span>
-                      <span style={{ display: "block", marginTop: "3px", fontSize: "12px", color: "var(--iw-stone)" }}>Three quotes to compare
-                      </span>
-                    </div>
-                    <div style={{ padding: "13px 0", borderBottom: "1px solid var(--iw-line)" }}>
-                      <span style={{ display: "block", fontSize: "14px", color: "var(--iw-parchment)" }}>Décor direction
-                      </span>
-                      <span style={{ display: "block", marginTop: "3px", fontSize: "12px", color: "var(--iw-stone)" }}>Amrapali Flower Studio shared a moodboard
-                      </span>
-                    </div>
-                    <div style={{ padding: "13px 0", borderBottom: "1px solid var(--iw-line)" }}>
-                      <span style={{ display: "block", fontSize: "14px", color: "var(--iw-parchment)" }}>Guest list
-                      </span>
-                      <span style={{ display: "block", marginTop: "3px", fontSize: "12px", color: "var(--iw-stone)" }}>Eighteen households to confirm
-                      </span>
-                    </div>
-                  </div>
-                  <span style={{ display: "flex", alignItems: "center", justifyContent: "center", height: "42px", marginTop: "18px", borderRadius: "3px", background: "linear-gradient(135deg,var(--iw-gold-light) 0%,var(--iw-gold) 44%,#A8863C 100%)", color: "var(--iw-on-gold)", fontSize: "13.5px", fontWeight: "700" }}>Compare photographers
+                    <span style={{ fontSize: "13px", fontWeight: "700", color: "var(--iw-gold-light)" }}>View profile
+                    </span>
                   </span>
-                  <div style={{ marginTop: "24px" }}>
-                    <div style={{ display: "flex", justifyContent: "space-between", alignItems: "baseline" }}>
-                      <span style={{ fontSize: "12px", fontWeight: "700", letterSpacing: ".15em", textTransform: "uppercase", color: "var(--iw-stone)" }}>Budget
-                      </span>
-                      <span style={{ fontSize: "12px", color: "var(--iw-stone)" }}>₹41.2L of ₹85L committed
-                      </span>
-                    </div>
-                    <div style={{ position: "relative", height: "3px", marginTop: "12px", background: "var(--iw-line-strong)" }}>
-                      <div style={{ position: "absolute", left: "0", top: "0", bottom: "0", width: "48%", background: "var(--iw-gold)" }} />
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-      <section id="planning" data-screen-label="06 Planning" aria-labelledby="plan-h" style={{ scrollMarginTop: "72px", borderTop: "1px solid var(--iw-line)" }}>
-        <div style={{ maxWidth: "1320px", margin: "0 auto", padding: "clamp(104px,12vw,168px) clamp(20px,4vw,56px) clamp(48px,5vw,72px)", display: "flex", flexWrap: "wrap", alignItems: "flex-end", justifyContent: "space-between", gap: "28px 64px" }}>
-          <div style={{ flex: "1 1 520px" }}>
-            <p data-rv="up" style={{ margin: "0", fontSize: "12px", fontWeight: "700", letterSpacing: ".16em", textTransform: "uppercase", color: "var(--iw-gold)" }}>Planning
-            </p>
-            <h2 id="plan-h" data-rv="up" data-rv-d="80" style={{ margin: "24px 0 0", maxWidth: "12em", fontFamily: "'Marcellus',serif", fontWeight: "400", fontSize: "clamp(36px,4.4vw,68px)", lineHeight: "1.07", letterSpacing: "-.01em", color: "var(--iw-ivory)", textWrap: "balance" }}>The practical part, beautifully kept.
-            </h2>
-          </div>
-          <p data-rv="up" data-rv-d="160" style={{ flex: "0 1 420px", margin: "0", fontSize: "17px", lineHeight: "1.65", color: "var(--iw-sand)", textWrap: "pretty" }}>Underneath every wedding is a plan. Here is how IndianWeddings holds yours, from the first budget to the last guest through the door.
-          </p>
-        </div>
-        <article data-screen-label="06a Chapter 01" aria-labelledby="ch1-h" style={{ maxWidth: "1320px", margin: "0 auto", padding: "clamp(24px,3vw,40px) clamp(20px,4vw,56px) clamp(96px,11vw,150px)" }}>
-          <div style={{ display: "flex", flexWrap: "wrap", alignItems: "flex-end", justifyContent: "space-between", gap: "24px 64px" }}>
-            <div style={{ flex: "1 1 460px", maxWidth: "640px" }}>
-              <div data-rv="up" style={{ display: "flex", alignItems: "center", gap: "16px", maxWidth: "430px" }}>
-                <span style={{ fontFamily: "'Marcellus',serif", fontSize: "22px", color: "var(--iw-gold)" }}>01
-                </span>
-                <span style={{ flex: "1", height: "1px", background: "var(--iw-line-strong)" }} />
-              </div>
-              <h3 id="ch1-h" data-rv="up" data-rv-d="80" style={{ margin: "22px 0 0", fontFamily: "'Marcellus',serif", fontWeight: "400", fontSize: "clamp(30px,3vw,46px)", lineHeight: "1.1", color: "var(--iw-ivory)" }}>Bring the plan together
-              </h3>
-              <p data-rv="up" data-rv-d="140" style={{ margin: "18px 0 0", maxWidth: "34em", fontSize: "17px", lineHeight: "1.65", color: "var(--iw-sand)", textWrap: "pretty" }}>See your budget as the wedding it pays for. Keep each celebration’s run sheet beside the people delivering it. Know which decisions are with you, and which are with someone else.
-              </p>
-            </div>
-            <div role="tablist" aria-label="Planning views" style={{ display: "flex", gap: "28px", borderBottom: "1px solid var(--iw-line-strong)" }}>
-              {arr(v.tabs).map((t, $index) => (<Fragment key={$index}>
-                <button className="iw-hover-b iw-focus-1" type="button" role="tab" id={t?.tid} aria-selected={t?.sel} aria-controls="plan-panel" onClick={t?.on} style={sx(`appearance:none;background:none;border:0;border-bottom:1px solid ${t?.line ?? ""};margin-bottom:-1px;padding:14px 0 13px;min-height:44px;font-family:'Nunito Sans',sans-serif;font-size:14px;font-weight:700;letter-spacing:.03em;color:${t?.color ?? ""};cursor:pointer;transition:color .2s ease,border-color .25s ease`)}>{t?.label}
-                </button>
+                </Link>
               </Fragment>))}
             </div>
           </div>
-          <div id="plan-panel" role="tabpanel" aria-labelledby={v.tabLabelledBy} data-rv="up" data-rv-d="120" style={{ marginTop: "clamp(36px,4vw,56px)" }}>
-            {v.tabBudget ? (<>
-              <div style={{ display: "flex", flexWrap: "wrap", alignItems: "baseline", justifyContent: "space-between", gap: "16px 40px", paddingBottom: "22px" }}>
-                <div style={{ display: "flex", flexWrap: "wrap", alignItems: "baseline", gap: "10px 40px" }}>
-                  <span style={{ whiteSpace: "nowrap", lineHeight: "1.25" }}>
-                    <span style={{ fontSize: "12px", fontWeight: "700", letterSpacing: ".15em", textTransform: "uppercase", color: "var(--iw-stone)" }}>{"Planned "}
-                    </span>
-                    <span style={{ fontFamily: "'Marcellus',serif", fontSize: "28px", color: "var(--iw-ivory)" }}>₹85,00,000
-                    </span>
-                  </span>{" "}
-                  <span style={{ whiteSpace: "nowrap", lineHeight: "1.25" }}>
-                    <span style={{ fontSize: "12px", fontWeight: "700", letterSpacing: ".15em", textTransform: "uppercase", color: "var(--iw-stone)" }}>{"Committed "}
-                    </span>
-                    <span style={{ fontFamily: "'Marcellus',serif", fontSize: "22px", color: "var(--iw-gold)" }}>₹41,20,000
-                    </span>
-                  </span>
-                </div>
-                <span style={{ fontSize: "12px", color: "var(--iw-stone)" }}>Sample figures · each photograph is sized by its share of the budget
-                </span>
-              </div>
-              <div style={{ overflowX: "auto", scrollbarWidth: "none" }}>
-                <div style={{ minWidth: "880px" }}>
-                  <div style={{ display: "flex", gap: "4px", height: "clamp(340px,38vw,500px)" }}>
-                    <figure style={{ flex: "32 1 0", minWidth: "0", margin: "0", position: "relative", overflow: "hidden", background: "var(--iw-surface)" }}>
-                      <img src="https://www.ptaufiqphotography.com/wp-content/uploads/2025/08/destination-wedding-venue-ptaufiq-photography.jpg" alt="A destination wedding venue" loading="lazy" decoding="async" style={{ position: "absolute", inset: "0", width: "100%", height: "100%", objectFit: "cover" }} />
-                      <span style={{ position: "absolute", inset: "0", background: "linear-gradient(0deg,rgba(12,9,7,.7) 0%,rgba(12,9,7,0) 50%)" }} />
-                      <span style={{ position: "absolute", top: "14px", left: "14px", padding: "5px 8px", background: "var(--iw-ivory)", color: "var(--iw-on-ivory)", fontSize: "12px", fontWeight: "700", letterSpacing: ".12em", textTransform: "uppercase" }}>Booked
-                      </span>
-                      <figcaption style={{ position: "absolute", left: "14px", bottom: "16px", writingMode: "vertical-rl", transform: "rotate(180deg)", fontSize: "12px", fontWeight: "700", letterSpacing: ".16em", textTransform: "uppercase", color: "var(--iw-ivory)" }}>Venue and stay
-                      </figcaption>
-                    </figure>
-                    <figure style={{ flex: "15 1 0", minWidth: "0", margin: "0", position: "relative", overflow: "hidden", background: "var(--iw-surface)" }}>
-                      <img src="https://www.ptaufiqphotography.com/wp-content/uploads/2025/08/elegant-wedding-reception-photos-ptaufiq.jpg" alt="A wedding reception set for dinner" loading="lazy" decoding="async" style={{ position: "absolute", inset: "0", width: "100%", height: "100%", objectFit: "cover" }} />
-                      <span style={{ position: "absolute", inset: "0", background: "linear-gradient(0deg,rgba(12,9,7,.7) 0%,rgba(12,9,7,0) 50%)" }} />
-                      <span style={{ position: "absolute", top: "14px", left: "14px", padding: "5px 8px", background: "var(--iw-ivory)", color: "var(--iw-on-ivory)", fontSize: "12px", fontWeight: "700", letterSpacing: ".12em", textTransform: "uppercase" }}>Booked
-                      </span>
-                      <figcaption style={{ position: "absolute", left: "14px", bottom: "16px", writingMode: "vertical-rl", transform: "rotate(180deg)", fontSize: "12px", fontWeight: "700", letterSpacing: ".16em", textTransform: "uppercase", color: "var(--iw-ivory)" }}>Food and drink
-                      </figcaption>
-                    </figure>
-                    <figure style={{ flex: "10 1 0", minWidth: "0", margin: "0", position: "relative", overflow: "hidden", background: "var(--iw-surface)" }}>
-                      <img src="https://www.ptaufiqphotography.com/wp-content/uploads/2025/08/romantic-evening-wedding-ptaufiq-photography.jpg" alt="An evening wedding setting" loading="lazy" decoding="async" style={{ position: "absolute", inset: "0", width: "100%", height: "100%", objectFit: "cover", filter: "saturate(.85)" }} />
-                      <span style={{ position: "absolute", inset: "0", background: "linear-gradient(0deg,rgba(12,9,7,.75) 0%,rgba(12,9,7,.15) 60%)" }} />
-                      <figcaption style={{ position: "absolute", left: "14px", bottom: "16px", writingMode: "vertical-rl", transform: "rotate(180deg)", fontSize: "12px", fontWeight: "700", letterSpacing: ".16em", textTransform: "uppercase", color: "var(--iw-ivory)" }}>Décor and florals
-                      </figcaption>
-                    </figure>
-                    <figure style={{ flex: "9 1 0", minWidth: "0", margin: "0", position: "relative", overflow: "hidden", background: "var(--iw-surface)" }}>
-                      <img src="https://www.ptaufiqphotography.com/wp-content/uploads/2025/08/bridal-portrait-outdoor-session-ptaufiq.jpg" alt="A bride’s outdoor portrait" loading="lazy" decoding="async" style={{ position: "absolute", inset: "0", width: "100%", height: "100%", objectFit: "cover", filter: "saturate(.85)" }} />
-                      <span style={{ position: "absolute", inset: "0", background: "linear-gradient(0deg,rgba(12,9,7,.75) 0%,rgba(12,9,7,.15) 60%)" }} />
-                      <figcaption style={{ position: "absolute", left: "14px", bottom: "16px", writingMode: "vertical-rl", transform: "rotate(180deg)", fontSize: "12px", fontWeight: "700", letterSpacing: ".16em", textTransform: "uppercase", color: "var(--iw-ivory)" }}>Outfits and jewellery
-                      </figcaption>
-                    </figure>
-                    <figure style={{ flex: "7.5 1 0", minWidth: "0", margin: "0", position: "relative", overflow: "hidden", background: "var(--iw-surface)" }}>
-                      <img src="https://www.ptaufiqphotography.com/wp-content/uploads/2025/08/wedding-candid-moments-photography.jpg" alt="A candid wedding moment" loading="lazy" decoding="async" style={{ position: "absolute", inset: "0", width: "100%", height: "100%", objectFit: "cover", filter: "saturate(.85)" }} />
-                      <span style={{ position: "absolute", inset: "0", background: "linear-gradient(0deg,rgba(12,9,7,.75) 0%,rgba(12,9,7,.15) 60%)" }} />
-                      <figcaption style={{ position: "absolute", left: "14px", bottom: "16px", writingMode: "vertical-rl", transform: "rotate(180deg)", fontSize: "12px", fontWeight: "700", letterSpacing: ".16em", textTransform: "uppercase", color: "var(--iw-ivory)" }}>Photography and film
-                      </figcaption>
-                    </figure>
-                    <figure style={{ flex: "4 1 0", minWidth: "0", margin: "0", position: "relative", overflow: "hidden", background: "var(--iw-surface)" }}>
-                      <img src="https://www.ptaufiqphotography.com/wp-content/uploads/2021/04/ptaufiq-indian-wedding-cancun-mexico-sangeet.jpg" alt="A sangeet in Cancún" loading="lazy" decoding="async" style={{ position: "absolute", inset: "0", width: "100%", height: "100%", objectFit: "cover", filter: "saturate(.85)" }} />
-                      <span style={{ position: "absolute", inset: "0", background: "linear-gradient(0deg,rgba(12,9,7,.75) 0%,rgba(12,9,7,.15) 60%)" }} />
-                      <figcaption style={{ position: "absolute", left: "12px", bottom: "16px", writingMode: "vertical-rl", transform: "rotate(180deg)", fontSize: "12px", fontWeight: "700", letterSpacing: ".16em", textTransform: "uppercase", color: "var(--iw-ivory)" }}>Music
-                      </figcaption>
-                    </figure>
-                    <figure style={{ flex: "7.5 1 0", minWidth: "0", margin: "0", position: "relative", overflow: "hidden", background: "var(--iw-surface)" }}>
-                      <img src="https://www.ptaufiqphotography.com/wp-content/uploads/2025/08/mountain-view-wedding-ptaufiq-photography.jpg" alt="A wedding with a mountain view" loading="lazy" decoding="async" style={{ position: "absolute", inset: "0", width: "100%", height: "100%", objectFit: "cover", filter: "saturate(.85)" }} />
-                      <span style={{ position: "absolute", inset: "0", background: "linear-gradient(0deg,rgba(12,9,7,.75) 0%,rgba(12,9,7,.15) 60%)" }} />
-                      <figcaption style={{ position: "absolute", left: "14px", bottom: "16px", writingMode: "vertical-rl", transform: "rotate(180deg)", fontSize: "12px", fontWeight: "700", letterSpacing: ".16em", textTransform: "uppercase", color: "var(--iw-ivory)" }}>Travel and the rest
-                      </figcaption>
-                    </figure>
-                  </div>
-                  <div style={{ display: "flex", gap: "4px", marginTop: "14px" }}>
-                    <span style={{ flex: "32 1 0", minWidth: "0", paddingTop: "12px", borderTop: "1px solid var(--iw-gold)", fontFamily: "'Marcellus',serif", fontSize: "20px", color: "var(--iw-ivory)" }}>₹32L
-                    </span>{" "}
-                    <span style={{ flex: "15 1 0", minWidth: "0", paddingTop: "12px", borderTop: "1px solid var(--iw-gold)", fontFamily: "'Marcellus',serif", fontSize: "20px", color: "var(--iw-ivory)" }}>₹15L
-                    </span>{" "}
-                    <span style={{ flex: "10 1 0", minWidth: "0", paddingTop: "12px", borderTop: "1px solid var(--iw-line-strong)", fontFamily: "'Marcellus',serif", fontSize: "20px", color: "var(--iw-sand)" }}>₹10L
-                    </span>{" "}
-                    <span style={{ flex: "9 1 0", minWidth: "0", paddingTop: "12px", borderTop: "1px solid var(--iw-line-strong)", fontFamily: "'Marcellus',serif", fontSize: "20px", color: "var(--iw-sand)" }}>₹9L
-                    </span>{" "}
-                    <span style={{ flex: "7.5 1 0", minWidth: "0", paddingTop: "12px", borderTop: "1px solid var(--iw-line-strong)", fontFamily: "'Marcellus',serif", fontSize: "20px", color: "var(--iw-sand)" }}>₹7.5L
-                    </span>{" "}
-                    <span style={{ flex: "4 1 0", minWidth: "0", paddingTop: "12px", borderTop: "1px solid var(--iw-line-strong)", fontFamily: "'Marcellus',serif", fontSize: "20px", color: "var(--iw-sand)" }}>₹4L
-                    </span>{" "}
-                    <span style={{ flex: "7.5 1 0", minWidth: "0", paddingTop: "12px", borderTop: "1px solid var(--iw-line-strong)", fontFamily: "'Marcellus',serif", fontSize: "20px", color: "var(--iw-sand)" }}>₹7.5L
-                    </span>
-                  </div>
-                </div>
-              </div>
-            </>) : null}{" "}
-            {v.tabRun ? (<>
-              <div style={{ display: "flex", flexWrap: "wrap", alignItems: "baseline", justifyContent: "space-between", gap: "12px 40px", paddingBottom: "28px" }}>
-                <span>
-                  <span style={{ display: "block", fontFamily: "'Marcellus',serif", fontSize: "clamp(26px,2.6vw,36px)", lineHeight: "1.1", color: "var(--iw-ivory)" }}>Sangeet, Friday 12 February
-                  </span>
-                  <span style={{ display: "block", marginTop: "6px", fontSize: "14px", color: "var(--iw-stone)" }}>Villa Rajputana, the lawns · 240 guests
-                  </span>
-                </span>{" "}
-                <span style={{ fontSize: "12px", color: "var(--iw-stone)" }}>Sample run sheet · shared with both families and every vendor on the night
-                </span>
-              </div>
-              <div style={{ overflowX: "auto", scrollbarWidth: "none" }}>
-                <ol style={{ listStyle: "none", margin: "0", padding: "0", display: "flex", minWidth: "960px", minHeight: "clamp(340px,34vw,440px)", borderTop: "1px solid var(--iw-line-strong)" }}>
-                  <li style={{ flex: "1 1 0", position: "relative", padding: "34px 24px 0 0" }}>
-                    <span style={{ position: "absolute", top: "-5px", left: "0", width: "9px", height: "9px", borderRadius: "50%", background: "var(--iw-ink)", border: "1px solid var(--iw-stone)" }} />
-                    <span style={{ display: "block", fontFamily: "'Marcellus',serif", fontSize: "clamp(34px,3.4vw,48px)", lineHeight: "1", color: "var(--iw-ivory)", fontVariantNumeric: "tabular-nums" }}>17:30
-                    </span>
-                    <span style={{ display: "block", marginTop: "18px", fontSize: "15px", lineHeight: "1.5", color: "var(--iw-parchment)" }}>Décor handover and a lighting check
-                    </span>
-                    <span style={{ display: "block", marginTop: "6px", fontSize: "13px", color: "var(--iw-stone)" }}>Amrapali Flower Studio
-                    </span>
-                  </li>
-                  <li style={{ flex: "1 1 0", position: "relative", padding: "34px 24px 0 0", marginTop: "clamp(0px,4vw,56px)" }}>
-                    <span style={{ position: "absolute", top: "calc(-5px - clamp(0px,4vw,56px))", left: "0", width: "9px", height: "9px", borderRadius: "50%", background: "var(--iw-ink)", border: "1px solid var(--iw-stone)" }} />
-                    <span style={{ display: "block", fontFamily: "'Marcellus',serif", fontSize: "clamp(34px,3.4vw,48px)", lineHeight: "1", color: "var(--iw-ivory)" }}>18:30
-                    </span>
-                    <span style={{ display: "block", marginTop: "18px", fontSize: "15px", lineHeight: "1.5", color: "var(--iw-parchment)" }}>Guests arrive, welcome drinks
-                    </span>
-                    <span style={{ display: "block", marginTop: "6px", fontSize: "13px", color: "var(--iw-stone)" }}>Shuttles from the hotel every twenty minutes
-                    </span>
-                  </li>
-                  <li style={{ flex: "1 1 0", position: "relative", padding: "34px 24px 0 0" }}>
-                    <span style={{ position: "absolute", top: "-5px", left: "0", width: "9px", height: "9px", borderRadius: "50%", background: "var(--iw-ink)", border: "1px solid var(--iw-stone)" }} />
-                    <span style={{ display: "block", fontFamily: "'Marcellus',serif", fontSize: "clamp(34px,3.4vw,48px)", lineHeight: "1", color: "var(--iw-ivory)" }}>19:15
-                    </span>
-                    <span style={{ display: "block", marginTop: "18px", fontSize: "15px", lineHeight: "1.5", color: "var(--iw-parchment)" }}>Family performances, seven acts
-                    </span>
-                    <span style={{ display: "block", marginTop: "6px", fontSize: "13px", color: "var(--iw-stone)" }}>Running order agreed by both sides
-                    </span>
-                  </li>
-                  <li style={{ flex: "1 1 0", position: "relative", padding: "34px 24px 0 0", marginTop: "clamp(0px,4vw,56px)" }}>
-                    <span style={{ position: "absolute", top: "calc(-5px - clamp(0px,4vw,56px))", left: "0", width: "9px", height: "9px", borderRadius: "50%", background: "var(--iw-gold)" }} />
-                    <span style={{ display: "block", fontFamily: "'Marcellus',serif", fontSize: "clamp(34px,3.4vw,48px)", lineHeight: "1", color: "var(--iw-gold)" }}>20:30
-                    </span>
-                    <span style={{ display: "block", marginTop: "18px", fontSize: "15px", lineHeight: "1.5", color: "var(--iw-parchment)" }}>Your entrance
-                    </span>
-                    <span style={{ display: "block", marginTop: "6px", fontSize: "13px", color: "var(--iw-stone)" }}>Studio Haveli on stage, Vermilion Films at the gate
-                    </span>
-                  </li>
-                  <li style={{ flex: "1 1 0", position: "relative", padding: "34px 24px 0 0" }}>
-                    <span style={{ position: "absolute", top: "-5px", left: "0", width: "9px", height: "9px", borderRadius: "50%", background: "var(--iw-ink)", border: "1px solid var(--iw-stone)" }} />
-                    <span style={{ display: "block", fontFamily: "'Marcellus',serif", fontSize: "clamp(34px,3.4vw,48px)", lineHeight: "1", color: "var(--iw-ivory)" }}>21:00
-                    </span>
-                    <span style={{ display: "block", marginTop: "18px", fontSize: "15px", lineHeight: "1.5", color: "var(--iw-parchment)" }}>Dinner service
-                    </span>
-                    <span style={{ display: "block", marginTop: "6px", fontSize: "13px", color: "var(--iw-stone)" }}>Sohan Table · forty Jain plates marked
-                    </span>
-                  </li>
-                  <li style={{ flex: "1 1 0", position: "relative", padding: "34px 0 0 0", marginTop: "clamp(0px,4vw,56px)" }}>
-                    <span style={{ position: "absolute", top: "calc(-5px - clamp(0px,4vw,56px))", left: "0", width: "9px", height: "9px", borderRadius: "50%", background: "var(--iw-ink)", border: "1px solid var(--iw-stone)" }} />
-                    <span style={{ display: "block", fontFamily: "'Marcellus',serif", fontSize: "clamp(34px,3.4vw,48px)", lineHeight: "1", color: "var(--iw-ivory)" }}>23:30
-                    </span>
-                    <span style={{ display: "block", marginTop: "18px", fontSize: "15px", lineHeight: "1.5", color: "var(--iw-parchment)" }}>The last song
-                    </span>
-                    <span style={{ display: "block", marginTop: "6px", fontSize: "13px", color: "var(--iw-stone)" }}>Venue quiet hours from midnight
-                    </span>
-                  </li>
-                </ol>
-              </div>
-            </>) : null}{" "}
-            {v.tabDec ? (<>
-              <div style={{ display: "flex", flexWrap: "wrap", alignItems: "baseline", justifyContent: "space-between", gap: "12px 40px", paddingBottom: "28px" }}>
-                <span style={{ fontFamily: "'Marcellus',serif", fontSize: "clamp(26px,2.6vw,36px)", lineHeight: "1.1", color: "var(--iw-ivory)" }}>Who is holding what
-                </span>{" "}
-                <span style={{ fontSize: "12px", color: "var(--iw-stone)" }}>Sample decisions · sorted by who has the next move
-                </span>
-              </div>
-              <div style={{ display: "flex", flexWrap: "wrap", gap: "4px", minHeight: "clamp(340px,34vw,440px)" }}>
-                <div style={{ flex: "1 1 280px", minWidth: "0", background: "#15100D", padding: "24px" }}>
-                  <div style={{ display: "flex", justifyContent: "space-between", paddingBottom: "14px", borderBottom: "1px solid var(--iw-line-strong)" }}>
-                    <span style={{ fontSize: "12px", fontWeight: "700", letterSpacing: ".16em", textTransform: "uppercase", color: "var(--iw-gold)" }}>With you
-                    </span>
-                    <span style={{ fontSize: "12px", color: "var(--iw-stone)" }}>2
-                    </span>
-                  </div>
-                  <div style={{ display: "flex", gap: "16px", padding: "18px 0", borderBottom: "1px solid var(--iw-line)" }}>
-                    <img src="https://www.ptaufiqphotography.com/wp-content/uploads/2025/08/romantic-couple-photoshoot-ptaufiq.jpg" alt="A couple’s portrait session" loading="lazy" decoding="async" style={{ flex: "0 0 64px", width: "64px", height: "80px", objectFit: "cover" }} />
-                    <span>
-                      <span style={{ display: "block", fontSize: "15px", color: "var(--iw-parchment)" }}>Photographer
-                      </span>
-                      <span style={{ display: "block", marginTop: "4px", fontSize: "13px", lineHeight: "1.5", color: "var(--iw-stone)" }}>Three quotes, side by side with your budget
-                      </span>
-                    </span>
-                  </div>
-                  <div style={{ display: "flex", gap: "16px", padding: "18px 0" }}>
-                    <img src="https://www.ptaufiqphotography.com/wp-content/uploads/2019/02/ptaufiq-indian-wedding-costa-mujeres-mexico-destination-mehendi.jpg" alt="A destination mehendi in Costa Mujeres" loading="lazy" decoding="async" style={{ flex: "0 0 64px", width: "64px", height: "80px", objectFit: "cover" }} />
-                    <span>
-                      <span style={{ display: "block", fontSize: "15px", color: "var(--iw-parchment)" }}>Mehendi artist
-                      </span>
-                      <span style={{ display: "block", marginTop: "4px", fontSize: "13px", lineHeight: "1.5", color: "var(--iw-stone)" }}>Two portfolios to look through
-                      </span>
-                    </span>
-                  </div>
-                </div>
-                <div style={{ flex: "1 1 280px", minWidth: "0", background: "#15100D", padding: "24px" }}>
-                  <div style={{ display: "flex", justifyContent: "space-between", paddingBottom: "14px", borderBottom: "1px solid var(--iw-line-strong)" }}>
-                    <span style={{ fontSize: "12px", fontWeight: "700", letterSpacing: ".16em", textTransform: "uppercase", color: "var(--iw-stone)" }}>Waiting on a vendor
-                    </span>
-                    <span style={{ fontSize: "12px", color: "var(--iw-stone)" }}>1
-                    </span>
-                  </div>
-                  <div style={{ display: "flex", gap: "16px", padding: "18px 0" }}>
-                    <img src="https://www.ptaufiqphotography.com/wp-content/uploads/2025/08/luxury-wedding-reception-night-photos.jpg" alt="A reception at night" loading="lazy" decoding="async" style={{ flex: "0 0 64px", width: "64px", height: "80px", objectFit: "cover" }} />
-                    <span>
-                      <span style={{ display: "block", fontSize: "15px", color: "var(--iw-parchment)" }}>Décor
-                      </span>
-                      <span style={{ display: "block", marginTop: "4px", fontSize: "13px", lineHeight: "1.5", color: "var(--iw-stone)" }}>Amrapali Flower Studio is preparing a quote
-                      </span>
-                    </span>
-                  </div>
-                </div>
-                <div style={{ flex: "1 1 280px", minWidth: "0", background: "#15100D", padding: "24px" }}>
-                  <div style={{ display: "flex", justifyContent: "space-between", paddingBottom: "14px", borderBottom: "1px solid var(--iw-line-strong)" }}>
-                    <span style={{ fontSize: "12px", fontWeight: "700", letterSpacing: ".16em", textTransform: "uppercase", color: "var(--iw-stone)" }}>Settled
-                    </span>
-                    <span style={{ fontSize: "12px", color: "var(--iw-stone)" }}>2
-                    </span>
-                  </div>
-                  <div style={{ display: "flex", gap: "16px", padding: "18px 0", borderBottom: "1px solid var(--iw-line)" }}>
-                    <img src="https://www.ptaufiqphotography.com/wp-content/uploads/2025/08/luxury-wedding-photography-boston-ptaufiq.jpg" alt="A luxury wedding venue" loading="lazy" decoding="async" style={{ flex: "0 0 64px", width: "64px", height: "80px", objectFit: "cover" }} />
-                    <span>
-                      <span style={{ display: "block", fontSize: "15px", color: "var(--iw-sand)" }}>Venue
-                      </span>
-                      <span style={{ display: "block", marginTop: "4px", fontSize: "13px", lineHeight: "1.5", color: "var(--iw-stone)" }}>Villa Rajputana · deposit paid
-                      </span>
-                    </span>
-                  </div>
-                  <div style={{ display: "flex", gap: "16px", padding: "18px 0" }}>
-                    <img src="https://www.ptaufiqphotography.com/wp-content/uploads/2024/07/Ptaufiq-Indian-Wedding-Chicago-Marriott-Southwest-at-Burr-Ridge-cake2.jpg" alt="A couple cutting their wedding cake" loading="lazy" decoding="async" style={{ flex: "0 0 64px", width: "64px", height: "80px", objectFit: "cover" }} />
-                    <span>
-                      <span style={{ display: "block", fontSize: "15px", color: "var(--iw-sand)" }}>Catering
-                      </span>
-                      <span style={{ display: "block", marginTop: "4px", fontSize: "13px", lineHeight: "1.5", color: "var(--iw-stone)" }}>Sohan Table · tasting booked
-                      </span>
-                    </span>
-                  </div>
-                </div>
-              </div>
-            </>) : null}
-          </div>
-        </article>
-        <div style={{ background: "rgba(18,14,11,.6)", borderTop: "1px solid var(--iw-line)", borderBottom: "1px solid var(--iw-line)" }}>
-          <article data-screen-label="06b Chapter 02" aria-labelledby="ch2-h" style={{ maxWidth: "1320px", margin: "0 auto", padding: "clamp(96px,11vw,150px) clamp(20px,4vw,56px)" }}>
-            <div style={{ display: "flex", flexWrap: "wrap", alignItems: "flex-end", justifyContent: "space-between", gap: "24px 64px" }}>
-              <div style={{ flex: "1 1 460px", maxWidth: "640px" }}>
-                <div data-rv="up" style={{ display: "flex", alignItems: "center", gap: "16px", maxWidth: "430px" }}>
-                  <span style={{ fontFamily: "'Marcellus',serif", fontSize: "22px", color: "var(--iw-gold)" }}>02
-                  </span>
-                  <span style={{ flex: "1", height: "1px", background: "var(--iw-line-strong)" }} />
-                </div>
-                <h3 id="ch2-h" data-rv="up" data-rv-d="80" style={{ margin: "22px 0 0", maxWidth: "14em", fontFamily: "'Marcellus',serif", fontWeight: "400", fontSize: "clamp(30px,3vw,46px)", lineHeight: "1.1", color: "var(--iw-ivory)", textWrap: "balance" }}>Find the people who bring it to life
-                </h3>
-              </div>
-              <p data-rv="up" data-rv-d="140" style={{ flex: "0 1 440px", margin: "0", fontSize: "17px", lineHeight: "1.65", color: "var(--iw-sand)", textWrap: "pretty" }}>From the first look at a venue to the deposit, every vendor follows the same calm path, and every conversation stays with the decision it belongs to.
-              </p>
-            </div>
-            <ol style={{ listStyle: "none", margin: "clamp(48px,6vw,80px) 0 0", padding: "0", display: "flex", gap: "clamp(16px,2vw,28px)", overflowX: "auto", scrollSnapType: "x proximity", scrollbarWidth: "none" }}>
-              <li data-rv="up" style={{ flex: "1 0 clamp(250px,23%,320px)", minWidth: "0", scrollSnapAlign: "start" }}>
-                <div style={{ display: "flex", alignItems: "center", gap: "14px" }}>
-                  <span style={{ fontFamily: "'Marcellus',serif", fontSize: "22px", color: "var(--iw-gold)" }}>1
-                  </span>
-                  <span style={{ flex: "1", height: "1px", background: "var(--iw-line-strong)" }} />
-                </div>
-                <div style={{ marginTop: "22px", overflow: "hidden", aspectRatio: "4/5", background: "var(--iw-surface)" }}>
-                  <img className="iw-hover-9" src="https://www.ptaufiqphotography.com/wp-content/uploads/2025/08/scenic-wedding-ptaufiq-photography.jpg" alt="A couple in a scenic landscape" loading="lazy" decoding="async" style={{ width: "100%", height: "100%", objectFit: "cover", transition: "transform .9s cubic-bezier(.2,.7,.1,1)" }} />
-                </div>
-                <p style={{ margin: "20px 0 0", fontFamily: "'Marcellus',serif", fontSize: "26px", lineHeight: "1.1", color: "var(--iw-ivory)" }}>Discover
-                </p>
-                <p style={{ margin: "8px 0 0", fontSize: "15px", lineHeight: "1.55", color: "var(--iw-sand)" }}>Browse by place, category and the feeling you’re after, in India or wherever you’re heading.
-                </p>
-              </li>
-              <li data-rv="up" data-rv-d="80" style={{ flex: "1 0 clamp(250px,23%,320px)", minWidth: "0", scrollSnapAlign: "start" }}>
-                <div style={{ display: "flex", alignItems: "center", gap: "14px" }}>
-                  <span style={{ fontFamily: "'Marcellus',serif", fontSize: "22px", color: "var(--iw-gold)" }}>2
-                  </span>
-                  <span style={{ flex: "1", height: "1px", background: "var(--iw-line-strong)" }} />
-                </div>
-                <div role="img" aria-label="Illustration of an enquiry sent to three venues with the wedding dates, celebrations and guest count" style={{ marginTop: "clamp(22px,5vw,78px)", aspectRatio: "4/5", background: "var(--iw-surface)", padding: "22px", display: "flex", flexDirection: "column" }}>
-                  <span style={{ fontSize: "12px", fontWeight: "700", letterSpacing: ".15em", textTransform: "uppercase", color: "var(--iw-stone)" }}>New enquiry · sample
-                  </span>{" "}
-                  <span style={{ display: "block", marginTop: "16px", fontSize: "12px", color: "var(--iw-stone)" }}>To
-                  </span>{" "}
-                  <span style={{ display: "block", marginTop: "4px", fontSize: "14px", lineHeight: "1.55", color: "var(--iw-parchment)" }}>Villa Rajputana
-                    <br />The Lake Pavilion
-                    <br />Villa Oleandra
-                  </span>{" "}
-                  <span style={{ display: "block", marginTop: "14px", paddingTop: "14px", borderTop: "1px solid var(--iw-line-strong)", fontSize: "12px", color: "var(--iw-stone)" }}>Dates
-                  </span>{" "}
-                  <span style={{ display: "block", marginTop: "4px", fontSize: "14px", color: "var(--iw-parchment)" }}>11 to 14 February 2027
-                  </span>{" "}
-                  <span style={{ display: "block", marginTop: "12px", fontSize: "12px", color: "var(--iw-stone)" }}>Celebrations
-                  </span>{" "}
-                  <span style={{ display: "block", marginTop: "4px", fontSize: "14px", color: "var(--iw-parchment)" }}>Mehendi, sangeet, wedding, reception
-                  </span>{" "}
-                  <span style={{ marginTop: "auto", paddingTop: "14px", borderTop: "1px solid var(--iw-line-strong)", fontSize: "12px", color: "var(--iw-sand)" }}>Written once. Sent to three.
-                  </span>
-                </div>
-                <p style={{ margin: "20px 0 0", fontFamily: "'Marcellus',serif", fontSize: "26px", lineHeight: "1.1", color: "var(--iw-ivory)" }}>Enquire
-                </p>
-                <p style={{ margin: "8px 0 0", fontSize: "15px", lineHeight: "1.55", color: "var(--iw-sand)" }}>Share your dates and celebrations once, not in every message.
-                </p>
-              </li>
-              <li data-rv="up" data-rv-d="160" style={{ flex: "1 0 clamp(250px,23%,320px)", minWidth: "0", scrollSnapAlign: "start" }}>
-                <div style={{ display: "flex", alignItems: "center", gap: "14px" }}>
-                  <span style={{ fontFamily: "'Marcellus',serif", fontSize: "22px", color: "var(--iw-gold)" }}>3
-                  </span>
-                  <span style={{ flex: "1", height: "1px", background: "var(--iw-line-strong)" }} />
-                </div>
-                <div role="img" aria-label="Illustration of three photography quotes compared against a budget of seven and a half lakh" style={{ marginTop: "clamp(22px,2.5vw,40px)", aspectRatio: "4/5", background: "var(--iw-surface)", padding: "22px", display: "flex", flexDirection: "column" }}>
-                  <span style={{ fontSize: "12px", fontWeight: "700", letterSpacing: ".15em", textTransform: "uppercase", color: "var(--iw-stone)" }}>Photography and film · sample
-                  </span>
-                  <div style={{ marginTop: "18px", borderTop: "1px solid var(--iw-line-strong)" }}>
-                    <div style={{ display: "flex", justifyContent: "space-between", gap: "12px", padding: "13px 0", borderBottom: "1px solid var(--iw-line)" }}>
-                      <span>
-                        <span style={{ display: "block", fontSize: "14px", color: "var(--iw-parchment)" }}>Sahara Wire
-                        </span>
-                        <span style={{ display: "block", marginTop: "2px", fontSize: "12px", color: "var(--iw-stone)" }}>3 events
-                        </span>
-                      </span>
-                      <span style={{ fontSize: "14px", color: "var(--iw-parchment)" }}>₹4.2L
-                      </span>
-                    </div>
-                    <div style={{ display: "flex", justifyContent: "space-between", gap: "12px", padding: "13px 0", borderBottom: "1px solid var(--iw-line)" }}>
-                      <span>
-                        <span style={{ display: "block", fontSize: "14px", color: "var(--iw-parchment)" }}>Vermilion Films
-                        </span>
-                        <span style={{ display: "block", marginTop: "2px", fontSize: "12px", color: "var(--iw-stone)" }}>4 events, 2 shooters
-                        </span>
-                      </span>
-                      <span style={{ fontSize: "14px", color: "var(--iw-parchment)" }}>₹5.1L
-                      </span>
-                    </div>
-                    <div style={{ display: "flex", justifyContent: "space-between", gap: "12px", padding: "13px 0", borderBottom: "1px solid var(--iw-line)" }}>
-                      <span>
-                        <span style={{ display: "block", fontSize: "14px", color: "var(--iw-parchment)" }}>Studio Haveli
-                        </span>
-                        <span style={{ display: "block", marginTop: "2px", fontSize: "12px", color: "var(--iw-stone)" }}>4 events, film included
-                        </span>
-                      </span>
-                      <span style={{ fontSize: "14px", color: "var(--iw-parchment)" }}>₹5.8L
-                      </span>
-                    </div>
-                  </div>
-                  <span style={{ display: "flex", alignItems: "center", gap: "10px", marginTop: "auto", fontSize: "12px", color: "var(--iw-sand)" }}>
-                    <span style={{ width: "7px", height: "7px", borderRadius: "50%", background: "#6FAE93" }} />All three sit within your ₹7.5L
-                  </span>
-                </div>
-                <p style={{ margin: "20px 0 0", fontFamily: "'Marcellus',serif", fontSize: "26px", lineHeight: "1.1", color: "var(--iw-ivory)" }}>Compare
-                </p>
-                <p style={{ margin: "8px 0 0", fontSize: "15px", lineHeight: "1.55", color: "var(--iw-sand)" }}>Quotes side by side, next to the budget they affect.
-                </p>
-              </li>
-              <li data-rv="up" data-rv-d="240" style={{ flex: "1 0 clamp(250px,23%,320px)", minWidth: "0", scrollSnapAlign: "start" }}>
-                <div style={{ display: "flex", alignItems: "center", gap: "14px" }}>
-                  <span style={{ fontFamily: "'Marcellus',serif", fontSize: "22px", color: "var(--iw-gold)" }}>4
-                  </span>
-                  <span style={{ flex: "1", height: "1px", background: "var(--iw-line-strong)" }} />
-                </div>
-                <div style={{ position: "relative", marginTop: "clamp(22px,6.5vw,100px)", overflow: "hidden", aspectRatio: "4/5", background: "var(--iw-surface)" }}>
-                  <img className="iw-hover-9" src="https://www.ptaufiqphotography.com/wp-content/uploads/2024/06/ptaufiq-indian-wedding-the-legacy-castle-pompton-plains-new-jersey-ceremony-couple-portraits.jpg" alt="A couple’s ceremony portrait" loading="lazy" decoding="async" style={{ width: "100%", height: "100%", objectFit: "cover", transition: "transform .9s cubic-bezier(.2,.7,.1,1)" }} />
-                  <span style={{ position: "absolute", left: "14px", bottom: "14px", padding: "6px 9px", background: "var(--iw-ivory)", color: "var(--iw-on-ivory)", fontSize: "12px", fontWeight: "700", letterSpacing: ".12em", textTransform: "uppercase" }}>Booked · deposit paid
-                  </span>
-                </div>
-                <p style={{ margin: "20px 0 0", fontFamily: "'Marcellus',serif", fontSize: "26px", lineHeight: "1.1", color: "var(--iw-ivory)" }}>Book
-                </p>
-                <p style={{ margin: "8px 0 0", fontSize: "15px", lineHeight: "1.55", color: "var(--iw-sand)" }}>Confirm, pay the deposit and keep the contract with the conversation.
-                </p>
-              </li>
-            </ol>
-          </article>
+          <Link className="iw-hover-6 iw-focus-4" to={paths.vendors} style={{ display: "inline-flex", alignItems: "center", marginTop: "40px", padding: "15px 0 8px", borderBottom: "1px solid var(--iw-ivory)", color: "var(--iw-ivory)", fontSize: "15px", fontWeight: "600", textDecoration: "none", transition: "color .2s ease,border-color .2s ease" }}>Explore every vendor
+          </Link>
         </div>
-        <article data-screen-label="06c Chapter 03" aria-labelledby="ch3-h" style={{ maxWidth: "1320px", margin: "0 auto", padding: "clamp(96px,11vw,150px) clamp(20px,4vw,56px)" }}>
+      </section>
+      <NoorCarousel />
+      <section id="planning" data-screen-label="05 Your guests" aria-labelledby="ch3-h" style={{ scrollMarginTop: "72px", borderTop: "1px solid var(--iw-line)" }}>
+        <article data-screen-label="06c Chapter 03" aria-labelledby="ch3-h" style={{ maxWidth: "1320px", margin: "0 auto", padding: "clamp(64px,8vw,104px) clamp(20px,4vw,56px)" }}>
           <div style={{ display: "flex", flexWrap: "wrap", alignItems: "flex-end", justifyContent: "space-between", gap: "24px 64px" }}>
             <div style={{ flex: "1 1 460px", maxWidth: "640px" }}>
-              <div data-rv="up" style={{ display: "flex", alignItems: "center", gap: "16px", maxWidth: "430px" }}>
-                <span style={{ fontFamily: "'Marcellus',serif", fontSize: "22px", color: "var(--iw-gold)" }}>03
-                </span>
-                <span style={{ flex: "1", height: "1px", background: "var(--iw-line-strong)" }} />
-              </div>
-              <h3 id="ch3-h" data-rv="up" data-rv-d="80" style={{ margin: "22px 0 0", maxWidth: "14em", fontFamily: "'Marcellus',serif", fontWeight: "400", fontSize: "clamp(30px,3vw,46px)", lineHeight: "1.1", color: "var(--iw-ivory)", textWrap: "balance" }}>From the save the date to the day itself
-              </h3>
+              <h2 id="ch3-h" data-rv="up" data-rv-d="80" style={{ margin: "22px 0 0", maxWidth: "14em", fontFamily: "'Marcellus',serif", fontWeight: "400", fontSize: "clamp(30px,3.4vw,50px)", lineHeight: "1.1", color: "var(--iw-ivory)", textWrap: "balance" }}>From the save the date to the day itself
+              </h2>
             </div>
             <p data-rv="up" data-rv-d="140" style={{ flex: "0 1 440px", margin: "0", fontSize: "17px", lineHeight: "1.65", color: "var(--iw-sand)", textWrap: "pretty" }}>Start with a save the date in a design that is actually Indian. It becomes your wedding website, then the app your guests carry through every event: one link that grows with your wedding. Or hand Noor your list of events, and it builds the whole site, a page and a look for each one.
             </p>
@@ -1719,7 +634,7 @@ export default function LandingView({ v }) {
               </p>
             </div>
           </div>
-          <ol style={{ listStyle: "none", margin: "clamp(28px,3vw,40px) 0 0", padding: "0", display: "grid", gridTemplateColumns: "repeat(auto-fit,minmax(min(260px,100%),1fr))", alignItems: "start", gap: "clamp(40px,4vw,56px) clamp(16px,2vw,28px)" }}>
+          <ol className="hm-steps" style={{ listStyle: "none", margin: "clamp(28px,3vw,40px) 0 0", padding: "0", display: "grid", gridTemplateColumns: "repeat(auto-fit,minmax(min(260px,100%),1fr))", alignItems: "start", gap: "clamp(40px,4vw,56px) clamp(16px,2vw,28px)" }}>
             <li data-rv="up" style={{ minWidth: "0", maxWidth: "440px", width: "100%", justifySelf: "start" }}>
               <div onDragEnter={v.sdOver} onDragOver={v.sdOver} onDragLeave={v.sdLeave} onDrop={v.sdDrop} role="img" aria-label={`Sample save the date for Ananya and Rohan in the ${v.tp?.name ?? ""} design`} style={sx(`aspect-ratio:3/4;border:${v.tp?.bw ?? ""} solid transparent;background:${v.tp?.frame ?? ""};color:${v.tp?.ink ?? ""};padding:22px;display:flex;flex-direction:column;align-items:center;text-align:center`)}>
                 <span style={sx(`font-size:11px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:${v.tp?.soft ?? ""}`)}>Save the date
@@ -1850,184 +765,11 @@ export default function LandingView({ v }) {
           </ol>
         </article>
       </section>
-      <section id="celebrations" data-screen-label="07 Celebrations" aria-labelledby="ev-h" style={{ scrollMarginTop: "72px", background: "transparent", color: "var(--iw-parchment)", padding: "clamp(96px,11vw,156px) 0 clamp(80px,9vw,120px)", borderTop: "1px solid var(--iw-line)" }}>
-        <div style={{ maxWidth: "1320px", margin: "0 auto", padding: "0 clamp(20px,4vw,56px)", display: "flex", flexWrap: "wrap", alignItems: "flex-end", justifyContent: "space-between", gap: "32px 64px" }}>
-          <div style={{ flex: "1 1 520px", maxWidth: "760px" }}>
-            <p data-rv="up" style={{ margin: "0", fontSize: "12px", fontWeight: "700", letterSpacing: ".16em", textTransform: "uppercase", color: "var(--iw-gold)" }}>Every celebration, its own way
-            </p>
-            <h2 id="ev-h" data-rv="up" data-rv-d="80" style={{ margin: "24px 0 0", maxWidth: "13em", fontFamily: "'Marcellus',serif", fontWeight: "400", fontSize: "clamp(36px,4.4vw,68px)", lineHeight: "1.07", letterSpacing: "-.01em", color: "var(--iw-ivory)", textWrap: "balance" }}>Built around the way weddings actually happen.
-            </h2>
-            <p data-rv="up" data-rv-d="140" style={{ margin: "26px 0 0", maxWidth: "34em", fontSize: "17px", lineHeight: "1.65", color: "var(--iw-sand)", textWrap: "pretty" }}>Two celebrations or seven. One city or three. Each event keeps its own venue, timings, guest list and vendors, and they still read as one wedding.
-            </p>
-          </div>
-          <div style={{ display: "flex", alignItems: "center", gap: "20px" }}>
-            <div aria-hidden="true" style={{ position: "relative", width: "120px", height: "1px", background: "var(--iw-line-strong)" }}>
-              <div ref={v.evThumbRef} style={sx(`position:absolute;top:-1px;height:3px;left:${v.evThumbL ?? ""};width:${v.evThumbW ?? ""};background:var(--iw-gold);transition:left .15s linear`)} />
-            </div>
-            <button className="iw-hover-f iw-focus-1" type="button" onClick={v.evPrev} aria-label="Previous celebrations" aria-controls="ev-strip" style={sx(`appearance:none;width:52px;height:52px;display:flex;align-items:center;justify-content:center;background:transparent;border:1px solid var(--iw-line-strong);border-radius:2px;color:var(--iw-parchment);font-size:20px;cursor:pointer;opacity:${v.evPrevOp ?? ""};transition:border-color .2s ease,opacity .2s ease`)}>←
-            </button>{" "}
-            <button className="iw-hover-f iw-focus-1" type="button" onClick={v.evNext} aria-label="Next celebrations" aria-controls="ev-strip" style={sx(`appearance:none;width:52px;height:52px;display:flex;align-items:center;justify-content:center;background:transparent;border:1px solid var(--iw-line-strong);border-radius:2px;color:var(--iw-parchment);font-size:20px;cursor:pointer;opacity:${v.evNextOp ?? ""};transition:border-color .2s ease,opacity .2s ease`)}>→
-            </button>
-          </div>
-        </div>
-        <div className="iw-focus-g" id="ev-strip" ref={v.evRef} onScroll={v.onEvScroll} onPointerDown={v.evDown} onPointerMove={v.evMove} onPointerUp={v.evUp} onPointerLeave={v.evUp} onPointerCancel={v.evUp} tabIndex="0" role="region" aria-label="Celebrations, scroll sideways" style={{ display: "flex", alignItems: "flex-start", gap: "clamp(16px,2vw,28px)", marginTop: "clamp(48px,6vw,72px)", padding: "0 max(clamp(20px,4vw,56px), calc((100% - 1320px) / 2 + clamp(20px,4vw,56px))) 8px", overflowX: "auto", scrollSnapType: "x proximity", scrollPaddingLeft: "max(clamp(20px,4vw,56px), calc((100% - 1320px) / 2 + clamp(20px,4vw,56px)))", scrollbarWidth: "none", cursor: "grab", outlineOffset: "-2px" }}>
-          <figure data-ev="" style={{ flex: "0 0 clamp(250px,25vw,350px)", margin: "0", scrollSnapAlign: "start" }}>
-            <div style={{ overflow: "hidden", aspectRatio: "4/5", background: "var(--iw-surface)" }}>
-              <img className="iw-hover-9" src="https://www.ptaufiqphotography.com/wp-content/uploads/2024/07/ptaufiq-indian-wedding-capadoccia-engagement-9.jpg" alt="A couple’s engagement shoot in Cappadocia" loading="lazy" decoding="async" draggable="false" style={{ width: "100%", height: "100%", objectFit: "cover", transition: "transform .9s cubic-bezier(.2,.7,.1,1)" }} />
-            </div>
-            <figcaption style={{ paddingTop: "20px" }}>
-              <span style={{ display: "block", fontSize: "12px", fontWeight: "700", letterSpacing: ".16em", color: "var(--iw-stone)" }}>01
-              </span>
-              <span style={{ display: "block", marginTop: "8px", fontFamily: "'Marcellus',serif", fontSize: "28px", lineHeight: "1.1", color: "var(--iw-ivory)" }}>The roka
-              </span>
-              <span style={{ display: "block", marginTop: "8px", fontSize: "15px", lineHeight: "1.55", color: "var(--iw-sand)" }}>Where two families first say yes.
-              </span>
-            </figcaption>
-          </figure>
-          <figure data-ev="" style={{ flex: "0 0 clamp(250px,25vw,350px)", margin: "0", scrollSnapAlign: "start", paddingTop: "clamp(0px,4vw,56px)" }}>
-            <div style={{ overflow: "hidden", aspectRatio: "3/4", background: "var(--iw-surface)" }}>
-              <img className="iw-hover-9" src="https://www.ptaufiqphotography.com/wp-content/uploads/2019/02/ptaufiq-indian-wedding-costa-mujeres-mexico-destination-mehendi.jpg" alt="A destination mehendi in Costa Mujeres" loading="lazy" decoding="async" draggable="false" style={{ width: "100%", height: "100%", objectFit: "cover", transition: "transform .9s cubic-bezier(.2,.7,.1,1)" }} />
-            </div>
-            <figcaption style={{ paddingTop: "20px" }}>
-              <span style={{ display: "block", fontSize: "12px", fontWeight: "700", letterSpacing: ".16em", color: "var(--iw-stone)" }}>02
-              </span>
-              <span style={{ display: "block", marginTop: "8px", fontFamily: "'Marcellus',serif", fontSize: "28px", lineHeight: "1.1", color: "var(--iw-ivory)" }}>Mehendi
-              </span>
-              <span style={{ display: "block", marginTop: "8px", fontSize: "15px", lineHeight: "1.55", color: "var(--iw-sand)" }}>An afternoon of henna, music and long conversations.
-              </span>
-            </figcaption>
-          </figure>
-          <figure data-ev="" style={{ flex: "0 0 clamp(250px,25vw,350px)", margin: "0", scrollSnapAlign: "start" }}>
-            <div style={{ overflow: "hidden", aspectRatio: "4/5", background: "var(--iw-surface)" }}>
-              <img className="iw-hover-9" src="https://www.ptaufiqphotography.com/wp-content/uploads/2024/07/ptaufiq-indian-wedding-the-ritz-carlton-abama-spain-haldi.jpg" alt="A haldi ceremony in Spain" loading="lazy" decoding="async" draggable="false" style={{ width: "100%", height: "100%", objectFit: "cover", transition: "transform .9s cubic-bezier(.2,.7,.1,1)" }} />
-            </div>
-            <figcaption style={{ paddingTop: "20px" }}>
-              <span style={{ display: "block", fontSize: "12px", fontWeight: "700", letterSpacing: ".16em", color: "var(--iw-stone)" }}>03
-              </span>
-              <span style={{ display: "block", marginTop: "8px", fontFamily: "'Marcellus',serif", fontSize: "28px", lineHeight: "1.1", color: "var(--iw-ivory)" }}>Haldi
-              </span>
-              <span style={{ display: "block", marginTop: "8px", fontSize: "15px", lineHeight: "1.55", color: "var(--iw-sand)" }}>Turmeric, marigolds and the closest family.
-              </span>
-            </figcaption>
-          </figure>
-          <figure data-ev="" style={{ flex: "0 0 clamp(250px,25vw,350px)", margin: "0", scrollSnapAlign: "start", paddingTop: "clamp(0px,4vw,56px)" }}>
-            <div style={{ overflow: "hidden", aspectRatio: "3/4", background: "var(--iw-surface)" }}>
-              <img className="iw-hover-9" src="https://www.ptaufiqphotography.com/wp-content/uploads/2021/04/ptaufiq-indian-wedding-cancun-mexico-sangeet2.jpg" alt="A sangeet in Cancún" loading="lazy" decoding="async" draggable="false" style={{ width: "100%", height: "100%", objectFit: "cover", transition: "transform .9s cubic-bezier(.2,.7,.1,1)" }} />
-            </div>
-            <figcaption style={{ paddingTop: "20px" }}>
-              <span style={{ display: "block", fontSize: "12px", fontWeight: "700", letterSpacing: ".16em", color: "var(--iw-stone)" }}>04
-              </span>
-              <span style={{ display: "block", marginTop: "8px", fontFamily: "'Marcellus',serif", fontSize: "28px", lineHeight: "1.1", color: "var(--iw-ivory)" }}>Sangeet
-              </span>
-              <span style={{ display: "block", marginTop: "8px", fontSize: "15px", lineHeight: "1.55", color: "var(--iw-sand)" }}>The night everyone performs, rehearsed or not.
-              </span>
-            </figcaption>
-          </figure>
-          <figure data-ev="" style={{ flex: "0 0 clamp(250px,25vw,350px)", margin: "0", scrollSnapAlign: "start" }}>
-            <div style={{ overflow: "hidden", aspectRatio: "4/5", background: "var(--iw-surface)" }}>
-              <img className="iw-hover-9" src="https://www.ptaufiqphotography.com/wp-content/uploads/2019/02/ptaufiq-indian-wedding-rajkot-india-ceremony-4.jpg" alt="A wedding ceremony in Rajkot" loading="lazy" decoding="async" draggable="false" style={{ width: "100%", height: "100%", objectFit: "cover", transition: "transform .9s cubic-bezier(.2,.7,.1,1)" }} />
-            </div>
-            <figcaption style={{ paddingTop: "20px" }}>
-              <span style={{ display: "block", fontSize: "12px", fontWeight: "700", letterSpacing: ".16em", color: "var(--iw-stone)" }}>05
-              </span>
-              <span style={{ display: "block", marginTop: "8px", fontFamily: "'Marcellus',serif", fontSize: "28px", lineHeight: "1.1", color: "var(--iw-ivory)" }}>The ceremony
-              </span>
-              <span style={{ display: "block", marginTop: "8px", fontSize: "15px", lineHeight: "1.55", color: "var(--iw-sand)" }}>Pheras, nikah, Anand Karaj or a civil vow, whichever is yours.
-              </span>
-            </figcaption>
-          </figure>
-          <figure data-ev="" style={{ flex: "0 0 clamp(250px,25vw,350px)", margin: "0", scrollSnapAlign: "start", paddingTop: "clamp(0px,4vw,56px)" }}>
-            <div style={{ overflow: "hidden", aspectRatio: "3/4", background: "var(--iw-surface)" }}>
-              <img className="iw-hover-9" src="https://www.ptaufiqphotography.com/wp-content/uploads/2018/10/ndian-Wedding-Photography-Boston-PTaufiq-Reception-Grand-entrance-2-scaled.jpg" alt="A couple’s grand entrance at their reception" loading="lazy" decoding="async" draggable="false" style={{ width: "100%", height: "100%", objectFit: "cover", transition: "transform .9s cubic-bezier(.2,.7,.1,1)" }} />
-            </div>
-            <figcaption style={{ paddingTop: "20px" }}>
-              <span style={{ display: "block", fontSize: "12px", fontWeight: "700", letterSpacing: ".16em", color: "var(--iw-stone)" }}>06
-              </span>
-              <span style={{ display: "block", marginTop: "8px", fontFamily: "'Marcellus',serif", fontSize: "28px", lineHeight: "1.1", color: "var(--iw-ivory)" }}>Reception
-              </span>
-              <span style={{ display: "block", marginTop: "8px", fontSize: "15px", lineHeight: "1.55", color: "var(--iw-sand)" }}>Everyone, finally, in one room.
-              </span>
-            </figcaption>
-          </figure>
-          <figure data-ev="" style={{ flex: "0 0 clamp(250px,25vw,350px)", margin: "0", scrollSnapAlign: "start" }}>
-            <div style={{ overflow: "hidden", aspectRatio: "4/5", background: "var(--iw-surface)" }}>
-              <img className="iw-hover-9" src="https://www.ptaufiqphotography.com/wp-content/uploads/2018/10/conclusion.jpeg" alt="The last moments of a wedding night" loading="lazy" decoding="async" draggable="false" style={{ width: "100%", height: "100%", objectFit: "cover", transition: "transform .9s cubic-bezier(.2,.7,.1,1)" }} />
-            </div>
-            <figcaption style={{ paddingTop: "20px" }}>
-              <span style={{ display: "block", fontSize: "12px", fontWeight: "700", letterSpacing: ".16em", color: "var(--iw-stone)" }}>07
-              </span>
-              <span style={{ display: "block", marginTop: "8px", fontFamily: "'Marcellus',serif", fontSize: "28px", lineHeight: "1.1", color: "var(--iw-ivory)" }}>The morning after
-              </span>
-              <span style={{ display: "block", marginTop: "8px", fontSize: "15px", lineHeight: "1.55", color: "var(--iw-sand)" }}>A slow brunch for whoever is still standing.
-              </span>
-            </figcaption>
-          </figure>
-          <div data-ev="" style={{ flex: "0 0 clamp(250px,25vw,350px)", alignSelf: "stretch", display: "flex", flexDirection: "column", justifyContent: "flex-end", padding: "28px 0 22px 28px", borderLeft: "1px solid var(--iw-line-strong)", scrollSnapAlign: "start" }}>
-            <span style={{ fontFamily: "'Marcellus',serif", fontSize: "28px", lineHeight: "1.15", color: "var(--iw-ivory)" }}>And whatever is yours.
-            </span>{" "}
-            <span style={{ marginTop: "12px", fontSize: "15px", lineHeight: "1.6", color: "var(--iw-sand)" }}>Two of these, all of them, or celebrations we haven’t named. Add the ones you’re having, in the order they’ll happen.
-            </span>
-          </div>
-        </div>
-        <p style={{ maxWidth: "1320px", margin: "28px auto 0", padding: "0 clamp(20px,4vw,56px)", fontSize: "12px", lineHeight: "1.6", color: "var(--iw-stone)" }}>These are a few celebrations, not a sequence. Traditions vary by family, region and faith. Photography: PTaufiq Photography.
-        </p>
-      </section>
-      <section id="vendors" data-screen-label="08 Vendors" aria-labelledby="vd-h" style={{ scrollMarginTop: "72px", padding: "clamp(104px,12vw,168px) 0 clamp(96px,11vw,150px)", borderTop: "1px solid var(--iw-line)" }}>
-        <div style={{ maxWidth: "1320px", margin: "0 auto", padding: "0 clamp(20px,4vw,56px)" }}>
-          <div style={{ display: "flex", flexWrap: "wrap", alignItems: "flex-end", justifyContent: "space-between", gap: "28px 72px" }}>
-            <div style={{ flex: "1 1 440px", maxWidth: "640px" }}>
-              <p data-rv="up" style={{ margin: "0", fontSize: "12px", fontWeight: "700", letterSpacing: ".16em", textTransform: "uppercase", color: "var(--iw-gold)" }}>Vendors and venues
-              </p>
-              <h2 id="vd-h" data-rv="up" data-rv-d="80" style={{ margin: "24px 0 0", fontFamily: "'Marcellus',serif", fontWeight: "400", fontSize: "clamp(36px,4.4vw,68px)", lineHeight: "1.07", letterSpacing: "-.01em", color: "var(--iw-ivory)" }}>Find your people.
-              </h2>
-            </div>
-            <p data-rv="up" data-rv-d="140" style={{ flex: "0 1 440px", margin: "0", fontSize: "17px", lineHeight: "1.65", color: "var(--iw-sand)", textWrap: "pretty" }}>Venues, photographers, décor studios and caterers, chosen the way you’d choose them: by how their work makes you feel. Enquire, compare and book without leaving your plan.
-            </p>
-          </div>
-          <div style={{ display: "flex", flexWrap: "wrap", alignItems: "flex-start", gap: "48px clamp(40px,6vw,96px)", marginTop: "clamp(56px,7vw,96px)" }}>
-            <div role="tablist" aria-label="Vendor categories" aria-orientation="vertical" style={{ flex: "1 1 300px", maxWidth: "440px", borderTop: "1px solid var(--iw-line-strong)" }}>
-              {arr(v.cats).map((c, $index) => (<Fragment key={$index}>
-                <button className="iw-hover-b iw-focus-1" type="button" role="tab" aria-selected={c?.sel} aria-controls="vd-grid" onClick={c?.on} style={sx(`appearance:none;width:100%;display:flex;align-items:baseline;gap:18px;padding:18px 0;background:none;border:0;border-bottom:1px solid var(--iw-line-strong);text-align:left;cursor:pointer;color:${c?.color ?? ""};transition:color .25s ease`)}>
-                  <span style={{ flex: "0 0 26px", fontFamily: "'Nunito Sans',sans-serif", fontSize: "12px", fontWeight: "700", letterSpacing: ".14em", color: "var(--iw-gold)" }}>{c?.no}
-                  </span>{" "}
-                  <span style={{ flex: "1", fontFamily: "'Marcellus',serif", fontSize: "clamp(28px,3.2vw,46px)", lineHeight: "1.1" }}>{c?.label}
-                  </span>{" "}
-                  <span aria-hidden="true" style={sx(`font-size:20px;color:var(--iw-gold);opacity:${c?.arrow ?? ""};transition:opacity .25s ease`)}>→
-                  </span>
-                </button>
-              </Fragment>))}
-              <p style={{ margin: "20px 0 0", fontSize: "12px", lineHeight: "1.6", color: "var(--iw-stone)" }}>Sample listings from the IndianWeddings prototype, shown with PTaufiq Photography images. The names are not real vendors.
-              </p>
-            </div>
-            <div id="vd-grid" role="tabpanel" aria-label={v.catLabel} style={{ flex: "2 1 520px", minWidth: "0", display: "flex", alignItems: "flex-start", gap: "clamp(16px,2vw,24px)", overflowX: "auto", scrollSnapType: "x mandatory", scrollbarWidth: "none" }}>
-              {arr(v.vendors).map((v, $index) => (<Fragment key={$index}>
-                <a className="iw-focus-h" href={APP_URL} aria-label={v?.aria} style={sx(`flex:1 0 clamp(220px,31%,300px);min-width:0;display:block;margin-top:${v?.mt ?? ""};color:var(--iw-parchment);text-decoration:none;scroll-snap-align:start`)}>
-                  <span style={{ display: "block", overflow: "hidden", aspectRatio: "4/5", background: "var(--iw-surface)" }}>
-                    <img className="iw-hover-9" src={v?.img} alt={v?.alt} loading="lazy" decoding="async" style={{ width: "100%", height: "100%", objectFit: "cover", transition: "transform .9s cubic-bezier(.2,.7,.1,1)" }} />
-                  </span>{" "}
-                  <span style={{ display: "block", marginTop: "18px", fontSize: "12px", fontWeight: "700", letterSpacing: ".16em", textTransform: "uppercase", color: "var(--iw-stone)" }}>{v?.kind}
-                  </span>{" "}
-                  <span style={{ display: "block", marginTop: "8px", fontFamily: "'Marcellus',serif", fontSize: "24px", lineHeight: "1.12", color: "var(--iw-ivory)" }}>{v?.name}
-                  </span>{" "}
-                  <span style={{ display: "flex", justifyContent: "space-between", alignItems: "baseline", gap: "12px", marginTop: "10px", paddingTop: "12px", borderTop: "1px solid var(--iw-line-strong)" }}>
-                    <span style={{ fontSize: "15px", color: "var(--iw-sand)" }}>{v?.place}
-                    </span>
-                    <span style={{ fontSize: "13px", fontWeight: "700", color: "var(--iw-gold-light)" }}>Enquire
-                    </span>
-                  </span>
-                </a>
-              </Fragment>))}
-            </div>
-          </div>
-        </div>
-      </section>
-      <section id="real-weddings" data-screen-label="09 Real weddings" aria-labelledby="rw-h" style={{ scrollMarginTop: "72px", padding: "clamp(104px,12vw,168px) 0 clamp(96px,11vw,150px)", borderTop: "1px solid var(--iw-line)" }}>
+      <section id="real-weddings" data-screen-label="09 Real weddings" aria-labelledby="rw-h" style={{ scrollMarginTop: "72px", padding: "clamp(64px,8vw,104px) 0", borderTop: "1px solid var(--iw-line)" }}>
         <div style={{ maxWidth: "1320px", margin: "0 auto", padding: "0 clamp(20px,4vw,56px)" }}>
           <div style={{ display: "flex", flexWrap: "wrap", alignItems: "flex-end", justifyContent: "space-between", gap: "28px 72px" }}>
             <div style={{ flex: "1 1 440px", maxWidth: "680px" }}>
-              <p data-rv="up" style={{ margin: "0", fontSize: "12px", fontWeight: "700", letterSpacing: ".16em", textTransform: "uppercase", color: "var(--iw-gold)" }}>Real weddings
-              </p>
-              <h2 id="rw-h" data-rv="up" data-rv-d="80" style={{ margin: "24px 0 0", fontFamily: "'Marcellus',serif", fontWeight: "400", fontSize: "clamp(36px,4.4vw,68px)", lineHeight: "1.07", letterSpacing: "-.01em", color: "var(--iw-ivory)", textWrap: "balance" }}>Weddings that began here.
+              <h2 id="rw-h" data-rv="up" data-rv-d="80" style={{ margin: "24px 0 0", fontFamily: "'Marcellus',serif", fontWeight: "400", fontSize: "clamp(30px,3.4vw,50px)", lineHeight: "1.07", letterSpacing: "-.01em", color: "var(--iw-ivory)", textWrap: "balance" }}>Weddings that began here.
               </h2>
             </div>
             <p data-rv="up" data-rv-d="140" style={{ flex: "0 1 440px", margin: "0", fontSize: "17px", lineHeight: "1.65", color: "var(--iw-sand)", textWrap: "pretty" }}>Every wedding planned here keeps its story: the celebrations, the people who made them, and what the couple would tell you now.
@@ -2076,8 +818,12 @@ export default function LandingView({ v }) {
                   </div>
                 </Fragment>))}
               </div>
-              <a className="iw-hover-i iw-focus-a" href={APP_URL} style={{ alignSelf: "flex-start", display: "inline-flex", alignItems: "center", marginTop: "28px", padding: "15px 0 8px", borderBottom: "1px solid var(--iw-gold)", color: "var(--iw-ivory)", fontSize: "15px", fontWeight: "600", textDecoration: "none", transition: "color .2s ease" }}>Read their wedding
-              </a>
+              <div style={{ display: "flex", flexWrap: "wrap", gap: "0 32px", alignSelf: "flex-start" }}>
+                <Link className="iw-hover-i iw-focus-a" to={v.rwHref} style={{ alignSelf: "flex-start", display: "inline-flex", alignItems: "center", marginTop: "28px", padding: "15px 0 8px", borderBottom: "1px solid var(--iw-gold)", color: "var(--iw-ivory)", fontSize: "15px", fontWeight: "600", textDecoration: "none", transition: "color .2s ease" }}>Read their wedding
+                </Link>
+                <Link className="iw-hover-i iw-focus-a" to={paths.realWeddings} style={{ alignSelf: "flex-start", display: "inline-flex", alignItems: "center", marginTop: "28px", padding: "15px 0 8px", borderBottom: "1px solid var(--iw-gold)", color: "var(--iw-ivory)", fontSize: "15px", fontWeight: "600", textDecoration: "none", transition: "color .2s ease" }}>All stories
+                </Link>
+              </div>
             </div>
           </div>
           <div role="tablist" aria-label="Real weddings" style={{ display: "flex", flexWrap: "wrap", gap: "0 clamp(16px,2vw,28px)", marginTop: "clamp(40px,5vw,64px)", borderTop: "1px solid var(--iw-line-strong)" }}>
@@ -2097,111 +843,24 @@ export default function LandingView({ v }) {
           </p>
         </div>
       </section>
-      <section ref={v.cnRef} data-screen-label="10 Connected" aria-labelledby="cn-h" style={{ background: "rgba(18,14,11,.6)", padding: "clamp(96px,11vw,156px) 0", borderTop: "1px solid var(--iw-line)", borderBottom: "1px solid var(--iw-line)" }}>
-        <div style={{ maxWidth: "1320px", margin: "0 auto", padding: "0 clamp(20px,4vw,56px)", display: "flex", flexWrap: "wrap", alignItems: "center", gap: "56px clamp(48px,7vw,112px)" }}>
-          <div style={{ flex: "1 1 360px", maxWidth: "500px" }}>
-            <p data-rv="up" style={{ margin: "0", fontSize: "12px", fontWeight: "700", letterSpacing: ".16em", textTransform: "uppercase", color: "var(--iw-gold)" }}>Why one place
-            </p>
-            <h2 id="cn-h" data-rv="up" data-rv-d="80" style={{ margin: "24px 0 0", fontFamily: "'Marcellus',serif", fontWeight: "400", fontSize: "clamp(36px,4.4vw,64px)", lineHeight: "1.07", letterSpacing: "-.01em", color: "var(--iw-ivory)", textWrap: "balance" }}>Connected, not scattered.
-            </h2>
-            <p data-rv="up" data-rv-d="140" style={{ margin: "24px 0 0", fontSize: "17px", lineHeight: "1.65", color: "var(--iw-sand)", textWrap: "pretty" }}>Every wedding starts the same way: a forwarded quote, a family group, a spreadsheet, a voice note from Nani. When those pieces know about each other, nothing has to be remembered twice.
-            </p>
-            <button className="iw-hover-c iw-focus-a" type="button" onClick={v.cnToggle} aria-pressed={v.cnPressed} style={{ appearance: "none", display: "inline-flex", alignItems: "center", marginTop: "32px", minHeight: "50px", padding: "0 24px", background: "transparent", border: "1px solid var(--iw-gold)", borderRadius: "2px", color: "var(--iw-ivory)", fontFamily: "'Nunito Sans',sans-serif", fontSize: "14px", fontWeight: "700", letterSpacing: ".03em", cursor: "pointer", transition: "background-color .25s ease,color .25s ease" }}>{v.cnLabel}
-            </button>
-          </div>
-          <div aria-live="polite" style={sx(`flex:1.3 1 460px;min-width:0;position:relative;height:${v.stageH ?? ""}`)}>
-            <div aria-hidden="true" style={sx(`position:absolute;top:-18px;bottom:-18px;left:calc(50% - min(210px, 41%) - 18px);width:calc(min(420px, 82%) + 36px);border:1px solid var(--iw-line-strong);border-radius:6px;opacity:${v.cnPanelOp ?? ""};transition:opacity .6s ease .35s`)} />
-            {arr(v.frags).map((f, $index) => (<Fragment key={$index}>
-              <div style={sx(`position:absolute;left:${f?.l ?? ""};top:${f?.t ?? ""};width:min(420px, 82%);transform:rotate(${f?.r ?? ""});transition:left ${v.cnDur ?? ""} cubic-bezier(.65,0,.25,1),top ${v.cnDur ?? ""} cubic-bezier(.65,0,.25,1),transform ${v.cnDur ?? ""} cubic-bezier(.65,0,.25,1),background-color .6s ease,border-color .6s ease;transition-delay:${f?.d ?? ""};background:${f?.bg ?? ""};border:1px solid ${f?.bd ?? ""};border-radius:3px;padding:12px 16px`)}>
-                <div style={{ display: "grid" }}>
-                  <span style={sx(`grid-area:1/1;opacity:${f?.oa ?? ""};transition:opacity .35s ease;transition-delay:${f?.d ?? ""}`)}>
-                    <span style={{ display: "block", fontSize: "12px", fontWeight: "700", letterSpacing: ".15em", textTransform: "uppercase", color: "var(--iw-stone)" }}>{f?.la}
-                    </span>
-                    <span style={{ display: "block", marginTop: "4px", fontSize: "14.5px", lineHeight: "1.45", color: "var(--iw-sand)" }}>{f?.ta}
-                    </span>
-                  </span>{" "}
-                  <span style={sx(`grid-area:1/1;opacity:${f?.ob ?? ""};transition:opacity .5s ease;transition-delay:${f?.d2 ?? ""}`)}>
-                    <span style={{ display: "block", fontSize: "12px", fontWeight: "700", letterSpacing: ".15em", textTransform: "uppercase", color: "var(--iw-gold)" }}>{f?.lb}
-                    </span>
-                    <span style={{ display: "block", marginTop: "4px", fontSize: "14.5px", lineHeight: "1.45", color: "var(--iw-parchment)" }}>{f?.tb}
-                    </span>
-                  </span>
-                </div>
-              </div>
-            </Fragment>))}
-          </div>
-        </div>
-      </section>
-      <section data-screen-label="11 Invitation" aria-labelledby="end-h" style={{ position: "relative", minHeight: "min(92svh,860px)", display: "flex", alignItems: "flex-end", overflow: "hidden", background: "var(--iw-ink)", color: "var(--iw-ivory)" }}>
+      <section data-screen-label="11 Invitation" aria-labelledby="end-h" style={{ position: "relative", minHeight: "min(72svh,660px)", display: "flex", alignItems: "flex-end", overflow: "hidden", background: "var(--iw-ink)", color: "var(--iw-ivory)" }}>
         <div data-rv="mask" aria-hidden="true" style={{ position: "absolute", inset: "0" }}>
           <img src="https://www.ptaufiqphotography.com/wp-content/uploads/2025/08/wedding-couple-sunset-ptaufiq-photography.jpg" alt="" loading="lazy" decoding="async" style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "50% 35%" }} />
           <div style={{ position: "absolute", inset: "0", background: "linear-gradient(90deg,rgba(12,9,7,.8) 0%,rgba(12,9,7,.42) 46%,rgba(12,9,7,.08) 100%)" }} />
         </div>
         <div style={{ position: "relative", width: "100%", maxWidth: "1320px", margin: "0 auto", padding: "clamp(120px,16vh,180px) clamp(20px,4vw,56px) clamp(64px,10vh,112px)" }}>
-          <h2 id="end-h" data-rv="up" style={{ margin: "0", maxWidth: "11em", fontFamily: "'Marcellus',serif", fontWeight: "400", fontSize: "clamp(40px,5.6vw,92px)", lineHeight: "1.04", letterSpacing: "-.012em", color: "var(--iw-ivory)", textWrap: "balance" }}>Make room for the moments you’ll remember.
+          <h2 id="end-h" data-rv="up" style={{ margin: "0", maxWidth: "11em", fontFamily: "'Marcellus',serif", fontWeight: "400", fontSize: "clamp(34px,4.4vw,68px)", lineHeight: "1.04", letterSpacing: "-.012em", color: "var(--iw-ivory)", textWrap: "balance" }}>Make room for the moments you’ll remember.
           </h2>
           <p data-rv="up" data-rv-d="100" style={{ margin: "28px 0 0", maxWidth: "30em", fontSize: "clamp(16px,1.25vw,19px)", lineHeight: "1.6", color: "var(--iw-parchment)", textWrap: "pretty" }}>Bring your plans, your people and your taste into one place, with Noor beside you, and spend more of your wedding actually in it.
           </p>
           <div data-rv="up" data-rv-d="180" style={{ marginTop: "36px" }}>
-            <a className="iw-hover-2 iw-active-3 iw-focus-4" href={APP_URL} style={{ display: "inline-flex", alignItems: "center", justifyContent: "center", minHeight: "56px", padding: "0 34px", background: "var(--iw-ivory)", color: "var(--iw-on-ivory)", fontSize: "15px", fontWeight: "700", letterSpacing: ".03em", textDecoration: "none", borderRadius: "2px", transition: "background-color .25s ease,transform .2s ease" }}>Start planning
-            </a>
+            <Link className="iw-hover-2 iw-active-3 iw-focus-4" to={BEGIN} style={{ display: "inline-flex", alignItems: "center", justifyContent: "center", minHeight: "56px", padding: "0 34px", background: "var(--iw-ivory)", color: "var(--iw-on-ivory)", fontSize: "15px", fontWeight: "700", letterSpacing: ".03em", textDecoration: "none", borderRadius: "2px", transition: "background-color .25s ease,transform .2s ease" }}>Begin planning
+            </Link>
           </div>
-          {!APP_LIVE && (
-            <p id={OPENING_SOON_ID} style={{ margin: "20px 0 0", maxWidth: "30em", fontSize: "15px", lineHeight: "1.6", color: "var(--iw-parchment)", scrollMarginTop: "45vh" }}>The planning app opens to couples soon.
-            </p>
-          )}
         </div>
         <p style={{ position: "absolute", right: "clamp(20px,4vw,56px)", bottom: "20px", margin: "0", fontSize: "12px", color: "var(--iw-sand)" }}>Photography: PTaufiq Photography
         </p>
       </section>
-      <footer data-screen-label="12 Footer" style={{ background: "transparent", color: "var(--iw-sand)", borderTop: "1px solid var(--iw-line)" }}>
-        <div style={{ maxWidth: "1320px", margin: "0 auto", padding: "72px clamp(20px,4vw,56px) 36px" }}>
-          <div style={{ display: "flex", flexWrap: "wrap", justifyContent: "space-between", gap: "48px" }}>
-            <div style={{ flex: "1 1 300px", maxWidth: "420px" }}>
-              <span style={{ display: "flex", fontFamily: "'Marcellus',serif", fontSize: "26px", letterSpacing: ".08em", color: "var(--iw-parchment)" }}>INDIAN
-                <span style={{ color: "var(--iw-gold)" }}>WEDDINGS
-                </span>
-              </span>
-              <p style={{ margin: "18px 0 0", fontSize: "15px", lineHeight: "1.6", color: "var(--iw-sand)" }}>A considered way to plan a wedding that feels entirely yours.
-              </p>
-            </div>
-            <div style={{ display: "flex", flexWrap: "wrap", gap: "40px 80px" }}>
-              <nav aria-label="Explore">
-                <p style={{ margin: "0 0 10px", fontSize: "12px", fontWeight: "700", letterSpacing: ".16em", textTransform: "uppercase", color: "var(--iw-stone)" }}>Explore
-                </p>
-                <a className="iw-hover-0 iw-focus-1" href="#open-dates" style={{ display: "flex", alignItems: "center", minHeight: "44px", fontSize: "15px", color: "var(--iw-parchment)", textDecoration: "none" }}>Open dates
-                </a>{" "}
-                <a className="iw-hover-0 iw-focus-1" href="#experience" style={{ display: "flex", alignItems: "center", minHeight: "44px", fontSize: "15px", color: "var(--iw-parchment)", textDecoration: "none" }}>The experience
-                </a>{" "}
-                <a className="iw-hover-0 iw-focus-1" href="#advisor" style={{ display: "flex", alignItems: "center", minHeight: "44px", fontSize: "15px", color: "var(--iw-parchment)", textDecoration: "none" }}>{v.advNav}
-                </a>{" "}
-                <a className="iw-hover-0 iw-focus-1" href="#planning" style={{ display: "flex", alignItems: "center", minHeight: "44px", fontSize: "15px", color: "var(--iw-parchment)", textDecoration: "none" }}>Planning
-                </a>{" "}
-                <a className="iw-hover-0 iw-focus-1" href="#celebrations" style={{ display: "flex", alignItems: "center", minHeight: "44px", fontSize: "15px", color: "var(--iw-parchment)", textDecoration: "none" }}>Celebrations
-                </a>{" "}
-                <a className="iw-hover-0 iw-focus-1" href="#vendors" style={{ display: "flex", alignItems: "center", minHeight: "44px", fontSize: "15px", color: "var(--iw-parchment)", textDecoration: "none" }}>Vendors
-                </a>{" "}
-                <a className="iw-hover-0 iw-focus-1" href="#real-weddings" style={{ display: "flex", alignItems: "center", minHeight: "44px", fontSize: "15px", color: "var(--iw-parchment)", textDecoration: "none" }}>Real weddings
-                </a>
-              </nav>
-              <nav aria-label="Your wedding">
-                <p style={{ margin: "0 0 10px", fontSize: "12px", fontWeight: "700", letterSpacing: ".16em", textTransform: "uppercase", color: "var(--iw-stone)" }}>Your wedding
-                </p>
-                <a className="iw-hover-0 iw-focus-1" href={APP_URL} style={{ display: "flex", alignItems: "center", minHeight: "44px", fontSize: "15px", color: "var(--iw-parchment)", textDecoration: "none" }}>Start planning
-                </a>{" "}
-                <a className="iw-hover-0 iw-focus-1" href={SIGNIN_URL} style={{ display: "flex", alignItems: "center", minHeight: "44px", fontSize: "15px", color: "var(--iw-parchment)", textDecoration: "none" }}>Sign in
-                </a>
-              </nav>
-            </div>
-          </div>
-          <div style={{ display: "flex", flexWrap: "wrap", justifyContent: "space-between", gap: "12px 32px", marginTop: "64px", paddingTop: "24px", borderTop: "1px solid var(--iw-line)", fontSize: "12px", lineHeight: "1.6", color: "var(--iw-stone)" }}>
-            <span>© 2026 IndianWeddings
-            </span>{" "}
-            <span>All photography by PTaufiq Photography, used for design review. These are not IndianWeddings couples.
-            </span>
-          </div>
-        </div>
-      </footer>
     </div>
     </>
   );

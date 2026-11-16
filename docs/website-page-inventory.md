@@ -13,14 +13,23 @@ Conventions used below:
 
 ## 1. Home `/`
 
-**Purpose:** brand introduction and the overview of the whole product. Preserved as it is.
+**Purpose:** the persuasive overview, written for couples planning a large wedding: grandeur and access first, then the people, the advisor, the guests and proof. About 8 screens at 1440×900 (it was 21.5).
 
-**Content hierarchy:** unchanged (hero → open dates → the experience → your advisor → Noor at work → planning → celebrations → vendors → real weddings → connected → invitation → footer).
+**Content hierarchy (as built):**
+1. Hero (seven presentation variants; Cinematic by default).
+2. Open dates: prestige venues with released dates, led by access rather than price.
+3. Vendors: "Find your people", category tabs, sample vendor cards → `/vendors/:vendorSlug`, "Explore every vendor" → `/vendors`.
+4. Noor: one section. Carousel of three sample moments (answerable Yes/No) and an Ask Noor slide; auto-advances, pauses on hover, focus, off screen and after a manual choice. "Meet Noor" → `/noor`. Component: `src/home/NoorCarousel.jsx`.
+5. For your guests: save the date → wedding website → guest app (swipeable on phones).
+6. Real weddings (illustrative) → `/real-weddings/:weddingSlug`, "All stories" → `/real-weddings`.
+7. Invitation: Begin planning → `/account/create`.
 
-**Changes allowed under this architecture (links only):**
+Removed from the homepage and covered elsewhere: the "little details" section, the pinned showcase, planning chapters 1–2 (budget and vendor workflow; the budget demo lives on `/noor`), the celebrations strip (timeline on `/our-approach`) and "Connected, not scattered".
 
-| Section | Add |
-|---|---|
+**Navigation:** the homepage uses the shared site header, footer and Ask Noor entry; no link jumps to an in-page section.
+**Data:** existing sample data stays labelled as sample.
+
+---|---|
 | Header | Route links (Noor, Vendors, Real Weddings, Our Approach), Ask Noor utility, Log in |
 | Your advisor / Noor at work | "More about Noor" → `/noor` |
 | Vendors | "Find your people" → `/vendors`; category tabs → `/vendors/categories/:categorySlug` |

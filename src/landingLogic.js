@@ -4,6 +4,11 @@
 // Landing.jsx. renderVals() returns everything LandingView.jsx renders.
 import React from 'react';
 import { DCLogic } from './dc';
+import { paths } from './routes';
+
+// Same slug rules as src/data/vendors.js and src/data/stories.js.
+const slugify = t => t.toLowerCase().normalize('NFKD').replace(/[\u0300-\u036f]/g, '').replace(/&/g, ' and ').replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+const SAMPLE_VENDOR_NAMES = () => new Set(Object.values(VENDORS).flat().map(v => v.name));
 
 const U = (id, w) => `https://images.unsplash.com/${id}?w=${w}&q=72&auto=format&fit=crop`;
 export const CATS = [['venues', 'Venues'], ['photo', 'Photography'], ['decor', 'Décor and florals'], ['food', 'Food and drink']];
@@ -44,7 +49,7 @@ const Rnd = Math.random, RAD = Math.PI / 180, ROT0 = 0.578, BETA = -0.646;
 const UMA = [[11.0621, 61.751, 1.8], [11.0307, 56.383, 2.3], [11.8972, 53.695, 2.4], [12.2571, 57.033, 3.3], [12.9005, 55.96, 1.8], [13.3988, 54.925, 2.2], [13.4204, 54.988, 4.0], [13.7924, 49.313, 1.9]];
 const UMA_LINES = [[0, 1], [1, 2], [2, 3], [3, 0], [3, 4], [4, 5], [5, 7]];
 export const IWU = 'https://www.ptaufiqphotography.com/wp-content/uploads/';
-const ORBIT = [
+export const ORBIT = [
   { n: 'The roka', d: 'Where it begins', img: IWU + '2024/07/ptaufiq-indian-wedding-capadoccia-engagement-9.jpg' },
   { n: 'Mehendi', d: 'Thursday afternoon', img: IWU + '2024/07/ptaufiq-indian-wedding-como-castello-del-nero-florence-italy-mehendi1.jpg' },
   { n: 'Haldi', d: 'Friday morning', img: IWU + '2024/07/ptaufiq-indian-wedding-the-ritz-carlton-abama-spain-haldi.jpg' },
@@ -110,7 +115,7 @@ export const ASK = [
   { q: 'Is ₹10L enough for décor for 250 guests?', a: 'For a simple mandap and table florals, yes. For the hanging installations you’ve probably been saving, weddings like that usually spend ₹14L to ₹16L.', rows: [['Simple and elegant', '₹8L to ₹10L'], ['Hanging florals over the mandap', '₹14L to ₹16L'], ['Where the difference could come from', 'Food and drink, travel and the rest']], foot: 'In the app, I can rebalance your budget without moving the total.' }
 ];
 export const ASK_FREE = { a: 'Good question, and the honest answer depends on your dates, your guests and your budget. Noor answers from your own plan, so start planning and ask again there.', rows: [] };
-const ADVICE = [
+export const ADVICE = [
   { id: 'idea', tab: 'An idea you hadn’t had', sub: 'Read from the photographs you save', img: IWU + '2025/08/mountain-view-wedding-ptaufiq-photography.jpg', alt: 'A wedding with a mountain view',
     head: 'Have you thought about the Dolomites?',
     body: 'You keep saving mountain light, long tables and smaller numbers. A 120-guest wedding there in late June has green meadows, open passes and evenings that stay light until nine.',
@@ -153,7 +158,7 @@ const SD_IMGS = [
 const DAY_BASE = [{ t: '09:30', m: 'Breakfast is on the terrace until 10:30.' }, { t: '10:05', m: 'Shuttles to the lakeside lawn leave every ten minutes.' }];
 const DAY_SEND = [{ t: '10:20', m: 'The baraat gathers at the north gate. The dhol starts at 10:30.' }, { t: '10:55', m: 'The pheras begin at 11. Please take your seats.' }, { t: '13:15', m: 'Lunch is served in the courtyard.' }];
 const DAY_PHOTOS = [IWU + '2024/07/ptaufiq-indian-wedding-como-castello-del-nero-florence-italy-mehendi1.jpg', IWU + '2024/07/ptaufiq-indian-wedding-the-ritz-carlton-abama-spain-haldi.jpg', IWU + '2021/04/ptaufiq-indian-wedding-cancun-mexico-sangeet2.jpg', IWU + '2019/02/ptaufiq-indian-wedding-rajkot-india-ceremony-4.jpg'];
-const WEDS = [
+export const WEDS = [
   { names: 'Ishani & Raghav', place: 'Udaipur · City Palace', meta: 'Udaipur · February 2026',
     img: IWU + '2024/06/ptaufiq-indian-wedding-rajkot-India-ceremony-couple-portraits.jpg', alt: 'Ishani and Raghav at their ceremony',
     a: IWU + '2025/08/cultural-wedding-tradition-photography-ptaufiq.jpg', aAlt: 'A tradition during the wedding', b: IWU + '2024/07/ptaufiq-indian-wedding-gotham-hall-newyork-mehendi2.jpg', bAlt: 'The mehendi set-up',
@@ -238,6 +243,7 @@ export default class LandingLogic extends DCLogic {
     }
   }
   componentWillUnmount() {
+    document.documentElement.style.scrollBehavior = '';
     this.noorUnmount();
     window.removeEventListener('resize', this.onResize);
     if (this._sdUrl) URL.revokeObjectURL(this._sdUrl);
@@ -1138,7 +1144,7 @@ export default class LandingLogic extends DCLogic {
         on: () => { this.setState({ dealF: id }); const g = document.getElementById('od-list'); if (g) g.scrollLeft = 0; }
       })),
       dealLabelledBy: 'od-tab-' + s.dealF,
-      deals: DEALS.filter(d => s.dealF === 'all' || d.r === s.dealF).map(d => ({ ...d, aria: 'Ask about ' + d.name + ', ' + d.dates + '. Sample open date, opens the app' })),
+      deals: DEALS.filter(d => s.dealF === 'all' || d.r === s.dealF).map(d => ({ ...d, when: d.dates.split(' ').slice(-2).join(' '), href: SAMPLE_VENDOR_NAMES().has(d.name) ? paths.vendor(slugify(d.name)) : paths.search({ category: 'venues', location: d.place.split(' · ')[1] }), aria: 'Ask about ' + d.name + ', ' + d.dates + '. Sample open date' })),
       advOver: nm.over, advCard: nm.card, advLede: nm.lede, advTrust: nm.trust, advTabsLabel: nm.tabs || 'Moments with your advisor', advSample: nm.sample || 'Sample advice, written to show how the advisor works.',
       advTabs: ADVICE.map((a, i) => ({ no: '0' + (i + 1), label: a.tab, sub: a.sub, tid: 'adv-tab-' + a.id, sel: s.adv === i ? 'true' : 'false', color: s.adv === i ? 'var(--iw-ivory)' : 'var(--iw-stone-dim)', arrow: s.adv === i ? '1' : '0', lineW: s.adv === i ? '100%' : '0%', on: () => this.setState({ adv: i }) })),
       advLabelledBy: 'adv-tab-' + A.id,
@@ -1168,7 +1174,7 @@ export default class LandingLogic extends DCLogic {
       sendHasNote: s.alertN > 0, sendNote: s.alertN ? 'Delivered to the 240 guests invited to the wedding.' : '',
       sendAlert: () => this.setState(p => ({ alertN: p.alertN >= DAY_SEND.length ? 0 : p.alertN + 1 })),
       rwTabs: WEDS.map((w, i) => ({ names: w.names, place: w.place, img: w.img, tid: 'rw-tab-' + i, sel: s.rw === i ? 'true' : 'false', nc: s.rw === i ? 'var(--iw-ivory)' : 'var(--iw-stone)', line: s.rw === i ? 'var(--iw-gold)' : 'transparent', on: () => this.setState({ rw: i }) })),
-      rwLabelledBy: 'rw-tab-' + s.rw, rw: W, rwFacts: W.facts.map(([n, l]) => ({ n, l })), rwTeam: W.team.map(([k, v]) => ({ k, v }))
+      rwLabelledBy: 'rw-tab-' + s.rw, rw: W, rwHref: paths.weddingStory(slugify(W.names)), rwFacts: W.facts.map(([n, l]) => ({ n, l })), rwTeam: W.team.map(([k, v]) => ({ k, v }))
     };
   }
   renderVals() {
@@ -1184,7 +1190,7 @@ export default class LandingLogic extends DCLogic {
       color: s.cat === id ? 'var(--iw-ivory)' : 'var(--iw-stone-dim)', arrow: s.cat === id ? '1' : '0',
       on: () => { this.setState({ cat: id }); const g = document.getElementById('vd-grid'); if (g) g.scrollLeft = 0; }
     }));
-    const vendors = VENDORS[s.cat].map((v, i) => ({ ...v, mt: STAGGER[i], aria: `${v.name}, ${v.kind.toLowerCase()} in ${v.place}. Sample listing, opens the app` }));
+    const vendors = VENDORS[s.cat].map((v, i) => ({ ...v, mt: STAGGER[i], href: paths.vendor(slugify(v.name)), aria: `${v.name}, ${v.kind.toLowerCase()} in ${v.place}. Sample listing` }));
     const thumbW = Math.max(10, Math.min(100, s.evVis * 100));
     const st = s.settled;
     const frags = FRAGS.map((f, i) => ({

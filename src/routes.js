@@ -2,6 +2,10 @@
 // Static segments are matched before dynamic ones, and the static vendor
 // segments are reserved so a vendor slug can never shadow them.
 
+// Privacy, Terms and Contact are linked only once those pages exist (they need
+// legal text and a contact address). Until then no link leads to a missing page.
+export const LEGAL_PAGES_LIVE = false;
+
 export const RESERVED_VENDOR_SLUGS = ['categories', 'search', 'compare'];
 
 export const paths = {
@@ -14,6 +18,9 @@ export const paths = {
   vendor: slug => `/vendors/${encodeURIComponent(slug)}`,
   compare: ids => withQuery('/vendors/compare', { ids: ids && ids.join(',') }),
   realWeddings: '/real-weddings',
+  realWeddingsView: view => withQuery('/real-weddings', { view: view === 'all' ? '' : view }),
+  weddingStory: slug => `/real-weddings/${encodeURIComponent(slug)}`,
+  editStory: slug => `/real-weddings/the-edit/${encodeURIComponent(slug)}`,
   ourApproach: '/our-approach',
   accountCreate: params => withQuery('/account/create', params),
   accountLogin: params => withQuery('/account/login', params),
@@ -32,24 +39,33 @@ export function withQuery(path, params) {
 }
 
 /**
- * Resolves a pathname to a page key. Order matters: static paths first,
- * then dynamic ones. Pages not built yet resolve to "pending" so they show
- * the not-found page with navigation rather than a blank screen.
+ * Resolves a pathname to a page key and its params. Static paths are matched
+ * before dynamic ones; unknown paths resolve to "not-found".
  */
 export function matchRoute(pathname) {
-  if (pathname === '/') return { page: 'home' };
-  if (pathname === '/vendors') return { page: 'vendors' };
-  if (pathname === '/vendors/categories') return { page: 'pending', name: 'All categories' };
-  if (pathname === '/vendors/search') return { page: 'pending', name: 'Vendor results' };
-  if (pathname === '/vendors/compare') return { page: 'pending', name: 'Compare' };
+  const statics = {
+    '/': 'home',
+    '/vendors': 'vendors',
+    '/vendors/categories': 'categories',
+    '/vendors/search': 'search',
+    '/vendors/compare': 'compare',
+    '/noor': 'noor',
+    '/our-approach': 'our-approach',
+    '/real-weddings': 'real-weddings',
+    '/account/create': 'account-create',
+    '/account/login': 'account-login',
+  };
+  if (statics[pathname]) return { page: statics[pathname], params: {} };
+  if (pathname === '/real-weddings/the-edit') return { page: 'redirect', to: '/real-weddings?view=the-edit' };
   let m = /^\/vendors\/categories\/([^/]+)$/.exec(pathname);
-  if (m) return { page: 'pending', name: 'Category', params: { categorySlug: decodeURIComponent(m[1]) } };
+  if (m) return { page: 'category', params: { categorySlug: decodeURIComponent(m[1]) } };
+  m = /^\/real-weddings\/the-edit\/([^/]+)$/.exec(pathname);
+  if (m) return { page: 'edit-story', params: { storySlug: decodeURIComponent(m[1]) } };
+  m = /^\/real-weddings\/([^/]+)$/.exec(pathname);
+  if (m) return { page: 'wedding-story', params: { weddingSlug: decodeURIComponent(m[1]) } };
   m = /^\/vendors\/([^/]+)$/.exec(pathname);
-  if (m && !RESERVED_VENDOR_SLUGS.includes(m[1])) return { page: 'pending', name: 'Vendor profile', params: { vendorSlug: decodeURIComponent(m[1]) } };
-  if (['/noor', '/real-weddings', '/our-approach', '/account/create', '/account/login', '/privacy', '/terms', '/contact'].includes(pathname)) {
-    return { page: 'pending', name: pathname.slice(1) };
-  }
-  return { page: 'not-found' };
+  if (m && !RESERVED_VENDOR_SLUGS.includes(m[1])) return { page: 'vendor', params: { vendorSlug: decodeURIComponent(m[1]) } };
+  return { page: 'not-found', params: {} };
 }
 
 /** Which primary navigation item a path belongs to. */

@@ -59,7 +59,7 @@ export default function SiteHeader() {
     <header className={'iws-header' + (solid || menu ? ' is-solid' : '')}>
       <nav className="iws-bar" aria-label="Primary">
         {/* The homepage manages its own lifecycle, so it loads as a full page. */}
-        <a className="iws-logo" href="/" aria-label="IndianWeddings, home">INDIAN<span>WEDDINGS</span></a>
+        <a className="iws-logo" href="/" aria-label="IndianWeddings, home" onClick={e => { if (pathname === '/' && !e.metaKey && !e.ctrlKey) { e.preventDefault(); window.scrollTo({ top: 0 }); } }}>INDIAN<span>WEDDINGS</span></a>
         <div className="iws-links">{NAV.map(item => navLink(item, 'iws-link'))}</div>
         <div className="iws-actions">
           <Link className="iws-link iws-login" to={paths.accountLogin({ return: pathname })}>Log in</Link>
