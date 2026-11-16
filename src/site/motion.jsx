@@ -55,18 +55,9 @@ export function useMotion(rootRef) {
   }, [rootRef]);
 }
 
-/** A headline whose words rise into place when it enters the viewport. */
+/** A headline that fades up once as it enters the viewport (motion.css .kt). */
 export function KineticTitle({ as: Tag = 'h1', text, className = '', ...rest }) {
-  const words = String(text).split(' ');
-  return (
-    <Tag className={`kt ${className}`} aria-label={text} {...rest}>
-      {words.map((w, i) => (
-        <span key={i} className="kt-word" aria-hidden="true">
-          <span className="kt-inner" style={{ '--w': i }}>{w}</span>{i < words.length - 1 ? ' ' : ''}
-        </span>
-      ))}
-    </Tag>
-  );
+  return <Tag className={`kt ${className}`} {...rest}>{text}</Tag>;
 }
 
 /** An endless horizontal strip. Pauses on hover, focus, off screen and under reduced motion. */

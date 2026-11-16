@@ -22,7 +22,9 @@
   --iw-error:#E8A898;
 }
 *,*::before,*::after{box-sizing:border-box}
-html,body{margin:0;padding:0;background:var(--iw-ink);color:var(--iw-parchment);font-family:'Nunito Sans','Avenir Next',system-ui,sans-serif;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+html{background:var(--iw-ink)}
+/* body stays transparent so the site backdrop (z-index -1) shows behind every page */
+html,body{margin:0;padding:0;color:var(--iw-parchment);font-family:'Nunito Sans','Avenir Next',system-ui,sans-serif;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
 a{color:var(--iw-gold-light);text-decoration:none}
 a:hover{color:var(--iw-ivory)}
 ::selection{background:var(--iw-gold);color:var(--iw-on-gold)}

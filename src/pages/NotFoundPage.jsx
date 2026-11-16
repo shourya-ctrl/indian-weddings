@@ -9,8 +9,8 @@ export default function NotFoundPage() {
   useEffect(() => { document.title = 'Page not found · IndianWeddings'; }, []);
   return (
     <SiteShell>
-      <section className="iws-wrap" style={{ padding: 'clamp(140px, 22vh, 220px) clamp(20px, 4vw, 56px) clamp(96px, 14vh, 160px)' }}>
-        <h1 style={{ margin: 0, maxWidth: '12em', fontFamily: "'Marcellus', serif", fontWeight: 400, fontSize: 'clamp(36px, 4.4vw, 68px)', lineHeight: 1.07, letterSpacing: '-.01em', color: 'var(--iw-ivory)' }}>
+      <section className="iws-wrap" style={{ padding: 'clamp(140px, 22vh, 220px) clamp(24px, 6vw, 112px) clamp(96px, 14vh, 160px)' }}>
+        <h1 style={{ margin: 0, maxWidth: '12em', fontFamily: "'Marcellus', serif", fontWeight: 400, fontSize: 'clamp(25px, 3.08vw, 48px)', lineHeight: 1.07, letterSpacing: '-.01em', color: 'var(--iw-ivory)' }}>
           This page isn’t here.
         </h1>
         <p style={{ margin: '24px 0 0', maxWidth: '32em', fontSize: 'clamp(16px, 1.25vw, 19px)', lineHeight: 1.6, color: 'var(--iw-parchment)' }}>

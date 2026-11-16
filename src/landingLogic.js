@@ -480,7 +480,7 @@ export default class LandingLogic extends DCLogic {
     const f = this.heroFrameRef.current; if (!f || !this.motionOn()) return;
     const im = f.querySelector(`[data-slide="${this.state.slide}"]`); if (!im) return;
     im.getAnimations().forEach(a => a.cancel());
-    im.animate([{ transform: 'scale(1.1)' }, { transform: 'scale(1)' }], { duration: 8000, easing: 'cubic-bezier(.2,.6,.2,1)', fill: 'both' });
+    im.animate([{ transform: 'scale(1.03)' }, { transform: 'scale(1)' }], { duration: 6000, easing: 'cubic-bezier(.2,.6,.2,1)', fill: 'both' });
   }
   tick() {
     const root = this.rootRef.current;
@@ -505,13 +505,13 @@ export default class LandingLogic extends DCLogic {
     requestAnimationFrame(() => {
       document.querySelectorAll('[data-hero]').forEach(el => {
         const d = +el.getAttribute('data-hero') || 0;
-        el.animate([{ opacity: 0, transform: 'translateY(22px)' }, { opacity: 1, transform: 'translateY(0)' }], { duration: 820, delay: d, easing: EASE, fill: 'backwards' });
+        el.animate([{ opacity: 0, transform: 'translateY(8px)' }, { opacity: 1, transform: 'translateY(0)' }], { duration: 500, delay: Math.min(d * 0.5, 240), easing: EASE, fill: 'backwards' });
       });
       const f = this.heroFrameRef.current;
-      if (f) f.animate([{ clipPath: 'inset(16% 20% 16% 20% round 4px)' }, { clipPath: 'inset(0% 0% 0% 0% round 0px)' }], { duration: 1300, easing: 'cubic-bezier(.75,0,.2,1)', fill: 'backwards' });
+      if (f) f.animate([{ opacity: 0 }, { opacity: 1 }], { duration: 600, easing: 'ease-out', fill: 'backwards' });
       this.kenBurns();
-      document.querySelectorAll('[data-draw]').forEach(el => { const L = el.getTotalLength ? el.getTotalLength() : 0; if (!L) return; el.style.strokeDasharray = L + ' ' + L; el.animate([{ strokeDashoffset: L }, { strokeDashoffset: 0 }], { duration: +(el.getAttribute('data-dur') || 2000), delay: +(el.getAttribute('data-draw') || 0), easing: 'cubic-bezier(.65,0,.25,1)', fill: 'both' }); });
-      document.querySelectorAll('[data-arch]').forEach(el => el.animate([{ clipPath: 'inset(100% 0 0 0)' }, { clipPath: 'inset(0% 0 0 0)' }], { duration: 1300, delay: 160, easing: 'cubic-bezier(.75,0,.2,1)', fill: 'backwards' }));
+      document.querySelectorAll('[data-draw]').forEach(el => { const L = el.getTotalLength ? el.getTotalLength() : 0; if (!L) return; el.style.strokeDasharray = L + ' ' + L; el.animate([{ strokeDashoffset: L }, { strokeDashoffset: 0 }], { duration: Math.min(+(el.getAttribute('data-dur') || 2000), 1000), delay: +(el.getAttribute('data-draw') || 0), easing: 'cubic-bezier(.65,0,.25,1)', fill: 'both' }); });
+      document.querySelectorAll('[data-arch]').forEach(el => el.animate([{ opacity: 0 }, { opacity: 1 }], { duration: 600, delay: 80, easing: 'ease-out', fill: 'backwards' }));
     });
   }
   setupReveal() {
@@ -525,10 +525,12 @@ export default class LandingLogic extends DCLogic {
         const mask = el.getAttribute('data-rv') === 'mask';
         const d = +(el.getAttribute('data-rv-d') || 0);
         el.style.opacity = ''; el.style.clipPath = '';
+        // Subtle on purpose: a short fade with a small rise, so sections arrive
+        // without pulling attention away from what they show.
         el.animate(mask
-          ? [{ clipPath: 'inset(0 0 100% 0)' }, { clipPath: 'inset(0 0 0% 0)' }]
-          : [{ opacity: 0, transform: 'translateY(28px)' }, { opacity: 1, transform: 'translateY(0)' }],
-          { duration: mask ? 1100 : 720, delay: d, easing: mask ? 'cubic-bezier(.7,0,.2,1)' : EASE, fill: 'backwards' });
+          ? [{ opacity: 0 }, { opacity: 1 }]
+          : [{ opacity: 0, transform: 'translateY(10px)' }, { opacity: 1, transform: 'translateY(0)' }],
+          { duration: 500, delay: Math.min(d, 160), easing: EASE, fill: 'backwards' });
         });
       });
     }, { rootMargin: '0px 0px -8% 0px', threshold: 0.01 });
@@ -536,7 +538,7 @@ export default class LandingLogic extends DCLogic {
     document.querySelectorAll('[data-rv]').forEach(el => {
       if (el.getBoundingClientRect().top < vh * 0.94) return;
       const mask = el.getAttribute('data-rv') === 'mask';
-      if (mask) el.style.clipPath = 'inset(0 0 100% 0)'; else el.style.opacity = '0';
+      el.style.opacity = '0';
       const target = mask ? el.parentElement : el;
       if (!this._rvMap.has(target)) { this._rvMap.set(target, []); this.io.observe(target); }
       this._rvMap.get(target).push(el);
@@ -648,7 +650,7 @@ export default class LandingLogic extends DCLogic {
       orbitSz: narrow ? '64px' : '120px', orbitCapDisp: narrow ? 'none' : 'block', orbitAlign: narrow ? 'flex-end' : 'center', orbitPadB: narrow ? '40px' : '0px',
       seamRef: this.seamRef, seamHandleRef: this.seamHandleRef, seamDown: this.seamDown, seamMove: this.seamMove, seamUp: this.seamUp, seamKey: this.seamKey,
       seamPlanW: narrow ? '62%' : 'min(46%, 640px)', seamPlanJust: narrow ? 'flex-start' : 'center', seamCopyW: narrow ? '100%' : '44%',
-      seamTimeSz: narrow ? 'clamp(48px,12vw,72px)' : 'clamp(64px,9vw,156px)', seamRowsDisp: narrow ? 'none' : 'block', seamPlanPad: narrow ? '132px 20px 0 0' : '112px clamp(20px,4vw,56px) 40px 0',
+      seamTimeSz: narrow ? 'clamp(48px,12vw,72px)' : 'clamp(64px,9vw,156px)', seamRowsDisp: narrow ? 'none' : 'block', seamPlanPad: narrow ? '132px 20px 0 0' : '112px clamp(24px,6vw,112px) 40px 0',
       ...this.archVals(narrow)
     };
   }

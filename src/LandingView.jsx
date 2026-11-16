@@ -13,7 +13,7 @@ const NOOR_PERSONAL = paths.accountCreate({ intent: 'noor-personalise' });
 export default function LandingView({ v }) {
   return (
     <>
-    <div ref={v.rootRef} style={{ position: "relative", zIndex: "0", background: "var(--iw-ink)", color: "var(--iw-parchment)", minHeight: "100vh", overflowX: "clip" }}>
+    <div ref={v.rootRef} style={{ position: "relative", zIndex: "0", background: "transparent", color: "var(--iw-parchment)", minHeight: "100vh", overflowX: "clip" }}>
       <canvas ref={v.skyRef} aria-hidden="true" style={sx(`position:fixed;top:0;left:0;width:100vw;height:100vh;z-index:-1;pointer-events:none;display:${v.skyDisp ?? ""}`)} />
       <canvas ref={v.sparkRef} aria-hidden="true" style={sx(`position:fixed;top:0;left:0;width:100vw;height:100vh;z-index:40;pointer-events:none;mix-blend-mode:screen;display:${v.sparkDisp ?? ""}`)} />
       {v.showSwitcher ? (<>
@@ -48,8 +48,8 @@ export default function LandingView({ v }) {
             </div>
             <div style={{ position: "absolute", inset: "0", background: v.heroScrim }} />
           </div>
-          <div style={{ position: "relative", width: "100%", maxWidth: "1320px", margin: "0 auto", padding: "0 clamp(20px,4vw,56px) clamp(36px,6vh,64px)" }}>
-            <h1 id="hero-h" style={{ margin: "22px 0 0", maxWidth: "13em", fontFamily: "'Marcellus',serif", fontWeight: "400", fontSize: "clamp(42px,6vw,98px)", lineHeight: "1.02", letterSpacing: "-.012em", color: "var(--iw-ivory)" }}>
+          <div style={{ position: "relative", width: "100%", maxWidth: "1320px", margin: "0 auto", padding: "0 clamp(24px,6vw,112px) clamp(36px,6vh,64px)" }}>
+            <h1 id="hero-h" style={{ margin: "22px 0 0", maxWidth: "13em", fontFamily: "'Marcellus',serif", fontWeight: "400", fontSize: "clamp(29px,4.2vw,69px)", lineHeight: "1.02", letterSpacing: "-.012em", color: "var(--iw-ivory)" }}>
               <span data-hero="400" style={{ display: "block", textWrap: "balance" }}>A wedding that feels like you.
               </span>{" "}
               <span data-hero="520" style={{ display: "block", marginTop: ".1em", textWrap: "balance" }}>A plan that holds it all.
@@ -84,11 +84,11 @@ export default function LandingView({ v }) {
         </section>
       </>) : null}{" "}
       {v.heroMosaic ? (<>
-        <section id="top" data-screen-label="01 Hero · Mosaic" aria-labelledby="hero-h" style={{ position: "relative", background: "transparent", color: "var(--iw-ivory)", padding: "88px clamp(20px,4vw,56px) clamp(20px,3vh,32px)" }}>
+        <section id="top" data-screen-label="01 Hero · Mosaic" aria-labelledby="hero-h" style={{ position: "relative", background: "transparent", color: "var(--iw-ivory)", padding: "88px clamp(24px,6vw,112px) clamp(20px,3vh,32px)" }}>
           {v.wide ? (<>
             <div style={{ maxWidth: "1320px", margin: "0 auto", height: "calc(min(100svh, 1040px) - 88px - clamp(20px,3vh,32px))", minHeight: "560px", display: "grid", gridTemplateColumns: "repeat(12,minmax(0,1fr))", gridTemplateRows: "repeat(6,minmax(0,1fr))", gap: "4px" }}>
               <div style={{ gridColumn: "1 / 6", gridRow: "1 / 5", display: "flex", flexDirection: "column", justifyContent: "flex-end", padding: "0 clamp(16px,2.4vw,40px) clamp(12px,2vw,24px) 0", minWidth: "0" }}>
-                <h1 id="hero-h" style={{ margin: "20px 0 0", fontFamily: "'Marcellus',serif", fontWeight: "400", fontSize: "clamp(34px,3.4vw,60px)", lineHeight: "1.04", letterSpacing: "-.012em", color: "var(--iw-ivory)" }}>
+                <h1 id="hero-h" style={{ margin: "20px 0 0", fontFamily: "'Marcellus',serif", fontWeight: "400", fontSize: "clamp(24px,2.38vw,42px)", lineHeight: "1.04", letterSpacing: "-.012em", color: "var(--iw-ivory)" }}>
                   <span data-hero="160" style={{ display: "block", textWrap: "balance" }}>A wedding that feels like you.
                   </span>
                   <span data-hero="280" style={{ display: "block", marginTop: ".1em", textWrap: "balance" }}>A plan that holds it all.
@@ -113,7 +113,7 @@ export default function LandingView({ v }) {
                 <span style={{ display: "block", fontSize: "12px", fontWeight: "700", letterSpacing: ".15em", textTransform: "uppercase", color: "var(--iw-stone)" }}>Run sheet · sample
                 </span>
                 <span>
-                  <span style={{ display: "block", fontFamily: "'Marcellus',serif", fontSize: "clamp(34px,3.2vw,48px)", lineHeight: "1", color: "var(--iw-gold)" }}>20:30
+                  <span style={{ display: "block", fontFamily: "'Marcellus',serif", fontSize: "clamp(27px,2.5vw,37px)", lineHeight: "1", color: "var(--iw-gold)" }}>20:30
                   </span>
                   <span style={{ display: "block", marginTop: "8px", fontSize: "15px", color: "var(--iw-parchment)" }}>Your entrance
                   </span>
@@ -131,7 +131,7 @@ export default function LandingView({ v }) {
                 <span style={{ display: "block", fontSize: "12px", fontWeight: "700", letterSpacing: ".15em", textTransform: "uppercase", color: "var(--iw-stone)" }}>Budget · sample
                 </span>
                 <span>
-                  <span style={{ display: "block", fontFamily: "'Marcellus',serif", fontSize: "clamp(26px,2.4vw,34px)", lineHeight: "1", color: "var(--iw-ivory)" }}>₹41.2L
+                  <span style={{ display: "block", fontFamily: "'Marcellus',serif", fontSize: "clamp(22px,2.04vw,29px)", lineHeight: "1", color: "var(--iw-ivory)" }}>₹41.2L
                   </span>
                   <span style={{ display: "block", marginTop: "6px", fontSize: "12px", color: "var(--iw-stone)" }}>committed of ₹85L
                   </span>
@@ -180,7 +180,7 @@ export default function LandingView({ v }) {
           {v.narrow ? (<>
             <div style={{ display: "flex", flexDirection: "column", gap: "32px", paddingTop: "16px" }}>
               <div>
-                <h1 id="hero-h" style={{ margin: "20px 0 0", fontFamily: "'Marcellus',serif", fontWeight: "400", fontSize: "clamp(36px,9vw,52px)", lineHeight: "1.04", letterSpacing: "-.012em", color: "var(--iw-ivory)" }}>
+                <h1 id="hero-h" style={{ margin: "20px 0 0", fontFamily: "'Marcellus',serif", fontWeight: "400", fontSize: "clamp(28px,7.02vw,41px)", lineHeight: "1.04", letterSpacing: "-.012em", color: "var(--iw-ivory)" }}>
                   <span data-hero="160" style={{ display: "block", textWrap: "balance" }}>A wedding that feels like you.
                   </span>
                   <span data-hero="280" style={{ display: "block", marginTop: ".1em", textWrap: "balance" }}>A plan that holds it all.
@@ -206,7 +206,7 @@ export default function LandingView({ v }) {
                   <span style={{ display: "block", fontSize: "12px", fontWeight: "700", letterSpacing: ".15em", textTransform: "uppercase", color: "var(--iw-stone)" }}>Run sheet · sample
                   </span>
                   <span>
-                    <span style={{ display: "block", fontFamily: "'Marcellus',serif", fontSize: "clamp(34px,3.2vw,48px)", lineHeight: "1", color: "var(--iw-gold)" }}>20:30
+                    <span style={{ display: "block", fontFamily: "'Marcellus',serif", fontSize: "clamp(27px,2.5vw,37px)", lineHeight: "1", color: "var(--iw-gold)" }}>20:30
                     </span>
                     <span style={{ display: "block", marginTop: "8px", fontSize: "15px", color: "var(--iw-parchment)" }}>Your entrance
                     </span>
@@ -285,7 +285,7 @@ export default function LandingView({ v }) {
           </div>
           <div ref={v.orbitTextRef} style={sx(`position:absolute;top:72px;left:0;right:0;bottom:0;z-index:4;display:flex;align-items:${v.orbitAlign ?? ""};justify-content:center;padding:0 24px ${v.orbitPadB ?? ""};pointer-events:none`)}>
             <div style={{ maxWidth: "620px", textAlign: "center", pointerEvents: "auto" }}>
-              <h1 id="hero-h" style={{ margin: "20px 0 0", fontFamily: "'Marcellus',serif", fontWeight: "400", fontSize: "clamp(34px,3.8vw,62px)", lineHeight: "1.04", letterSpacing: "-.012em", color: "var(--iw-ivory)" }}>
+              <h1 id="hero-h" style={{ margin: "20px 0 0", fontFamily: "'Marcellus',serif", fontWeight: "400", fontSize: "clamp(24px,2.66vw,43px)", lineHeight: "1.04", letterSpacing: "-.012em", color: "var(--iw-ivory)" }}>
                 <span data-hero="280" style={{ display: "block", textWrap: "balance" }}>A wedding that feels like you.
                 </span>
                 <span data-hero="400" style={{ display: "block", marginTop: ".1em", textWrap: "balance" }}>A plan that holds it all.
@@ -311,7 +311,7 @@ export default function LandingView({ v }) {
               </p>
               <p style={sx(`margin:12px 0 0;font-family:'Marcellus',serif;font-size:${v.seamTimeSz ?? ""};line-height:.92;color:var(--iw-gold)`)}>20:30
               </p>
-              <p style={{ margin: "12px 0 0", fontFamily: "'Marcellus',serif", fontSize: "clamp(22px,2.3vw,34px)", lineHeight: "1.1", color: "var(--iw-ivory)" }}>Your entrance
+              <p style={{ margin: "12px 0 0", fontFamily: "'Marcellus',serif", fontSize: "clamp(19px,1.95vw,29px)", lineHeight: "1.1", color: "var(--iw-ivory)" }}>Your entrance
               </p>
               <div style={sx(`display:${v.seamRowsDisp ?? ""};margin-top:22px;border-top:1px solid var(--iw-line-strong)`)}>
                 <div style={{ display: "flex", justifyContent: "space-between", alignItems: "baseline", gap: "16px", padding: "12px 0", borderBottom: "1px solid var(--iw-line)" }}>
@@ -358,10 +358,10 @@ export default function LandingView({ v }) {
               </span>
             </button>
           </div>
-          <div style={{ position: "absolute", left: "0", right: "0", bottom: "0", padding: "0 clamp(20px,4vw,56px) clamp(36px,6vh,64px)", pointerEvents: "none" }}>
+          <div style={{ position: "absolute", left: "0", right: "0", bottom: "0", padding: "0 clamp(24px,6vw,112px) clamp(36px,6vh,64px)", pointerEvents: "none" }}>
             <div style={{ maxWidth: "1320px", margin: "0 auto" }}>
               <div style={sx(`width:${v.seamCopyW ?? ""};max-width:620px;pointer-events:auto`)}>
-                <h1 id="hero-h" style={{ margin: "20px 0 0", fontFamily: "'Marcellus',serif", fontWeight: "400", fontSize: "clamp(36px,4.4vw,76px)", lineHeight: "1.04", letterSpacing: "-.012em", color: "var(--iw-ivory)" }}>
+                <h1 id="hero-h" style={{ margin: "20px 0 0", fontFamily: "'Marcellus',serif", fontWeight: "400", fontSize: "clamp(25px,3.08vw,53px)", lineHeight: "1.04", letterSpacing: "-.012em", color: "var(--iw-ivory)" }}>
                   <span data-hero="380" style={{ display: "block", textWrap: "balance" }}>A wedding that feels like you.
                   </span>
                   <span data-hero="500" style={{ display: "block", marginTop: ".1em", textWrap: "balance" }}>A plan that holds it all.
@@ -386,7 +386,7 @@ export default function LandingView({ v }) {
             <span aria-hidden="true" style={{ position: "absolute", inset: "0", pointerEvents: "none", background: "radial-gradient(42% 56% at 24% 42%, rgba(201,169,110,.08) 0%, rgba(201,169,110,0) 70%), linear-gradient(180deg, rgba(12,9,7,0) 60%, rgba(12,9,7,.55) 100%)" }} />
             <div style={sx(`position:relative;width:100%;max-width:1160px;display:grid;grid-template-columns:${v.archCols ?? ""};justify-content:center;align-items:center;gap:${v.archGap ?? ""}`)}>
               <div style={sx(`position:relative;z-index:2;min-width:0;max-width:${v.archTextW ?? ""};justify-self:${v.archJs ?? ""};text-align:${v.archTA ?? ""}`)}>
-                <h1 id="hero-h" style={{ margin: "26px 0 0", fontFamily: "'Marcellus',serif", fontWeight: "400", fontSize: "clamp(36px,3.6vw,58px)", lineHeight: "1.12", letterSpacing: "-.005em", color: "var(--iw-ivory)", textWrap: "balance" }}>
+                <h1 id="hero-h" style={{ margin: "26px 0 0", fontFamily: "'Marcellus',serif", fontWeight: "400", fontSize: "clamp(28px,2.81vw,45px)", lineHeight: "1.12", letterSpacing: "-.005em", color: "var(--iw-ivory)", textWrap: "balance" }}>
                   <span data-hero="420" style={{ display: "block" }}>A wedding that feels like you.
                   </span>{" "}
                   <span data-hero="540" style={{ display: "block", color: "#CFC3B4" }}>A plan that holds it all.
@@ -432,15 +432,15 @@ export default function LandingView({ v }) {
         </section>
       </>) : null}{" "}
       {v.heroSky ? (<>
-        <section id="top" data-screen-label="01 Hero · Your sky" aria-labelledby="hero-h" style={{ position: "relative", minHeight: "min(100svh, 1040px)", padding: "92px clamp(20px,4vw,56px) 40px", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", textAlign: "center", background: "radial-gradient(56% 46% at 50% 58%, rgba(12,9,7,.66) 0%, rgba(12,9,7,0) 100%)", color: "var(--iw-ivory)", overflow: "hidden" }}>
+        <section id="top" data-screen-label="01 Hero · Your sky" aria-labelledby="hero-h" style={{ position: "relative", minHeight: "min(100svh, 1040px)", padding: "92px clamp(24px,6vw,112px) 40px", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", textAlign: "center", background: "radial-gradient(56% 46% at 50% 58%, rgba(12,9,7,.66) 0%, rgba(12,9,7,0) 100%)", color: "var(--iw-ivory)", overflow: "hidden" }}>
           <canvas ref={v.moonRef} data-hero="60" aria-hidden="true" style={sx(`display:block;width:${v.moonSz ?? ""};height:${v.moonSz ?? ""}`)} />
           <p data-hero="180" aria-live="polite" style={{ margin: "4px 0 0", fontSize: "12px", fontWeight: "700", letterSpacing: ".16em", textTransform: "uppercase", color: "var(--iw-gold-light)" }}>{v.skyOver}
           </p>
           {v.skyHasCount ? (<>
-            <p style={{ margin: "10px 0 0", fontFamily: "'Marcellus',serif", fontSize: "clamp(22px,2vw,30px)", lineHeight: "1.1", color: "var(--iw-gold)" }}>{v.skyCount}
+            <p style={{ margin: "10px 0 0", fontFamily: "'Marcellus',serif", fontSize: "clamp(19px,1.7vw,26px)", lineHeight: "1.1", color: "var(--iw-gold)" }}>{v.skyCount}
             </p>
           </>) : null}
-          <h1 id="hero-h" style={{ margin: "18px 0 0", fontFamily: "'Marcellus',serif", fontWeight: "400", fontSize: "clamp(36px,4.6vw,80px)", lineHeight: "1.04", letterSpacing: "-.012em", color: "var(--iw-ivory)" }}>
+          <h1 id="hero-h" style={{ margin: "18px 0 0", fontFamily: "'Marcellus',serif", fontWeight: "400", fontSize: "clamp(25px,3.22vw,56px)", lineHeight: "1.04", letterSpacing: "-.012em", color: "var(--iw-ivory)" }}>
             <span data-hero="260" style={{ display: "block", textWrap: "balance" }}>A wedding that feels like you.
             </span>
             <span data-hero="380" style={{ display: "block", marginTop: ".1em", textWrap: "balance" }}>A plan that holds it all.
@@ -469,7 +469,7 @@ export default function LandingView({ v }) {
         <section id="top" ref={v.petalRef} data-screen-label="01 Hero · Petals" aria-labelledby="hero-h" onPointerMove={v.petalMove} onPointerDown={v.petalDown} onPointerLeave={v.petalLeave} style={{ position: "relative", height: "100svh", minHeight: "640px", maxHeight: "1040px", overflow: "hidden", background: "radial-gradient(70% 60% at 50% 45%, rgba(58,30,18,.5) 0%, rgba(12,9,7,0) 72%)", color: "var(--iw-ivory)", display: "flex", alignItems: "center", justifyContent: "center", textAlign: "center", touchAction: "pan-y" }}>
           <canvas ref={v.petalBackRef} aria-hidden="true" style={{ position: "absolute", inset: "0", width: "100%", height: "100%", pointerEvents: "none" }} />
           <div style={{ position: "relative", zIndex: "1", maxWidth: "1180px", padding: "72px 24px 24px" }}>
-            <h1 id="hero-h" style={{ margin: "22px 0 0", fontFamily: "'Marcellus',serif", fontWeight: "400", fontSize: "clamp(44px,6.6vw,118px)", lineHeight: "1.02", letterSpacing: "-.014em", color: "var(--iw-ivory)" }}>
+            <h1 id="hero-h" style={{ margin: "22px 0 0", fontFamily: "'Marcellus',serif", fontWeight: "400", fontSize: "clamp(27px,4.09vw,73px)", lineHeight: "1.02", letterSpacing: "-.014em", color: "var(--iw-ivory)" }}>
               <span data-hero="1000" style={{ display: "block", textWrap: "balance" }}>A wedding that feels like you.
               </span>
               <span data-hero="1140" style={{ display: "block", marginTop: ".08em", textWrap: "balance" }}>A plan that holds it all.
@@ -489,17 +489,17 @@ export default function LandingView({ v }) {
           </p>
         </section>
       </>) : null}
-      <section id="open-dates" data-screen-label="02 Open dates" aria-labelledby="od-h" style={{ scrollMarginTop: "72px", padding: "clamp(64px,8vw,104px) 0", borderBottom: "1px solid var(--iw-line)" }}>
-        <div style={{ maxWidth: "1320px", margin: "0 auto", padding: "0 clamp(20px,4vw,56px)" }}>
+      <section id="open-dates" data-screen-label="02 Open dates" aria-labelledby="od-h" style={{ scrollMarginTop: "72px", padding: "clamp(80px,10vw,144px) 0", borderBottom: "1px solid var(--iw-line)" }}>
+        <div style={{ maxWidth: "1320px", margin: "0 auto", padding: "0 clamp(24px,6vw,112px)" }}>
           <div style={{ display: "flex", flexWrap: "wrap", alignItems: "flex-end", justifyContent: "space-between", gap: "28px 72px" }}>
             <div style={{ flex: "1.4 1 520px", minWidth: "0" }}>
-              <h2 id="od-h" data-rv="up" data-rv-d="80" style={{ margin: "24px 0 0", fontFamily: "'Marcellus',serif", fontWeight: "400", fontSize: "clamp(30px,3.4vw,50px)", lineHeight: "1.07", letterSpacing: "-.01em", color: "var(--iw-ivory)", textWrap: "balance", maxWidth: "13em" }}>{"The places everyone wants. "}
+              <h2 id="od-h" data-rv="up" data-rv-d="80" style={{ margin: "24px 0 0", fontFamily: "'Marcellus',serif", fontWeight: "400", fontSize: "clamp(23px,2.65vw,39px)", lineHeight: "1.07", letterSpacing: "-.01em", color: "var(--iw-ivory)", textWrap: "balance", maxWidth: "13em" }}>{"The places everyone wants. "}
                 <span style={{ color: "#A89C8F" }}>On dates that rarely open.
                 </span>
               </h2>
             </div>
             <div style={{ flex: "0 1 430px", minWidth: "0" }}>
-              <p data-rv="up" data-rv-d="140" style={{ margin: "0", fontSize: "17px", lineHeight: "1.65", color: "var(--iw-sand)", textWrap: "pretty" }}>Now and then a heritage hotel, a fort palace or a lakeside estate releases a date: a cancellation, or a midweek stretch. We check what each one includes and list it here, for as long as it holds..
+              <p data-rv="up" data-rv-d="140" style={{ margin: "0", fontSize: "17px", lineHeight: "1.65", color: "var(--iw-sand)", textWrap: "pretty" }}>Now and then a heritage hotel, a fort palace or a lakeside estate releases a date: a cancellation, or a midweek stretch. We check what each one includes and list it here, for as long as it holds.
               </p>
               <div role="tablist" aria-label="Where the open dates are" data-rv="up" data-rv-d="200" style={{ display: "flex", gap: "28px", marginTop: "28px", borderBottom: "1px solid var(--iw-line-strong)" }}>
                 {arr(v.dealTabs).map((t, $index) => (<Fragment key={$index}>
@@ -519,7 +519,7 @@ export default function LandingView({ v }) {
                 </div>
                 <p style={{ margin: "18px 0 0", fontSize: "12px", fontWeight: "700", letterSpacing: ".16em", textTransform: "uppercase", color: "var(--iw-stone)" }}>{d?.place}
                 </p>
-                <h3 style={{ margin: "8px 0 0", fontFamily: "'Marcellus',serif", fontWeight: "400", fontSize: "24px", lineHeight: "1.12", color: "var(--iw-ivory)" }}>{d?.name}
+                <h3 style={{ margin: "8px 0 0", fontFamily: "'Marcellus',serif", fontWeight: "400", fontSize: "21px", lineHeight: "1.12", color: "var(--iw-ivory)" }}>{d?.name}
                 </h3>
                 <p style={{ margin: "10px 0 0", fontSize: "15px", lineHeight: "1.5", color: "var(--iw-parchment)" }}>{d?.dates}
                 </p>
@@ -527,7 +527,7 @@ export default function LandingView({ v }) {
                 </p>
                 <div style={{ display: "flex", flexWrap: "wrap", alignItems: "center", justifyContent: "space-between", gap: "0 12px", marginTop: "14px", paddingTop: "6px", borderTop: "1px solid var(--iw-line-strong)" }}>
                   <span style={{ display: "flex", alignItems: "baseline", gap: "10px" }}>
-                    <span style={{ fontFamily: "'Marcellus',serif", fontSize: "26px", lineHeight: "1", color: "var(--iw-gold)" }}>{d?.price}
+                    <span style={{ fontFamily: "'Marcellus',serif", fontSize: "22px", lineHeight: "1", color: "var(--iw-gold)" }}>{d?.price}
                     </span>
                   </span>{" "}
                   <Link className="iw-hover-b iw-focus-1" to={d?.href} aria-label={d?.aria} style={{ display: "inline-flex", alignItems: "center", minHeight: "44px", fontSize: "13px", fontWeight: "700", color: "var(--iw-gold-light)", textDecoration: "none", transition: "color .2s ease" }}>Ask about it
@@ -542,11 +542,11 @@ export default function LandingView({ v }) {
           </p>
         </div>
       </section>
-      <section id="vendors" data-screen-label="08 Vendors" aria-labelledby="vd-h" style={{ scrollMarginTop: "72px", padding: "clamp(64px,8vw,104px) 0", borderTop: "1px solid var(--iw-line)" }}>
-        <div style={{ maxWidth: "1320px", margin: "0 auto", padding: "0 clamp(20px,4vw,56px)" }}>
+      <section id="vendors" data-screen-label="08 Vendors" aria-labelledby="vd-h" style={{ scrollMarginTop: "72px", padding: "clamp(80px,10vw,144px) 0", borderTop: "1px solid var(--iw-line)" }}>
+        <div style={{ maxWidth: "1320px", margin: "0 auto", padding: "0 clamp(24px,6vw,112px)" }}>
           <div style={{ display: "flex", flexWrap: "wrap", alignItems: "flex-end", justifyContent: "space-between", gap: "28px 72px" }}>
             <div style={{ flex: "1 1 440px", maxWidth: "640px" }}>
-              <h2 id="vd-h" data-rv="up" data-rv-d="80" style={{ margin: "24px 0 0", fontFamily: "'Marcellus',serif", fontWeight: "400", fontSize: "clamp(30px,3.4vw,50px)", lineHeight: "1.07", letterSpacing: "-.01em", color: "var(--iw-ivory)" }}>Find your people.
+              <h2 id="vd-h" data-rv="up" data-rv-d="80" style={{ margin: "24px 0 0", fontFamily: "'Marcellus',serif", fontWeight: "400", fontSize: "clamp(23px,2.65vw,39px)", lineHeight: "1.07", letterSpacing: "-.01em", color: "var(--iw-ivory)" }}>Find your people.
               </h2>
             </div>
             <p data-rv="up" data-rv-d="140" style={{ flex: "0 1 440px", margin: "0", fontSize: "17px", lineHeight: "1.65", color: "var(--iw-sand)", textWrap: "pretty" }}>Venues, photographers, décor studios and caterers, chosen the way you’d choose them: by how their work makes you feel. Enquire, compare and book without leaving your plan.
@@ -558,9 +558,9 @@ export default function LandingView({ v }) {
                 <button className="iw-hover-b iw-focus-1" type="button" role="tab" aria-selected={c?.sel} aria-controls="vd-grid" onClick={c?.on} style={sx(`appearance:none;width:100%;display:flex;align-items:baseline;gap:18px;padding:18px 0;background:none;border:0;border-bottom:1px solid var(--iw-line-strong);text-align:left;cursor:pointer;color:${c?.color ?? ""};transition:color .25s ease`)}>
                   <span style={{ flex: "0 0 26px", fontFamily: "'Nunito Sans',sans-serif", fontSize: "12px", fontWeight: "700", letterSpacing: ".14em", color: "var(--iw-gold)" }}>{c?.no}
                   </span>{" "}
-                  <span style={{ flex: "1", fontFamily: "'Marcellus',serif", fontSize: "clamp(28px,3.2vw,46px)", lineHeight: "1.1" }}>{c?.label}
+                  <span style={{ flex: "1", fontFamily: "'Marcellus',serif", fontSize: "clamp(22px,2.5vw,36px)", lineHeight: "1.1" }}>{c?.label}
                   </span>{" "}
-                  <span aria-hidden="true" style={sx(`font-size:20px;color:var(--iw-gold);opacity:${c?.arrow ?? ""};transition:opacity .25s ease`)}>→
+                  <span aria-hidden="true" style={sx(`font-size:18px;color:var(--iw-gold);opacity:${c?.arrow ?? ""};transition:opacity .25s ease`)}>→
                   </span>
                 </button>
               </Fragment>))}
@@ -575,7 +575,7 @@ export default function LandingView({ v }) {
                   </span>{" "}
                   <span style={{ display: "block", marginTop: "18px", fontSize: "12px", fontWeight: "700", letterSpacing: ".16em", textTransform: "uppercase", color: "var(--iw-stone)" }}>{v?.kind}
                   </span>{" "}
-                  <span style={{ display: "block", marginTop: "8px", fontFamily: "'Marcellus',serif", fontSize: "24px", lineHeight: "1.12", color: "var(--iw-ivory)" }}>{v?.name}
+                  <span style={{ display: "block", marginTop: "8px", fontFamily: "'Marcellus',serif", fontSize: "21px", lineHeight: "1.12", color: "var(--iw-ivory)" }}>{v?.name}
                   </span>{" "}
                   <span style={{ display: "flex", justifyContent: "space-between", alignItems: "baseline", gap: "12px", marginTop: "10px", paddingTop: "12px", borderTop: "1px solid var(--iw-line-strong)" }}>
                     <span style={{ fontSize: "15px", color: "var(--iw-sand)" }}>{v?.place}
@@ -592,11 +592,141 @@ export default function LandingView({ v }) {
         </div>
       </section>
       <NoorCarousel />
+      <section ref={v.showRef} data-screen-label="05 Showcase" aria-labelledby="show-h" style={sx(`--p:0;position:relative;height:${v.scH ?? ""};background:transparent;color:var(--iw-parchment);border-top:1px solid var(--iw-line)`)}>
+        <div style={sx(`position:${v.stPos ?? ""};top:0;height:${v.stH ?? ""};padding:${v.stPad ?? ""};overflow:hidden;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:clamp(22px,3.4vh,40px)`)}>
+          <div aria-hidden="true" style={{ position: "absolute", inset: "0", clipPath: "inset(calc(var(--p) * 6%) calc(var(--p) * 9%) round calc(var(--p) * 6px))", willChange: "clip-path" }}>
+            <img src="https://www.ptaufiqphotography.com/wp-content/uploads/2025/08/luxury-wedding-venue-photography-ptaufiq.jpg" alt="" loading="lazy" decoding="async" style={{ width: "100%", height: "100%", objectFit: "cover", transform: "scale(calc(1.1 - var(--p) * 0.1))" }} />
+            <div style={{ position: "absolute", inset: "0", background: "var(--iw-ink)", opacity: "calc(0.16 + var(--p) * 0.66)" }} />
+          </div>
+          <div style={sx(`position:absolute;inset:0;display:${v.textADisp ?? ""};align-items:center;justify-content:center;padding:0 24px;opacity:calc(1 - var(--p) * 3.2);transform:translateY(calc(var(--p) * -48px))`)}>
+            <p style={{ margin: "0", maxWidth: "13em", textAlign: "center", fontFamily: "'Marcellus',serif", fontSize: "clamp(27px,3.64vw,56px)", lineHeight: "1.06", color: "var(--iw-ivory)", textWrap: "balance" }}>It begins with how you want it to feel.
+            </p>
+          </div>
+          <div style={{ position: "relative", textAlign: "center", padding: "0 20px", opacity: "calc((var(--p) - 0.45) * 3)", transform: "translateY(calc((1 - var(--p)) * 32px))" }}>
+            <p style={{ margin: "0", fontSize: "12px", fontWeight: "700", letterSpacing: ".16em", textTransform: "uppercase", color: "var(--iw-gold)" }}>Your planning space
+            </p>
+            <h2 id="show-h" style={{ margin: "14px 0 0", fontFamily: "'Marcellus',serif", fontWeight: "400", fontSize: "clamp(23px,2.5vw,39px)", lineHeight: "1.1", color: "var(--iw-ivory)" }}>Then everything finds its place.
+            </h2>
+            <p style={{ margin: "14px auto 0", maxWidth: "34em", fontSize: "16px", lineHeight: "1.6", color: "var(--iw-sand)", textWrap: "pretty" }}>Your events, vendors, budget, guests and every decision between them, in one calm view that keeps up with you.
+            </p>
+          </div>
+          <div role="img" aria-label="Illustration of the IndianWeddings home screen for a sample wedding: four events, open decisions, a revised quote and the budget." style={sx(`position:relative;width:min(1120px,92vw);height:${v.frameH ?? ""};opacity:calc((var(--p) - 0.4) * 2.4);transform:translateY(calc((1 - var(--p)) * 80px)) scale(calc(0.965 + var(--p) * 0.035));background:var(--iw-ink);border:1px solid var(--iw-line-strong);border-radius:6px;overflow:hidden;display:flex;flex-direction:column;text-align:left`)}>
+            <div style={{ flex: "0 0 auto", height: "38px", display: "flex", alignItems: "center", justifyContent: "space-between", padding: "0 18px", borderBottom: "1px solid var(--iw-line)" }}>
+              <span style={{ fontSize: "12px", fontWeight: "700", letterSpacing: ".15em", textTransform: "uppercase", color: "var(--iw-stone)" }}>IndianWeddings · Home
+              </span>{" "}
+              <span style={{ fontSize: "12px", letterSpacing: ".04em", color: "var(--iw-stone)" }}>Illustrative · sample wedding
+              </span>
+            </div>
+            <div style={{ flex: "1", minHeight: "0", display: "flex" }}>
+              <div style={sx(`flex:0 0 190px;display:${v.railDisp ?? ""};flex-direction:column;gap:4px;padding:24px 18px;border-right:1px solid var(--iw-line)`)}>
+                <span style={{ display: "flex", fontFamily: "'Marcellus',serif", fontSize: "13px", letterSpacing: ".08em", color: "var(--iw-parchment)", marginBottom: "22px" }}>INDIAN
+                  <span style={{ color: "var(--iw-gold)" }}>WEDDINGS
+                  </span>
+                </span>{" "}
+                <span style={{ padding: "9px 0", fontSize: "13.5px", fontWeight: "700", color: "var(--iw-gold)" }}>Home
+                </span>{" "}
+                <span style={{ padding: "9px 0", fontSize: "13.5px", color: "var(--iw-sand)" }}>Plan
+                </span>{" "}
+                <span style={{ padding: "9px 0", fontSize: "13.5px", color: "var(--iw-sand)" }}>Vendors
+                </span>{" "}
+                <span style={{ padding: "9px 0", fontSize: "13.5px", color: "var(--iw-sand)" }}>Messages
+                </span>{" "}
+                <span style={{ padding: "9px 0", fontSize: "13.5px", color: "var(--iw-sand)" }}>Budget
+                </span>{" "}
+                <span style={{ padding: "9px 0", fontSize: "13.5px", color: "var(--iw-sand)" }}>Guests
+                </span>{" "}
+                <span style={{ padding: "9px 0", fontSize: "13.5px", color: "var(--iw-sand)" }}>Wedding website
+                </span>
+              </div>
+              <div style={{ flex: "1", minWidth: "0", padding: "clamp(20px,2.6vw,34px)", display: "flex", flexWrap: "wrap", gap: "clamp(24px,3vw,44px)", alignContent: "flex-start", overflow: "hidden" }}>
+                <div style={{ flex: "1.4 1 340px", minWidth: "0" }}>
+                  <p style={{ margin: "0", fontSize: "12px", fontWeight: "700", letterSpacing: ".15em", textTransform: "uppercase", color: "var(--iw-stone)" }}>Sample wedding · February 2027
+                  </p>
+                  <p style={{ margin: "10px 0 0", fontFamily: "'Marcellus',serif", fontSize: "clamp(20px,1.95vw,27px)", lineHeight: "1.15", color: "var(--iw-parchment)" }}>Good evening, Ananya
+                  </p>
+                  <div style={{ display: "flex", alignItems: "flex-start", gap: "12px", marginTop: "22px", padding: "16px 0", borderTop: "1px solid var(--iw-line-strong)", borderBottom: "1px solid var(--iw-line-strong)" }}>
+                    <span style={{ flex: "0 0 7px", height: "7px", marginTop: "6px", borderRadius: "50%", background: "#6FAE93" }} />{" "}
+                    <span style={{ fontSize: "14px", lineHeight: "1.5", color: "var(--iw-sand)" }}>
+                      <span style={{ color: "var(--iw-parchment)" }}>Vermilion Films sent a revised quote.
+                      </span>{" A second shooter is added for the sangeet."}
+                    </span>
+                  </div>
+                  <p style={{ margin: "24px 0 12px", fontSize: "12px", fontWeight: "700", letterSpacing: ".15em", textTransform: "uppercase", color: "var(--iw-stone)" }}>Your celebrations
+                  </p>
+                  <div style={{ display: "flex", flexWrap: "wrap", borderTop: "1px solid var(--iw-line-strong)" }}>
+                    <div style={{ flex: "1 1 120px", padding: "14px 14px 14px 0", borderBottom: "1px solid var(--iw-line)" }}>
+                      <span style={{ display: "block", fontFamily: "'Marcellus',serif", fontSize: "18px", color: "var(--iw-parchment)" }}>Mehendi
+                      </span>
+                      <span style={{ display: "block", marginTop: "4px", fontSize: "12px", color: "var(--iw-stone)" }}>Thu 11 Feb · Courtyard
+                      </span>
+                    </div>
+                    <div style={{ flex: "1 1 120px", padding: "14px 14px 14px 0", borderBottom: "1px solid var(--iw-line)" }}>
+                      <span style={{ display: "block", fontFamily: "'Marcellus',serif", fontSize: "18px", color: "var(--iw-parchment)" }}>Sangeet
+                      </span>
+                      <span style={{ display: "block", marginTop: "4px", fontSize: "12px", color: "var(--iw-stone)" }}>Fri 12 Feb · Lawns
+                      </span>
+                    </div>
+                    <div style={{ flex: "1 1 120px", padding: "14px 14px 14px 0", borderBottom: "1px solid var(--iw-line)" }}>
+                      <span style={{ display: "block", fontFamily: "'Marcellus',serif", fontSize: "18px", color: "var(--iw-parchment)" }}>Wedding
+                      </span>
+                      <span style={{ display: "block", marginTop: "4px", fontSize: "12px", color: "var(--iw-stone)" }}>Sat 13 Feb · Lakeside
+                      </span>
+                    </div>
+                    <div style={{ flex: "1 1 120px", padding: "14px 14px 14px 0", borderBottom: "1px solid var(--iw-line)" }}>
+                      <span style={{ display: "block", fontFamily: "'Marcellus',serif", fontSize: "18px", color: "var(--iw-parchment)" }}>Reception
+                      </span>
+                      <span style={{ display: "block", marginTop: "4px", fontSize: "12px", color: "var(--iw-stone)" }}>Sun 14 Feb · Ballroom
+                      </span>
+                    </div>
+                  </div>
+                </div>
+                <div style={{ flex: "1 1 280px", minWidth: "0" }}>
+                  <p style={{ margin: "0 0 12px", fontSize: "12px", fontWeight: "700", letterSpacing: ".15em", textTransform: "uppercase", color: "var(--iw-stone)" }}>With you
+                  </p>
+                  <div style={{ borderTop: "1px solid var(--iw-line-strong)" }}>
+                    <div style={{ padding: "13px 0", borderBottom: "1px solid var(--iw-line)" }}>
+                      <span style={{ display: "block", fontSize: "14px", color: "var(--iw-parchment)" }}>Photographer
+                      </span>
+                      <span style={{ display: "block", marginTop: "3px", fontSize: "12px", color: "var(--iw-stone)" }}>Three quotes to compare
+                      </span>
+                    </div>
+                    <div style={{ padding: "13px 0", borderBottom: "1px solid var(--iw-line)" }}>
+                      <span style={{ display: "block", fontSize: "14px", color: "var(--iw-parchment)" }}>Décor direction
+                      </span>
+                      <span style={{ display: "block", marginTop: "3px", fontSize: "12px", color: "var(--iw-stone)" }}>Amrapali Flower Studio shared a moodboard
+                      </span>
+                    </div>
+                    <div style={{ padding: "13px 0", borderBottom: "1px solid var(--iw-line)" }}>
+                      <span style={{ display: "block", fontSize: "14px", color: "var(--iw-parchment)" }}>Guest list
+                      </span>
+                      <span style={{ display: "block", marginTop: "3px", fontSize: "12px", color: "var(--iw-stone)" }}>Eighteen households to confirm
+                      </span>
+                    </div>
+                  </div>
+                  <span style={{ display: "flex", alignItems: "center", justifyContent: "center", height: "42px", marginTop: "18px", borderRadius: "3px", background: "linear-gradient(135deg,var(--iw-gold-light) 0%,var(--iw-gold) 44%,#A8863C 100%)", color: "var(--iw-on-gold)", fontSize: "13.5px", fontWeight: "700" }}>Compare photographers
+                  </span>
+                  <div style={{ marginTop: "24px" }}>
+                    <div style={{ display: "flex", justifyContent: "space-between", alignItems: "baseline" }}>
+                      <span style={{ fontSize: "12px", fontWeight: "700", letterSpacing: ".15em", textTransform: "uppercase", color: "var(--iw-stone)" }}>Budget
+                      </span>
+                      <span style={{ fontSize: "12px", color: "var(--iw-stone)" }}>₹41.2L of ₹85L committed
+                      </span>
+                    </div>
+                    <div style={{ position: "relative", height: "3px", marginTop: "12px", background: "var(--iw-line-strong)" }}>
+                      <div style={{ position: "absolute", left: "0", top: "0", bottom: "0", width: "48%", background: "var(--iw-gold)" }} />
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
       <section id="planning" data-screen-label="05 Your guests" aria-labelledby="ch3-h" style={{ scrollMarginTop: "72px", borderTop: "1px solid var(--iw-line)" }}>
-        <article data-screen-label="06c Chapter 03" aria-labelledby="ch3-h" style={{ maxWidth: "1320px", margin: "0 auto", padding: "clamp(64px,8vw,104px) clamp(20px,4vw,56px)" }}>
+        <article data-screen-label="06c Chapter 03" aria-labelledby="ch3-h" style={{ maxWidth: "1320px", margin: "0 auto", padding: "clamp(80px,10vw,144px) clamp(24px,6vw,112px)" }}>
           <div style={{ display: "flex", flexWrap: "wrap", alignItems: "flex-end", justifyContent: "space-between", gap: "24px 64px" }}>
             <div style={{ flex: "1 1 460px", maxWidth: "640px" }}>
-              <h2 id="ch3-h" data-rv="up" data-rv-d="80" style={{ margin: "22px 0 0", maxWidth: "14em", fontFamily: "'Marcellus',serif", fontWeight: "400", fontSize: "clamp(30px,3.4vw,50px)", lineHeight: "1.1", color: "var(--iw-ivory)", textWrap: "balance" }}>From the save the date to the day itself
+              <h2 id="ch3-h" data-rv="up" data-rv-d="80" style={{ margin: "22px 0 0", maxWidth: "14em", fontFamily: "'Marcellus',serif", fontWeight: "400", fontSize: "clamp(23px,2.65vw,39px)", lineHeight: "1.1", color: "var(--iw-ivory)", textWrap: "balance" }}>From the save the date to the day itself
               </h2>
             </div>
             <p data-rv="up" data-rv-d="140" style={{ flex: "0 1 440px", margin: "0", fontSize: "17px", lineHeight: "1.65", color: "var(--iw-sand)", textWrap: "pretty" }}>Start with a save the date in a design that is actually Indian. It becomes your wedding website, then the app your guests carry through every event: one link that grows with your wedding. Or hand Noor your list of events, and it builds the whole site, a page and a look for each one.
@@ -646,7 +776,7 @@ export default function LandingView({ v }) {
                     </span>
                   </>) : null}
                 </div>
-                <span style={{ display: "block", marginTop: "16px", fontFamily: "'Marcellus',serif", fontSize: "clamp(24px,2.2vw,30px)", lineHeight: "1.08" }}>{"Ananya & Rohan"}
+                <span style={{ display: "block", marginTop: "16px", fontFamily: "'Marcellus',serif", fontSize: "clamp(20px,1.87vw,26px)", lineHeight: "1.08" }}>{"Ananya & Rohan"}
                 </span>{" "}
                 <span style={sx(`display:block;margin-top:8px;font-size:12px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:${v.tp?.accent ?? ""}`)}>12 · 13 · 14 February 2027
                 </span>{" "}
@@ -655,7 +785,7 @@ export default function LandingView({ v }) {
               </div>
               <p style={{ margin: "20px 0 0", fontSize: "12px", fontWeight: "700", letterSpacing: ".16em", color: "var(--iw-stone)" }}>01
               </p>
-              <p style={{ margin: "6px 0 0", fontFamily: "'Marcellus',serif", fontSize: "26px", lineHeight: "1.1", color: "var(--iw-ivory)" }}>A save the date that looks like you
+              <p style={{ margin: "6px 0 0", fontFamily: "'Marcellus',serif", fontSize: "22px", lineHeight: "1.1", color: "var(--iw-ivory)" }}>A save the date that looks like you
               </p>
               <p style={{ margin: "8px 0 0", fontSize: "15px", lineHeight: "1.55", color: "var(--iw-sand)" }}>Designs drawn from Indian craft, not a stock wedding look. Drop in your photographs and send it tonight.
               </p>
@@ -675,7 +805,7 @@ export default function LandingView({ v }) {
                     <img src={v.sdSrc} alt="" loading="lazy" decoding="async" style={{ width: "100%", height: "100%", objectFit: "cover" }} />
                   </div>
                   <div style={{ minWidth: "0" }}>
-                    <span style={{ display: "block", fontFamily: "'Marcellus',serif", fontSize: "24px", lineHeight: "1.08" }}>{"Ananya & Rohan"}
+                    <span style={{ display: "block", fontFamily: "'Marcellus',serif", fontSize: "21px", lineHeight: "1.08" }}>{"Ananya & Rohan"}
                     </span>
                     <span style={sx(`display:block;margin-top:6px;font-size:12px;color:${v.tp?.soft ?? ""}`)}>12 to 14 February · Jaipur
                     </span>
@@ -712,7 +842,7 @@ export default function LandingView({ v }) {
               </div>
               <p style={{ margin: "20px 0 0", fontSize: "12px", fontWeight: "700", letterSpacing: ".16em", color: "var(--iw-stone)" }}>02
               </p>
-              <p style={{ margin: "6px 0 0", fontFamily: "'Marcellus',serif", fontSize: "26px", lineHeight: "1.1", color: "var(--iw-ivory)" }}>It becomes your website
+              <p style={{ margin: "6px 0 0", fontFamily: "'Marcellus',serif", fontSize: "22px", lineHeight: "1.1", color: "var(--iw-ivory)" }}>It becomes your website
               </p>
               <p style={{ margin: "8px 0 0", fontSize: "15px", lineHeight: "1.55", color: "var(--iw-sand)" }}>Schedule, dress notes, travel and stay in one link. Replies land in your guest list, event by event.
               </p>
@@ -720,7 +850,7 @@ export default function LandingView({ v }) {
             <li data-rv="up" data-rv-d="160" style={{ minWidth: "0", maxWidth: "440px", width: "100%", justifySelf: "start" }}>
               <div aria-live="polite" role="group" aria-label="Sample guest app on the wedding morning" style={sx(`aspect-ratio:3/4;border:${v.tp?.bw ?? ""} solid transparent;background:${v.tp?.frame ?? ""};color:${v.tp?.ink ?? ""};padding:18px;display:flex;flex-direction:column`)}>
                 <div style={sx(`display:flex;justify-content:space-between;align-items:baseline;gap:10px;padding-bottom:12px;border-bottom:1px solid ${v.tp?.rule ?? ""}`)}>
-                  <span style={{ fontFamily: "'Marcellus',serif", fontSize: "20px", lineHeight: "1.1" }}>{"Ananya & Rohan"}
+                  <span style={{ fontFamily: "'Marcellus',serif", fontSize: "18px", lineHeight: "1.1" }}>{"Ananya & Rohan"}
                   </span>
                   <span style={sx(`font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:${v.tp?.accent ?? ""}`)}>Wedding · today
                   </span>
@@ -749,7 +879,7 @@ export default function LandingView({ v }) {
               </div>
               <p style={{ margin: "20px 0 0", fontSize: "12px", fontWeight: "700", letterSpacing: ".16em", color: "var(--iw-stone)" }}>03
               </p>
-              <p style={{ margin: "6px 0 0", fontFamily: "'Marcellus',serif", fontSize: "26px", lineHeight: "1.1", color: "var(--iw-ivory)" }}>Then the app on the day
+              <p style={{ margin: "6px 0 0", fontFamily: "'Marcellus',serif", fontSize: "22px", lineHeight: "1.1", color: "var(--iw-ivory)" }}>Then the app on the day
               </p>
               <p style={{ margin: "8px 0 0", fontSize: "15px", lineHeight: "1.55", color: "var(--iw-sand)" }}>Send an alert to every guest at once. Every photograph they take collects in one album, sorted by event.
               </p>
@@ -765,11 +895,11 @@ export default function LandingView({ v }) {
           </ol>
         </article>
       </section>
-      <section id="real-weddings" data-screen-label="09 Real weddings" aria-labelledby="rw-h" style={{ scrollMarginTop: "72px", padding: "clamp(64px,8vw,104px) 0", borderTop: "1px solid var(--iw-line)" }}>
-        <div style={{ maxWidth: "1320px", margin: "0 auto", padding: "0 clamp(20px,4vw,56px)" }}>
+      <section id="real-weddings" data-screen-label="09 Real weddings" aria-labelledby="rw-h" style={{ scrollMarginTop: "72px", padding: "clamp(80px,10vw,144px) 0", borderTop: "1px solid var(--iw-line)" }}>
+        <div style={{ maxWidth: "1320px", margin: "0 auto", padding: "0 clamp(24px,6vw,112px)" }}>
           <div style={{ display: "flex", flexWrap: "wrap", alignItems: "flex-end", justifyContent: "space-between", gap: "28px 72px" }}>
             <div style={{ flex: "1 1 440px", maxWidth: "680px" }}>
-              <h2 id="rw-h" data-rv="up" data-rv-d="80" style={{ margin: "24px 0 0", fontFamily: "'Marcellus',serif", fontWeight: "400", fontSize: "clamp(30px,3.4vw,50px)", lineHeight: "1.07", letterSpacing: "-.01em", color: "var(--iw-ivory)", textWrap: "balance" }}>Weddings that began here.
+              <h2 id="rw-h" data-rv="up" data-rv-d="80" style={{ margin: "24px 0 0", fontFamily: "'Marcellus',serif", fontWeight: "400", fontSize: "clamp(23px,2.65vw,39px)", lineHeight: "1.07", letterSpacing: "-.01em", color: "var(--iw-ivory)", textWrap: "balance" }}>Weddings that began here.
               </h2>
             </div>
             <p data-rv="up" data-rv-d="140" style={{ flex: "0 1 440px", margin: "0", fontSize: "17px", lineHeight: "1.65", color: "var(--iw-sand)", textWrap: "pretty" }}>Every wedding planned here keeps its story: the celebrations, the people who made them, and what the couple would tell you now.
@@ -790,10 +920,10 @@ export default function LandingView({ v }) {
             <div style={{ flex: "1 1 400px", minWidth: "0", display: "flex", flexDirection: "column" }}>
               <p style={{ margin: "0", fontSize: "12px", fontWeight: "700", letterSpacing: ".16em", textTransform: "uppercase", color: "var(--iw-stone)" }}>{v.rw?.meta}
               </p>
-              <h3 style={{ margin: "14px 0 0", fontFamily: "'Marcellus',serif", fontWeight: "400", fontSize: "clamp(34px,3.4vw,52px)", lineHeight: "1.06", color: "var(--iw-ivory)" }}>{v.rw?.names}
+              <h3 style={{ margin: "14px 0 0", fontFamily: "'Marcellus',serif", fontWeight: "400", fontSize: "clamp(27px,2.65vw,41px)", lineHeight: "1.06", color: "var(--iw-ivory)" }}>{v.rw?.names}
               </h3>
               <blockquote style={{ margin: "26px 0 0", padding: "0" }}>
-                <p style={{ margin: "0", fontFamily: "'Marcellus',serif", fontSize: "clamp(21px,1.8vw,26px)", lineHeight: "1.38", color: "var(--iw-parchment)", textWrap: "pretty" }}>{"“"}{v.rw?.quote}{"”"}
+                <p style={{ margin: "0", fontFamily: "'Marcellus',serif", fontSize: "clamp(19px,1.62vw,23px)", lineHeight: "1.38", color: "var(--iw-parchment)", textWrap: "pretty" }}>{"“"}{v.rw?.quote}{"”"}
                 </p>
                 <footer style={{ marginTop: "12px", fontSize: "13px", color: "var(--iw-stone)" }}>{v.rw?.by}
                 </footer>
@@ -801,7 +931,7 @@ export default function LandingView({ v }) {
               <div style={{ display: "flex", flexWrap: "wrap", marginTop: "30px", borderTop: "1px solid var(--iw-line-strong)" }}>
                 {arr(v.rwFacts).map((f, $index) => (<Fragment key={$index}>
                   <div style={{ flex: "1 1 110px", minWidth: "0", padding: "16px 16px 0 0" }}>
-                    <span style={{ display: "block", fontFamily: "'Marcellus',serif", fontSize: "28px", lineHeight: "1.1", color: "var(--iw-ivory)" }}>{f?.n}
+                    <span style={{ display: "block", fontFamily: "'Marcellus',serif", fontSize: "24px", lineHeight: "1.1", color: "var(--iw-ivory)" }}>{f?.n}
                     </span>
                     <span style={{ display: "block", marginTop: "4px", fontSize: "12px", lineHeight: "1.45", color: "var(--iw-stone)" }}>{f?.l}
                     </span>
@@ -831,7 +961,7 @@ export default function LandingView({ v }) {
               <button className="iw-focus-1" type="button" role="tab" id={t?.tid} aria-selected={t?.sel} aria-controls="rw-panel" onClick={t?.on} style={sx(`appearance:none;flex:1 1 220px;display:flex;align-items:center;gap:14px;margin-top:-1px;padding:16px 0;background:none;border:0;border-top:1px solid ${t?.line ?? ""};text-align:left;cursor:pointer;transition:border-color .25s ease`)}>
                 <img src={t?.img} alt="" loading="lazy" decoding="async" style={{ flex: "0 0 48px", width: "48px", height: "60px", objectFit: "cover" }} />{" "}
                 <span style={{ minWidth: "0" }}>
-                  <span style={sx(`display:block;font-family:'Marcellus',serif;font-size:21px;line-height:1.15;color:${t?.nc ?? ""};transition:color .25s ease`)}>{t?.names}
+                  <span style={sx(`display:block;font-family:'Marcellus',serif;font-size:19px;line-height:1.15;color:${t?.nc ?? ""};transition:color .25s ease`)}>{t?.names}
                   </span>
                   <span style={{ display: "block", marginTop: "4px", fontFamily: "'Nunito Sans',sans-serif", fontSize: "12px", color: "var(--iw-stone)" }}>{t?.place}
                   </span>
@@ -843,13 +973,48 @@ export default function LandingView({ v }) {
           </p>
         </div>
       </section>
+      <section ref={v.cnRef} data-screen-label="10 Connected" aria-labelledby="cn-h" style={{ background: "rgba(18,14,11,.6)", padding: "clamp(80px,10vw,144px) 0", borderTop: "1px solid var(--iw-line)", borderBottom: "1px solid var(--iw-line)" }}>
+        <div style={{ maxWidth: "1320px", margin: "0 auto", padding: "0 clamp(24px,6vw,112px)", display: "flex", flexWrap: "wrap", alignItems: "center", gap: "56px clamp(48px,7vw,112px)" }}>
+          <div style={{ flex: "1 1 360px", maxWidth: "500px" }}>
+            <p data-rv="up" style={{ margin: "0", fontSize: "12px", fontWeight: "700", letterSpacing: ".16em", textTransform: "uppercase", color: "var(--iw-gold)" }}>Why one place
+            </p>
+            <h2 id="cn-h" data-rv="up" data-rv-d="80" style={{ margin: "24px 0 0", fontFamily: "'Marcellus',serif", fontWeight: "400", fontSize: "clamp(23px,2.65vw,39px)", lineHeight: "1.07", letterSpacing: "-.01em", color: "var(--iw-ivory)", textWrap: "balance" }}>Connected, not scattered.
+            </h2>
+            <p data-rv="up" data-rv-d="140" style={{ margin: "24px 0 0", fontSize: "17px", lineHeight: "1.65", color: "var(--iw-sand)", textWrap: "pretty" }}>Every wedding starts the same way: a forwarded quote, a family group, a spreadsheet, a voice note from Nani. When those pieces know about each other, nothing has to be remembered twice.
+            </p>
+            <button className="iw-hover-c iw-focus-a" type="button" onClick={v.cnToggle} aria-pressed={v.cnPressed} style={{ appearance: "none", display: "inline-flex", alignItems: "center", marginTop: "32px", minHeight: "50px", padding: "0 24px", background: "transparent", border: "1px solid var(--iw-gold)", borderRadius: "2px", color: "var(--iw-ivory)", fontFamily: "'Nunito Sans',sans-serif", fontSize: "14px", fontWeight: "700", letterSpacing: ".03em", cursor: "pointer", transition: "background-color .25s ease,color .25s ease" }}>{v.cnLabel}
+            </button>
+          </div>
+          <div aria-live="polite" style={sx(`flex:1.3 1 460px;min-width:0;position:relative;height:${v.stageH ?? ""}`)}>
+            <div aria-hidden="true" style={sx(`position:absolute;top:-18px;bottom:-18px;left:calc(50% - min(210px, 41%) - 18px);width:calc(min(420px, 82%) + 36px);border:1px solid var(--iw-line-strong);border-radius:6px;opacity:${v.cnPanelOp ?? ""};transition:opacity .6s ease .35s`)} />
+            {arr(v.frags).map((f, $index) => (<Fragment key={$index}>
+              <div style={sx(`position:absolute;left:${f?.l ?? ""};top:${f?.t ?? ""};width:min(420px, 82%);transform:rotate(${f?.r ?? ""});transition:left ${v.cnDur ?? ""} cubic-bezier(.65,0,.25,1),top ${v.cnDur ?? ""} cubic-bezier(.65,0,.25,1),transform ${v.cnDur ?? ""} cubic-bezier(.65,0,.25,1),background-color .6s ease,border-color .6s ease;transition-delay:${f?.d ?? ""};background:${f?.bg ?? ""};border:1px solid ${f?.bd ?? ""};border-radius:3px;padding:12px 16px`)}>
+                <div style={{ display: "grid" }}>
+                  <span style={sx(`grid-area:1/1;opacity:${f?.oa ?? ""};transition:opacity .35s ease;transition-delay:${f?.d ?? ""}`)}>
+                    <span style={{ display: "block", fontSize: "12px", fontWeight: "700", letterSpacing: ".15em", textTransform: "uppercase", color: "var(--iw-stone)" }}>{f?.la}
+                    </span>
+                    <span style={{ display: "block", marginTop: "4px", fontSize: "14.5px", lineHeight: "1.45", color: "var(--iw-sand)" }}>{f?.ta}
+                    </span>
+                  </span>{" "}
+                  <span style={sx(`grid-area:1/1;opacity:${f?.ob ?? ""};transition:opacity .5s ease;transition-delay:${f?.d2 ?? ""}`)}>
+                    <span style={{ display: "block", fontSize: "12px", fontWeight: "700", letterSpacing: ".15em", textTransform: "uppercase", color: "var(--iw-gold)" }}>{f?.lb}
+                    </span>
+                    <span style={{ display: "block", marginTop: "4px", fontSize: "14.5px", lineHeight: "1.45", color: "var(--iw-parchment)" }}>{f?.tb}
+                    </span>
+                  </span>
+                </div>
+              </div>
+            </Fragment>))}
+          </div>
+        </div>
+      </section>
       <section data-screen-label="11 Invitation" aria-labelledby="end-h" style={{ position: "relative", minHeight: "min(72svh,660px)", display: "flex", alignItems: "flex-end", overflow: "hidden", background: "var(--iw-ink)", color: "var(--iw-ivory)" }}>
         <div data-rv="mask" aria-hidden="true" style={{ position: "absolute", inset: "0" }}>
           <img src="https://www.ptaufiqphotography.com/wp-content/uploads/2025/08/wedding-couple-sunset-ptaufiq-photography.jpg" alt="" loading="lazy" decoding="async" style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "50% 35%" }} />
           <div style={{ position: "absolute", inset: "0", background: "linear-gradient(90deg,rgba(12,9,7,.8) 0%,rgba(12,9,7,.42) 46%,rgba(12,9,7,.08) 100%)" }} />
         </div>
-        <div style={{ position: "relative", width: "100%", maxWidth: "1320px", margin: "0 auto", padding: "clamp(120px,16vh,180px) clamp(20px,4vw,56px) clamp(64px,10vh,112px)" }}>
-          <h2 id="end-h" data-rv="up" style={{ margin: "0", maxWidth: "11em", fontFamily: "'Marcellus',serif", fontWeight: "400", fontSize: "clamp(34px,4.4vw,68px)", lineHeight: "1.04", letterSpacing: "-.012em", color: "var(--iw-ivory)", textWrap: "balance" }}>Make room for the moments you’ll remember.
+        <div style={{ position: "relative", width: "100%", maxWidth: "1320px", margin: "0 auto", padding: "clamp(120px,16vh,180px) clamp(24px,6vw,112px) clamp(64px,10vh,112px)" }}>
+          <h2 id="end-h" data-rv="up" style={{ margin: "0", maxWidth: "11em", fontFamily: "'Marcellus',serif", fontWeight: "400", fontSize: "clamp(24px,3.08vw,48px)", lineHeight: "1.04", letterSpacing: "-.012em", color: "var(--iw-ivory)", textWrap: "balance" }}>Make room for the moments you’ll remember.
           </h2>
           <p data-rv="up" data-rv-d="100" style={{ margin: "28px 0 0", maxWidth: "30em", fontSize: "clamp(16px,1.25vw,19px)", lineHeight: "1.6", color: "var(--iw-parchment)", textWrap: "pretty" }}>Bring your plans, your people and your taste into one place, with Noor beside you, and spend more of your wedding actually in it.
           </p>
@@ -858,7 +1023,7 @@ export default function LandingView({ v }) {
             </Link>
           </div>
         </div>
-        <p style={{ position: "absolute", right: "clamp(20px,4vw,56px)", bottom: "20px", margin: "0", fontSize: "12px", color: "var(--iw-sand)" }}>Photography: PTaufiq Photography
+        <p style={{ position: "absolute", right: "clamp(24px,6vw,112px)", bottom: "20px", margin: "0", fontSize: "12px", color: "var(--iw-sand)" }}>Photography: PTaufiq Photography
         </p>
       </section>
     </div>

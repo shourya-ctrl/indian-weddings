@@ -1,7 +1,7 @@
 /* Real Weddings hub, real wedding story and The Edit story. Scoped under .st-*. */
 
 .st-last { padding-bottom: clamp(96px, 12vw, 160px); }
-.st-h2 { margin: 0 0 28px; font-family: 'Marcellus', serif; font-weight: 400; font-size: clamp(28px, 3vw, 40px); line-height: 1.12; color: var(--iw-ivory); text-wrap: balance; }
+.st-h2 { margin: 0 0 28px; font-family: 'Marcellus', serif; font-weight: 400; font-size: clamp(22px, 2.34vw, 31px); line-height: 1.12; color: var(--iw-ivory); text-wrap: balance; }
 .st-inline { color: var(--iw-parchment); text-decoration: underline; text-decoration-color: var(--iw-line-strong); text-underline-offset: 4px; }
 .st-inline:hover { color: var(--iw-gold-light); text-decoration-color: currentColor; }
 .st-proto { margin: 18px 0 0; max-width: 46em; font-size: 14px; line-height: 1.55; color: var(--iw-stone); }
@@ -25,8 +25,8 @@
 .st-card { display: flex; flex-direction: column; color: inherit; text-decoration: none; }
 .st-card .pg-frame { aspect-ratio: 4 / 5; margin-bottom: 18px; }
 .st-grid .is-lead .st-card .pg-frame { aspect-ratio: 4 / 3; }
-.st-card-title { margin: 8px 0 0; font-family: 'Marcellus', serif; font-weight: 400; font-size: clamp(22px, 2vw, 28px); line-height: 1.18; color: var(--iw-ivory); text-wrap: balance; }
-.st-grid .is-lead .st-card-title { font-size: clamp(28px, 3.2vw, 44px); }
+.st-card-title { margin: 8px 0 0; font-family: 'Marcellus', serif; font-weight: 400; font-size: clamp(19px, 1.7vw, 24px); line-height: 1.18; color: var(--iw-ivory); text-wrap: balance; }
+.st-grid .is-lead .st-card-title { font-size: clamp(22px, 2.5vw, 34px); }
 .st-card-dek { margin-top: 8px; max-width: 34em; font-size: 15px; line-height: 1.55; color: var(--iw-sand); text-wrap: pretty; }
 
 /* Real wedding story */
@@ -41,11 +41,11 @@
 @media (min-width: 960px) { .st-body { grid-template-columns: minmax(0, 7fr) minmax(0, 4fr); gap: clamp(48px, 7vw, 120px); align-items: start; } }
 .st-quote { margin: 0; }
 .st-quote blockquote { margin: 0; }
-.st-quote p { margin: 0; font-family: 'Marcellus', serif; font-size: clamp(26px, 2.8vw, 40px); line-height: 1.25; color: var(--iw-ivory); text-wrap: pretty; }
+.st-quote p { margin: 0; font-family: 'Marcellus', serif; font-size: clamp(20px, 2.18vw, 31px); line-height: 1.25; color: var(--iw-ivory); text-wrap: pretty; }
 .st-quote figcaption { margin-top: 20px; font-size: 15px; color: var(--iw-sand); }
 .st-facts { margin: 0; }
 .st-facts div { display: flex; flex-direction: column-reverse; padding: 18px 0; border-top: 1px solid var(--iw-line); }
-.st-facts dd { margin: 0; font-family: 'Marcellus', serif; font-size: clamp(32px, 3vw, 44px); line-height: 1; color: var(--iw-ivory); }
+.st-facts dd { margin: 0; font-family: 'Marcellus', serif; font-size: clamp(25px, 2.34vw, 34px); line-height: 1; color: var(--iw-ivory); }
 .st-facts dt { margin-top: 6px; font-size: 14px; color: var(--iw-sand); }
 .st-gallery { display: grid; gap: clamp(12px, 2vw, 24px); }
 .st-gallery .pg-frame { aspect-ratio: 4 / 3; }
@@ -62,8 +62,8 @@
 @media (max-width: 767px) { .st-article-figure .pg-frame { aspect-ratio: 4 / 3; } }
 .st-article-figure figcaption { margin-top: 10px; font-size: 12px; color: var(--iw-sand); text-align: right; }
 .st-article { max-width: 720px; padding-top: clamp(48px, 6vw, 80px); padding-bottom: clamp(24px, 3vw, 40px); }
-.st-article > p { margin: 0 0 1.2em; font-size: clamp(17px, 1.3vw, 20px); line-height: 1.7; color: var(--iw-parchment); text-wrap: pretty; }
-.st-article .st-h2 { margin-top: clamp(32px, 4vw, 48px); margin-bottom: 16px; font-size: clamp(24px, 2.4vw, 30px); }
+.st-article > p { margin: 0 0 1.2em; font-size: clamp(17px, 1.17vw, 18px); line-height: 1.7; color: var(--iw-parchment); text-wrap: pretty; }
+.st-article .st-h2 { margin-top: clamp(32px, 4vw, 48px); margin-bottom: 16px; font-size: clamp(20px, 2.04vw, 26px); }
 .st-ask { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 16px 32px; margin-top: clamp(40px, 5vw, 64px); padding: 24px 0; border-top: 1px solid var(--iw-line); border-bottom: 1px solid var(--iw-line); }
 .st-ask p { margin: 0; font-size: 16px; color: var(--iw-parchment); }
 .st-ask .iws-btn { min-height: 52px; padding: 0 22px; font-size: 15px; }
@@ -75,8 +75,8 @@
 .st-strip-img img { width: 100%; height: 100%; object-fit: cover; transition: transform 1.2s var(--ease-out); }
 .st-strip-img:hover img { transform: scale(1.06); }
 .st-hero-img { inset: -6% 0 !important; }
-.st-hero-h1 { font-size: clamp(48px, 7vw, 112px); }
-.st-h2-lg { font-size: clamp(36px, 4.4vw, 64px); }
+.st-hero-h1 { font-size: clamp(30px, 4.34vw, 69px); }
+.st-h2-lg { font-size: clamp(25px, 3.08vw, 45px); }
 .st-card .pg-frame img { transition: transform 1.4s var(--ease-out); }
 .st-card:hover .pg-frame img { transform: scale(1.06); }
 .st-card-title { transition: color .3s ease; }

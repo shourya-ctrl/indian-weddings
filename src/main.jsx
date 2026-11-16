@@ -2,6 +2,7 @@ import { lazy, Suspense, useEffect, useMemo } from 'react';
 import { createRoot } from 'react-dom/client';
 import Landing from './Landing';
 import SiteShell from './site/SiteShell';
+import Backdrop from './site/Backdrop';
 import { navigate, useLocation } from './router';
 import { matchRoute } from './routes';
 import './fonts.css';
@@ -13,8 +14,8 @@ const DEFAULTS = {
   presenter: false, // hero switcher bar, plus [ ] and 1–7 keys; ?presenter=true for design reviews
   heroSlides: true,
   motion: true,
-  sparkle: 'Subtle', // Subtle | Radiant | Off
-  celestial: true,
+  sparkle: 'Off', // Subtle | Radiant | Off (off by default: the full-screen sparkles pulled focus)
+  celestial: false, // constellation overlay; off by default so nothing draws over the copy
   advisorName: 'Noor', // Noor | Advisor | Best friend | Co-planner
 };
 
@@ -109,4 +110,5 @@ function App() {
 
 // No StrictMode: the page logic starts animation loops and listeners on mount,
 // and the design runtime it came from mounted exactly once.
-createRoot(document.getElementById('root')).render(<App />);
+// The backdrop sits outside the routes so the sky carries on across page changes.
+createRoot(document.getElementById('root')).render(<><Backdrop /><App /></>);
