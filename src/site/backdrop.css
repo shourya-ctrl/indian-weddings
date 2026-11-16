@@ -1,33 +1,22 @@
-/* Site backdrop (see Backdrop.jsx). Sits behind every page; all of it is faint on purpose. */
-.iw-sky { position: fixed; inset: 0; z-index: -1; pointer-events: none; overflow: hidden; }
-.iw-sky-canvas { position: absolute; inset: 0; width: 100%; height: 100%; }
+/* Site backdrop (see Backdrop.jsx). Behind every page and faint on purpose:
+   you should only notice it if you look for it. */
+.iw-sky { position: fixed; inset: 0; z-index: -1; pointer-events: none; overflow: hidden; --sky-p: 0; }
+.iw-sky-stars, .iw-sky-glitter { position: absolute; inset: 0; width: 100%; height: 100%; }
 
-/* Radiance: two warm pools of light that drift very slowly */
+/* The astrology sky, dimmed well below the copy */
+.iw-sky-stars { opacity: .28; }
+@media (max-width: 767px) { .iw-sky-stars { opacity: .22; } }
+
+/* Radiance: two pools of gold light. They trade places slowly as the page
+   scrolls (--sky-p runs 0 to 1 from top to bottom), so the warmth moves with you. */
 .iw-sky-radiance {
-  position: absolute; inset: -20%;
+  position: absolute; inset: -25%;
   background:
-    radial-gradient(38% 32% at 18% 22%, rgba(201,169,110,.075), transparent 70%),
-    radial-gradient(34% 30% at 84% 70%, rgba(201,169,110,.055), transparent 70%),
-    radial-gradient(60% 50% at 50% 110%, rgba(244,238,228,.025), transparent 70%);
+    radial-gradient(34% 28% at calc(20% + var(--sky-p) * 55%) calc(18% + var(--sky-p) * 50%), rgba(201,169,110,.06), transparent 70%),
+    radial-gradient(30% 26% at calc(82% - var(--sky-p) * 50%) calc(78% - var(--sky-p) * 45%), rgba(201,169,110,.045), transparent 70%),
+    radial-gradient(60% 40% at 50% 115%, rgba(244,238,228,.02), transparent 70%);
 }
 @media (prefers-reduced-motion: no-preference) {
   .iw-sky-radiance { animation: iw-radiance 48s ease-in-out infinite alternate; }
 }
-@keyframes iw-radiance { from { transform: translate3d(-2%, -1%, 0) scale(1); opacity: .85; } to { transform: translate3d(2%, 1.5%, 0) scale(1.06); opacity: 1; } }
-
-/* Water droplets: a quiet lattice, barely there at rest, brighter under the pointer */
-.iw-sky-drops {
-  position: absolute; inset: 0;
-  background-image: url('data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="64" height="64" fill="none" stroke="%23E8D19A" stroke-width=".8"%3E%3Cpath d="M16 13c0 0-3.2 4-3.2 6a3.2 3.2 0 0 0 6.4 0c0-2-3.2-6-3.2-6z"/%3E%3Cpath d="M48 45c0 0-3.2 4-3.2 6a3.2 3.2 0 0 0 6.4 0c0-2-3.2-6-3.2-6z"/%3E%3Ccircle cx="48" cy="18" r=".9" fill="%23E8D19A" stroke="none"/%3E%3Ccircle cx="16" cy="50" r=".9" fill="%23E8D19A" stroke="none"/%3E%3C/svg%3E');
-  background-size: 64px 64px;
-  opacity: .065;
-  -webkit-mask-image: radial-gradient(120% 90% at 50% 40%, #000 30%, transparent 85%);
-  mask-image: radial-gradient(120% 90% at 50% 40%, #000 30%, transparent 85%);
-}
-.iw-sky-drops-lit {
-  opacity: .5;
-  -webkit-mask-image: radial-gradient(220px 220px at var(--mx, -999px) var(--my, -999px), #000, transparent 75%);
-  mask-image: radial-gradient(220px 220px at var(--mx, -999px) var(--my, -999px), #000, transparent 75%);
-}
-@media (hover: none), (prefers-reduced-motion: reduce) { .iw-sky-drops-lit { display: none; } }
-@media (max-width: 767px) { .iw-sky-drops { opacity: .04; } }
+@keyframes iw-radiance { from { transform: translate3d(-1.5%, -1%, 0) scale(1); opacity: .85; } to { transform: translate3d(1.5%, 1%, 0) scale(1.05); opacity: 1; } }
