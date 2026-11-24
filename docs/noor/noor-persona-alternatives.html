@@ -1,0 +1,358 @@
+<meta charset="utf-8">
+<title>Noor Persona Alternatives</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Marcellus&family=Nunito+Sans:opsz,wght@6..12,400;6..12,600;6..12,700&display=swap">
+<style>
+/* Layout: one reading column for the framing, a five-voice comparison, then one wide sheet per persona (drawing left, character and real sizes right). */
+:root {
+  color-scheme: dark;
+  --ink: #0C0907;
+  --surface: #15100D;
+  --line: #2A211B;
+  --stone: #A39A91;
+  --sand: #C9BEB4;
+  --ivory: #F4EEE4;
+  --gold: #C9A96E;
+  --gold-lt: #E8D19A;
+  --display: 'Marcellus', 'Cormorant Garamond', Georgia, serif;
+  --body: 'Nunito Sans', 'Avenir Next', system-ui, sans-serif;
+}
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--ink); color: var(--sand); font-family: var(--body); font-size: 16px; line-height: 1.6; -webkit-font-smoothing: antialiased; }
+.wrap { max-width: 1120px; margin: 0 auto; padding-left: max(24px, env(safe-area-inset-left, 0px)); padding-right: max(24px, env(safe-area-inset-right, 0px)); }
+h1, h2, h3 { font-family: var(--display); font-weight: 400; color: var(--ivory); text-wrap: balance; margin: 0; }
+h1 { font-size: clamp(34px, 5vw, 56px); line-height: 1.05; }
+h2 { font-size: clamp(26px, 3vw, 34px); line-height: 1.15; }
+h3 { font-size: 24px; line-height: 1.2; }
+p { margin: 0; text-wrap: pretty; }
+.eyebrow { font-size: 11px; font-weight: 700; letter-spacing: .18em; text-transform: uppercase; color: var(--gold); }
+.lede { font-size: 18px; max-width: 38em; }
+.muted { color: var(--stone); font-size: 14px; }
+
+header.top { padding-block: clamp(56px, 9vw, 104px) 40px; display: grid; gap: 20px; }
+
+/* Same question, five voices */
+.voices { padding-block: 32px clamp(56px, 8vw, 88px); display: grid; gap: 24px; }
+.voices-q { display: flex; flex-wrap: wrap; align-items: baseline; gap: 6px 14px; padding: 18px 22px; border: 1px solid var(--line); border-radius: 2px 18px 18px 18px; background: var(--surface); max-width: 40em; }
+.voices-q b { font-size: 11px; letter-spacing: .14em; text-transform: uppercase; color: var(--stone); }
+.voices-q span { color: var(--ivory); font-size: 17px; }
+.voice-list { display: grid; gap: 0; }
+.voice { display: grid; grid-template-columns: 52px 11em minmax(0, 1fr); gap: 18px; align-items: start; padding-block: 18px; border-top: 1px solid var(--line); }
+.voice:last-child { border-bottom: 1px solid var(--line); }
+.voice .who { display: grid; gap: 2px; }
+.voice .who b { color: var(--ivory); font-weight: 600; font-size: 15px; }
+.voice .who span { font-size: 12px; color: var(--stone); }
+.voice p { color: var(--sand); font-size: 15.5px; }
+.voice.is-current .who b::after { content: "Current"; margin-left: 8px; padding: 1px 7px; border: 1px solid var(--gold); border-radius: 999px; font-size: 10px; letter-spacing: .1em; text-transform: uppercase; color: var(--gold-lt); vertical-align: 2px; }
+.avatar { display: grid; place-items: center; width: 44px; height: 44px; border-radius: 50%; background: radial-gradient(circle at 60% 40%, rgba(232,209,154,.14), #1A1411 70%); border: 1px solid #3E3229; overflow: hidden; }
+.avatar svg { width: 100%; height: 100%; overflow: visible; }
+
+/* Persona sheets */
+.options-head { display: flex; flex-wrap: wrap; align-items: end; justify-content: space-between; gap: 16px 32px; padding-block: 8px 28px; }
+.options-head > div { display: grid; gap: 10px; max-width: 40em; }
+.toggle { appearance: none; display: inline-flex; align-items: center; gap: 10px; min-height: 44px; padding: 0 18px; border: 1px solid var(--gold); border-radius: 999px; background: transparent; color: var(--gold-lt); font: 600 14px var(--body); cursor: pointer; }
+.toggle:hover { background: rgba(201,169,110,.08); }
+.toggle:focus-visible { outline: 2px solid var(--gold-lt); outline-offset: 3px; }
+.toggle .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--stone); }
+.toggle[aria-pressed="true"] .dot { background: var(--gold-lt); box-shadow: 0 0 10px var(--gold); }
+
+.sheet { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.15fr); margin-bottom: 28px; background: var(--surface); border: 1px solid var(--line); }
+.sheet-art { position: relative; display: grid; place-items: center; min-height: 400px; padding: 32px; border-right: 1px solid var(--line); background: radial-gradient(60% 55% at 50% 48%, rgba(201,169,110,.10), transparent 72%); }
+.sheet-art .no { position: absolute; top: 18px; left: 20px; font-size: 11px; font-weight: 700; letter-spacing: .18em; color: var(--stone); }
+.sheet-art svg.big { width: min(300px, 80%); height: auto; overflow: visible; }
+.sheet-body { display: grid; gap: 22px; padding: clamp(24px, 3vw, 36px); min-width: 0; align-content: start; }
+.idea { display: grid; gap: 8px; }
+.traits { display: flex; flex-wrap: wrap; gap: 8px; }
+.traits span { padding: 3px 11px; border: 1px solid var(--line); border-radius: 999px; font-size: 13px; color: var(--sand); }
+.facts { display: grid; }
+.facts div { display: grid; grid-template-columns: 8.5em minmax(0, 1fr); gap: 14px; padding-block: 10px; border-top: 1px solid var(--line); }
+.facts dt { font-size: 11px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--stone); padding-top: 3px; }
+.facts dd { margin: 0; font-size: 14.5px; }
+.sizes { display: flex; flex-wrap: wrap; align-items: center; gap: 14px 18px; padding-block: 16px; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+.sizes .lab { flex-basis: 100%; font-size: 11px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: var(--stone); }
+.chip { display: inline-flex; align-items: center; gap: 8px; height: 36px; padding: 0 14px 0 10px; border: 1px solid var(--line); border-radius: 999px; color: var(--gold-lt); font-size: 13px; font-weight: 600; white-space: nowrap; }
+.chip svg { width: 20px; height: 20px; overflow: visible; }
+.fab { display: grid; place-items: center; width: 48px; height: 48px; border-radius: 50%; border: 1px solid var(--gold); background: var(--ink); }
+.fab svg { width: 28px; height: 28px; overflow: visible; }
+.notes { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px; }
+.notes div { display: grid; gap: 6px; min-width: 0; align-content: start; }
+.notes ul { margin: 0; padding-left: 18px; font-size: 14px; display: grid; gap: 4px; }
+.notes .lab { font-size: 11px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; }
+.notes .yes .lab { color: var(--gold-lt); }
+.notes .watch .lab { color: #DDAE95; }
+
+.rec { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: clamp(28px, 5vw, 64px); padding-block: clamp(48px, 7vw, 80px); border-top: 1px solid var(--line); margin-top: 40px; }
+.rec > div { display: grid; gap: 14px; align-content: start; }
+.rec ol { margin: 0; padding-left: 20px; display: grid; gap: 10px; font-size: 15px; }
+.rec ol b { color: var(--ivory); font-weight: 600; }
+footer { padding-block: 32px 64px; border-top: 1px solid var(--line); }
+
+/* Drawing */
+.ln { fill: none; stroke: var(--gold); stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; vector-effect: non-scaling-stroke; }
+.lt { fill: none; stroke: var(--gold-lt); stroke-width: 1.2; stroke-linecap: round; stroke-linejoin: round; vector-effect: non-scaling-stroke; }
+.fnt { fill: none; stroke: var(--gold); stroke-width: .9; opacity: .45; stroke-linecap: round; vector-effect: non-scaling-stroke; }
+.fl { fill: var(--gold-lt); }
+.fg { fill: var(--gold); }
+.fi { fill: var(--ivory); }
+
+@media (prefers-reduced-motion: no-preference) {
+  .thinking .glint { animation: glint 1.5s ease-in-out infinite; transform-box: fill-box; transform-origin: center; }
+  .thinking .nudge { animation: nudge 1.4s ease-in-out infinite; }
+  .thinking .trace { stroke-dasharray: 5 6; animation: trace 1.4s linear infinite; }
+  .thinking .tw { animation: twinkle 2.2s ease-in-out infinite; animation-delay: calc(var(--d, 0) * 180ms); }
+  .thinking .lift { animation: lift 1.8s ease-in-out infinite; transform-box: view-box; transform-origin: 100px 72px; }
+  .thinking .sway { animation: sway 1.6s ease-in-out infinite alternate; transform-box: view-box; transform-origin: 101px 101px; }
+}
+@keyframes glint { 0%, 100% { opacity: .6; transform: scale(.85); } 50% { opacity: 1; transform: scale(1.25); } }
+@keyframes nudge { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-1.6px); } }
+@keyframes trace { to { stroke-dashoffset: -22; } }
+@keyframes twinkle { 0%, 100% { opacity: .35; } 50% { opacity: 1; } }
+@keyframes lift { 0%, 100% { transform: scaleY(1); } 50% { transform: scaleY(.82); } }
+@keyframes sway { from { transform: rotate(-7deg); } to { transform: rotate(7deg); } }
+
+@media (max-width: 860px) {
+  .rec { grid-template-columns: minmax(0, 1fr); }
+  .sheet { grid-template-columns: minmax(0, 1fr); }
+  .sheet-art { border-right: 0; border-bottom: 1px solid var(--line); min-height: 300px; }
+  .voice { grid-template-columns: 44px minmax(0, 1fr); }
+  .voice p { grid-column: 1 / -1; }
+}
+@media (max-width: 520px) {
+  .notes { grid-template-columns: minmax(0, 1fr); }
+  .facts div { grid-template-columns: minmax(0, 1fr); gap: 2px; }
+}
+</style>
+
+<div class="wrap">
+  <header class="top">
+    <p class="eyebrow">IndianWeddings · Noor persona, round two</p>
+    <h1>Who else could Noor be?</h1>
+    <p class="lede">The Sakhi is a confidante of the couple’s own age. These four alternatives change the character itself: her age, her role at the wedding and how she talks, so the team can choose the relationship first and the drawing second.</p>
+  </header>
+
+  <section class="voices" aria-labelledby="voices-h">
+    <div style="display:grid;gap:10px">
+      <p class="eyebrow">Same question, five voices</p>
+      <h2 id="voices-h">Hear the difference</h2>
+    </div>
+    <p class="voices-q"><b>A couple asks</b><span>We’re thinking Udaipur in February, for 150 guests. Is that realistic?</span></p>
+    <div class="voice-list" id="voices"></div>
+    <p class="muted">Every persona keeps Noor’s one rule: she suggests and the couple decides. She never books, pays or messages anyone on their behalf.</p>
+  </section>
+
+  <section aria-labelledby="opt-h">
+    <div class="options-head">
+      <div>
+        <p class="eyebrow">Four alternatives</p>
+        <h2 id="opt-h">The characters</h2>
+        <p class="muted">Sketches in Noor’s gold on our ink, each with the small mark it would use in the “Ask Noor” chip and the floating button.</p>
+      </div>
+      <button class="toggle" id="think-toggle" type="button" aria-pressed="false"><span class="dot" aria-hidden="true"></span>Show them thinking</button>
+    </div>
+    <div id="sheets"></div>
+  </section>
+
+  <section class="rec" aria-labelledby="rec-h">
+    <div>
+      <p class="eyebrow">Recommendation</p>
+      <h2 id="rec-h">Keep the Sakhi, or move to the Sutradhar</h2>
+      <p>The Sakhi is still the best match for “the friend who has been to every wedding”: warm, peer-to-peer and the most aspirational for the couples we are selling to.</p>
+      <p>If the team wants Noor to feel less like a person pretending to be human, the Sutradhar is the strongest alternative. The gathbandhan knot is ownable, works for every family and community, and says what Noor does: hold every thread of the wedding together.</p>
+      <p class="muted">The Masi has the most charm and is worth testing with couples, but “the aunt” can read as interference to a generation planning their own wedding.</p>
+    </div>
+    <div>
+      <p class="eyebrow">Next steps</p>
+      <ol>
+        <li><b>Choose the relationship</b>: friend, aunt, thread-holder, concierge or star-reader. The drawing follows from it.</li>
+        <li><b>Read the five answers aloud</b> as a team. The voice that sounds most like the brand usually settles it.</li>
+        <li><b>Test two personas with couples</b>, using the same question, before an illustrator finishes the art.</li>
+        <li><b>Swap it in</b>. The site already has one portrait, one small mark and one thinking motion, so a new persona replaces those three pieces.</li>
+      </ol>
+    </div>
+  </section>
+
+  <footer><p class="muted">Exploration sketches for internal review. Not final artwork.</p></footer>
+</div>
+
+<script>
+const BINDI = (x, y, r = 2) => `<g class="glint"><circle class="fl" cx="${x}" cy="${y}" r="${r}"/><path class="lt" style="stroke-width:.8" d="M${x} ${y - r * 3.4}V${y - r * 1.8}M${x} ${y + r * 1.8}V${y + r * 3.4}M${x - r * 3.4} ${y}H${x - r * 1.8}M${x + r * 1.8} ${y}H${x + r * 3.4}"/></g>`;
+const FACE = 'M119 60 C123 67 124 74 125 80 C126 87 130 93 135 99 C137 102 135 104 129 105 C131 107 132 109 130 111 C128 112 127 113 129 115 C131 118 129 121 126 124 C122 129 118 132 113 133';
+const EYE = 'M112.5 84 C115.5 86.6 119.5 86.8 122.8 84.6';
+const BROW = 'M111 77.5 C115 75.2 120 75.4 124 78';
+
+// The current Sakhi, for comparison in the voices list.
+const SAKHI_FACE = `<path class="ln" d="M117 61 C106 62 98 68 94 78 C90 90 92 104 96 116"/><path class="ln" d="${FACE}"/><path class="lt" d="${EYE}"/><path class="lt" d="${BROW}"/><circle class="lt" cx="131.5" cy="103.5" r="4.2"/>${BINDI(121, 69, 2.4)}`;
+
+// Masi: an older woman in profile, hair in a bun with a gajra, round spectacles, saree pallu.
+const MASI = `
+  <path class="ln" d="M119 60 C114 44 96 37 82 41 C68 45 61 59 62 73 C63 86 70 96 79 102"/>
+  <path class="ln" d="M117 62 C108 63 101 69 98 77"/>
+  <path class="fnt" d="M116 55 C104 47 88 47 77 58 C72 64 70 72 70 80 M111 49 C98 42 84 44 74 54 C68 61 66 70 66 79 M117 62 C106 56 92 56 84 64 C78 70 76 77 75 83 M105 66 C96 64 88 67 82 74 C79 78 78 82 78 86"/>
+  <circle class="ln" cx="68" cy="92" r="11"/>
+  <g class="fl">${[0,1,2,3,4,5,6,7].map(i => { const a = (200 + i * 22) * Math.PI / 180; return `<circle cx="${(68 + Math.cos(a) * 15).toFixed(1)}" cy="${(92 + Math.sin(a) * 15).toFixed(1)}" r="1.5"/>`; }).join('')}</g>
+  <path class="ln" d="${FACE}"/>
+  <path class="ln" d="M113 133 C114 141 115 149 116 156"/>
+  <path class="ln" d="M80 103 C84 118 86 132 84 150"/>
+  <path class="lt" d="${EYE}"/>
+  <path class="lt" d="M110 76 C114 73.6 119 73.6 124 76"/>
+  <path class="fnt" d="M108 92 C110 95 113 96 116 95"/>
+  <g class="nudge"><circle class="lt" cx="120" cy="85" r="6.4"/><path class="lt" d="M113.6 84.4 L100 86.6"/></g>
+  <path class="lt" d="M98 85 C94.5 87 94.5 95 98.5 97"/>
+  <circle class="fl glint" cx="99" cy="101" r="1.6"/>
+  <circle class="fl" cx="120.5" cy="69.5" r="1.5"/>
+  <path class="ln" d="M70 184 C75 168 79 158 84 150 C102 152 120 156 134 161 C150 167 162 173 174 184"/>
+  <path class="fnt" d="M78 184 C82 170 86 162 90 157 C106 159 122 163 134 168 C148 173 158 178 166 184"/>`;
+const MASI_MARK = `<g class="nudge"><circle class="lt" cx="-4.6" cy="0" r="3.6"/><circle class="lt" cx="4.6" cy="0" r="3.6"/><path class="lt" d="M-1 -.6 C-.4 -1.6 .4 -1.6 1 -.6 M-8.2 -.4 L-10 -1.6 M8.2 -.4 L10 -1.6"/></g>`;
+
+// Sutradhar: the gathbandhan, the knot tying the couple's garments at the pheras.
+const KNOT = `
+  <path class="ln" d="M14 88 C42 80 66 86 86 100"/>
+  <path class="ln" d="M14 102 C42 96 64 102 84 112"/>
+  <path class="fnt" d="M22 95 C46 90 64 95 80 104"/>
+  <path class="ln" d="M186 88 C158 80 134 86 114 100"/>
+  <path class="ln" d="M186 102 C158 96 136 102 116 112"/>
+  <path class="fnt" d="M178 95 C154 90 136 95 120 104"/>
+  <path class="ln trace" d="M86 104 C82 88 98 82 107 91 C116 100 116 114 103 118 C92 121 82 114 86 104 Z"/>
+  <path class="ln trace" d="M114 104 C118 88 102 82 93 91 C84 100 84 114 97 118 C108 121 118 114 114 104 Z"/>
+  <path class="ln" d="M95 119 C92 132 89 144 84 156"/>
+  <path class="ln" d="M105 119 C108 132 111 144 116 156"/>
+  <circle class="lt" cx="84" cy="159" r="3"/><circle class="lt" cx="116" cy="159" r="3"/>
+  <path class="lt" d="M82 162 L77 176 M84 162 L84 178 M86 162 L90 176"/>
+  <path class="lt" d="M114 162 L110 176 M116 162 L116 178 M118 162 L123 176"/>
+  ${BINDI(100, 101, 2.4)}`;
+const KNOT_MARK = `<path class="ln trace" d="M-.8 0 C-6.5 -3.6 -5.6 -9.2 0 -8.6 C5.6 -8 6.4 -2.6 .8 0 C6.4 2.6 5.6 8 0 8.6 C-5.6 9.2 -6.5 3.6 -.8 0 Z"/><circle class="fl glint" r="1.7"/>`;
+
+// The Concierge: a sealed envelope, a recommendation prepared for the couple.
+const ENVELOPE = `
+  <path class="fnt" d="M58 70 V52 H142 V70"/>
+  <path class="fnt" d="M70 60 H122 M70 65 H108"/>
+  <g class="lift"><path class="ln" d="M42 70 L100 114 L158 70"/></g>
+  <path class="ln" d="M42 70 H158 V150 H42 Z"/>
+  <path class="fnt" d="M42 150 L88 110 M158 150 L112 110"/>
+  <circle class="fg" cx="100" cy="114" r="13" opacity=".85"/>
+  <circle cx="100" cy="114" r="10" fill="none" stroke="#0C0907" stroke-width="1" opacity=".5"/>
+  <path d="M100 106.5 V109.5 M100 118.5 V121.5 M92.5 114 H95.5 M104.5 114 H107.5" stroke="#0C0907" stroke-width="1.2" stroke-linecap="round" opacity=".7"/>
+  <circle cx="100" cy="114" r="2" fill="#0C0907" opacity=".7"/>
+  <path class="fnt" d="M30 164 C70 172 130 172 170 164"/>`;
+const SEAL_MARK = `<circle class="fg glint" r="7.4"/><path d="M0 -4.2 V-2.4 M0 2.4 V4.2 M-4.2 0 H-2.4 M2.4 0 H4.2" stroke="#0C0907" stroke-width="1.1" stroke-linecap="round"/><circle r="1.1" fill="#0C0907"/>`;
+
+// Tara: the star-reader, looking up at Saptarishi and Dhruva.
+const STARS = [[150,30,2.2],[162,42,1.7],[176,40,1.7],[184,54,1.8],[170,62,1.6],[158,58,1.6],[134,18,2.6]];
+const TARA = `
+  <g transform="rotate(-20 113 133)">
+    <path class="ln" d="M121 57 C110 38 84 34 70 48 C58 60 57 84 63 104 C69 124 66 150 56 178"/>
+    <path class="fnt" d="M106 46 C88 46 74 58 70 80"/>
+    <path class="ln" d="M117 61 C106 62 98 68 94 78 C90 90 92 104 96 116"/>
+    <path class="ln" d="${FACE}"/>
+    <path class="ln" d="M113 133 C114 141 115 149 117 157"/>
+    <path class="ln" d="M117 157 C131 163 150 168 168 181"/>
+    <path class="lt" d="M113 82.6 C116.4 80.4 120.4 80.6 123.4 83"/>
+    <circle class="lt" cx="118.4" cy="84" r="1.3"/>
+    <path class="lt" d="${BROW}"/>
+    <circle class="fl" cx="101" cy="104" r="1.6"/>
+    ${BINDI(121, 69, 1.8)}
+  </g>
+  <path class="fnt trace" d="M150 30 L162 42 L176 40 L184 54 L170 62 L158 58 L162 42 M150 30 L134 18"/>
+  ${STARS.map(([x, y, r], i) => `<circle class="fi tw" style="--d:${i}" cx="${x}" cy="${y}" r="${r}"/>`).join('')}`;
+const TARA_MARK = `<path class="fnt trace" d="M-7 6 L-2 1 L6 -7"/><circle class="fi tw" style="--d:1" cx="-7" cy="6" r="1.4"/><circle class="fi tw" style="--d:3" cx="6" cy="-7" r="1.4"/>${BINDI(-2, 1, 1.9)}`;
+
+const PERSONAS = [
+  {
+    key: 'sakhi', current: true, name: 'The Sakhi', role: 'The couple’s confidante',
+    avatar: `<svg viewBox="76 46 72 72">${SAKHI_FACE}</svg>`,
+    answer: 'Yes, and it’s a lovely time to be there. The lake palaces fill first, so I’d shortlist two this month. Want to see three that take 150 without a full buyout?',
+  },
+  {
+    key: 'masi', name: 'The Masi', role: 'The aunt who has seen it all',
+    avatar: `<svg viewBox="58 42 84 84">${MASI}</svg>`,
+    big: `<svg class="big" viewBox="40 24 150 166" role="img" aria-label="Line portrait of an older woman in profile with her hair in a bun wrapped in a gajra, round spectacles and a saree pallu over her shoulder">${MASI}</svg>`,
+    mark: `<svg viewBox="-11 -11 22 22">${MASI_MARK}</svg>`,
+    idea: 'Noor as the favourite masi: in her fifties, impeccably dressed, has planned her own children’s weddings and half the family’s since. She knows the customs, the costs and which caterer never runs late, and tells you kindly but plainly.',
+    traits: ['Warm', 'Seasoned', 'Plain-spoken', 'Protective', 'A little witty'],
+    facts: [['Age', 'Mid fifties'], ['Her role', 'Has done this many times, and wants yours to go better'], ['Speaks like', 'Short, sure sentences. Gives the answer, then the reason. Never “beta” in writing.']],
+    answer: 'Of course it’s realistic, but February is peak season, so the lake palaces are booking now. Hold two dates, and let’s settle the guest list before anyone promises the cousins a room.',
+    thinks: 'She nudges her spectacles and her earring catches the light.',
+    yes: ['The most charming and memorable character', 'Matches “the friend who has been to every wedding” literally', 'Brings humour and authority to advice'],
+    watch: ['“The aunt” can feel like interference to couples planning their own way', 'Older persona may feel less aspirational to a young luxury audience'],
+  },
+  {
+    key: 'sutradhar', name: 'The Sutradhar', role: 'The one who holds every thread',
+    avatar: `<svg viewBox="40 40 120 120">${KNOT}</svg>`,
+    big: `<svg class="big" viewBox="14 20 172 172" role="img" aria-label="Two gold threads meeting in a gathbandhan knot, with tasselled ends and a point of light at the centre">${KNOT}</svg>`,
+    mark: `<svg viewBox="-11 -11 22 22">${KNOT_MARK}</svg>`,
+    idea: 'In Indian theatre the sutradhar, literally “holder of the threads”, is the narrator who keeps the whole story moving. Noor becomes the gathbandhan, the knot that ties the couple’s garments at the pheras: every vendor, date and family thread, held together.',
+    traits: ['Calm', 'Composed', 'Big-picture', 'Reassuring', 'Gender-neutral'],
+    facts: [['Age', 'Ageless; a presence, not a person'], ['Her role', 'Keeps every part of the wedding connected and in order'], ['Speaks like', 'Measured and structured. Names the two or three things that matter most.']],
+    answer: 'It can come together. Three threads decide it: a venue that seats 150, rooms within twenty minutes of it, and flights for your Delhi side. Let’s tie those first.',
+    thinks: 'Light travels around the knot, as if it were being tied.',
+    yes: ['Ownable symbol rooted in every Hindu and Sikh ceremony', 'Says what Noor does: holds it all together', 'No human face to get wrong or to over-promise'],
+    watch: ['Less of a personal friend', '“Sutradhar” needs a line of explanation for some couples'],
+  },
+  {
+    key: 'concierge', name: 'The Concierge', role: 'A private wedding concierge',
+    avatar: `<svg viewBox="34 40 132 132">${ENVELOPE}</svg>`,
+    big: `<svg class="big" viewBox="20 20 160 160" role="img" aria-label="A sealed envelope with a gold wax seal stamped with a star, and a card tucked behind it">${ENVELOPE}</svg>`,
+    mark: `<svg viewBox="-11 -11 22 22">${SEAL_MARK}</svg>`,
+    idea: 'Noor as the private concierge of a palace hotel: discreet, polished and always a step ahead. Every recommendation arrives like a sealed note, prepared and checked, for the couple to open and decide on.',
+    traits: ['Discreet', 'Polished', 'Precise', 'Anticipates', 'Unflappable'],
+    facts: [['Age', 'Thirties to forties; a professional'], ['Her role', 'Prepares options so the couple only has to choose'], ['Speaks like', 'Courteous and exact. Offers to prepare, compare and remind.']],
+    answer: 'Very achievable. Three lakeside properties still have February dates for 150. Shall I prepare a comparison of rates and room blocks for you to review?',
+    thinks: 'The envelope flap lifts slightly and the seal glints.',
+    yes: ['The most luxurious and exclusive register', 'Fits affluent couples used to private service', 'Clean, strong small mark (the seal)'],
+    watch: ['“Concierge” implies she books things; Noor never does', 'Less warmth and less Indian character'],
+  },
+  {
+    key: 'tara', name: 'Tara', role: 'The star-reader',
+    avatar: `<svg viewBox="64 30 110 110">${TARA}</svg>`,
+    big: `<svg class="big" viewBox="30 4 170 186" role="img" aria-label="A woman in profile looking upward toward a small constellation of stars">${TARA}</svg>`,
+    mark: `<svg viewBox="-11 -11 22 22">${TARA_MARK}</svg>`,
+    idea: 'Noor as the one who reads the sky: she knows the auspicious dates, the seasons and when the light is best on the lake. She looks up at Saptarishi and Dhruva, the same stars that sit behind every page of the site.',
+    traits: ['Intuitive', 'Serene', 'Romantic', 'Knows timing', 'Poetic but precise'],
+    facts: [['Age', 'Thirties'], ['Her role', 'Finds the right time, place and season for each moment'], ['Speaks like', 'Gentle and a little lyrical, always ending on a concrete next step.']],
+    answer: 'February has good muhurats, the 12th and the 19th especially, and Udaipur’s nights are clear and cool then. The lakeside venues go first, so begin with the date your family favours.',
+    thinks: 'The stars above her twinkle in turn and the lines between them trace in.',
+    yes: ['Ties Noor to the night-sky backdrop and the muhurat', 'Romantic and distinctive', 'Still has a face, like the Sakhi'],
+    watch: ['Implies astrological advice the product may not give', 'Not every couple plans by muhurat'],
+  },
+];
+
+document.getElementById('voices').innerHTML = PERSONAS.map(p => `
+  <div class="voice${p.current ? ' is-current' : ''}">
+    <span class="avatar" aria-hidden="true">${p.avatar}</span>
+    <div class="who"><b>${p.name}</b><span>${p.role}</span></div>
+    <p>${p.answer}</p>
+  </div>`).join('');
+
+document.getElementById('sheets').innerHTML = PERSONAS.filter(p => !p.current).map((p, i) => `
+  <article class="sheet" id="${p.key}" aria-labelledby="${p.key}-h">
+    <div class="sheet-art"><span class="no">0${i + 1}</span>${p.big}</div>
+    <div class="sheet-body">
+      <div class="idea">
+        <p class="eyebrow">${p.role}</p>
+        <h3 id="${p.key}-h">${p.name}</h3>
+        <p>${p.idea}</p>
+      </div>
+      <div class="traits">${p.traits.map(t => `<span>${t}</span>`).join('')}</div>
+      <dl class="facts">${p.facts.map(([k, v]) => `<div><dt>${k}</dt><dd>${v}</dd></div>`).join('')}</dl>
+      <div class="sizes">
+        <p class="lab">At real size</p>
+        <span class="chip">${p.mark}Ask Noor</span>
+        <span class="fab" title="Floating Ask Noor button">${p.mark}</span>
+        <span class="avatar" aria-hidden="true">${p.avatar}</span>
+        <span class="muted">${p.thinks}</span>
+      </div>
+      <div class="notes">
+        <div class="yes"><p class="lab">Why it works</p><ul>${p.yes.map(x => `<li>${x}</li>`).join('')}</ul></div>
+        <div class="watch"><p class="lab">Watch for</p><ul>${p.watch.map(x => `<li>${x}</li>`).join('')}</ul></div>
+      </div>
+    </div>
+  </article>`).join('');
+
+const toggle = document.getElementById('think-toggle');
+toggle.addEventListener('click', () => {
+  const on = toggle.getAttribute('aria-pressed') !== 'true';
+  toggle.setAttribute('aria-pressed', String(on));
+  document.body.classList.toggle('thinking', on);
+});
+</script>

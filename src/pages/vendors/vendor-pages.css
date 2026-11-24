@@ -199,3 +199,5 @@
 @media (prefers-reduced-motion: reduce) {
   .vp-tile img, .vp-lit-img img, .vp-lit-rule, .vp-typelist a span, .vp-typelist a::after, .vp-tile-arrow { transition: none; }
 }
+/* Noor's line in the no-results state */
+.vp-none-noor { display: flex; align-items: center; gap: 12px; margin: 14px 0 0; font-family: 'Marcellus', serif; font-size: 17px; line-height: 1.4; color: var(--iw-ivory); }

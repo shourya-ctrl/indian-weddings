@@ -5,6 +5,7 @@ import { useEffect, useState } from 'react';
 import { Link, useLocation } from '../router';
 import { activeSection, paths } from '../routes';
 import { useSite } from './siteContext';
+import NoorMark from './noor/NoorMark';
 
 const NAV = [
   { key: 'noor', label: 'Noor', to: paths.noor },
@@ -13,14 +14,8 @@ const NAV = [
   { key: 'our-approach', label: 'Our Approach', to: paths.ourApproach },
 ];
 
-export function NoorMark({ size = 18 }) {
-  return (
-    <svg width={size} height={size} viewBox="0 0 20 20" aria-hidden="true" focusable="false" className="iws-noor-mark">
-      <circle cx="10" cy="10" r="6.25" fill="none" stroke="currentColor" strokeWidth="1.5" />
-      <circle cx="10" cy="10" r="2" fill="currentColor" />
-    </svg>
-  );
-}
+// Noor's small mark (her bindi) lives with her portrait; re-exported here for existing imports.
+export { NoorMark };
 
 export default function SiteHeader() {
   const { pathname } = useLocation();

@@ -1,291 +1,350 @@
-// Noor overview (/noor). Each capability is shown as a live demonstration
-// built from the homepage's existing sample data, and carries a status label;
-// nothing is presented as live. Visitors can try the public demo and continue
-// into personalised Noor through an account.
-import { useEffect, useState } from 'react';
+// Noor (/noor): her personality and what she does, in eight sections that each
+// use one of her emotional states (docs/noor/NOOR-IDENTITY.md). Every capability
+// carries an honest status label, demonstrations use sample data, and Noor is
+// always presented as an AI assistant that suggests while the couple decides.
+import { useEffect, useRef, useState } from 'react';
 import { Link } from '../router';
 import { paths } from '../routes';
-import { ADV_NAMES, ADVICE, ASK, ORBIT } from '../landingLogic';
+import { ADVICE } from '../landingLogic';
 import SiteShell from '../site/SiteShell';
 import { useSite } from '../site/siteContext';
-import { NoorMark } from '../site/SiteHeader';
-import NoorOrb from '../site/NoorOrb';
-import { CountUp, KineticTitle, reducedMotion, useInView } from '../site/motion';
+import NoorIllustration from '../site/noor/NoorIllustration';
+import NoorBadge from '../site/noor/NoorBadge';
+import NoorMark from '../site/noor/NoorMark';
+import { NOOR_COPY, NOOR_STATES } from '../site/noor/states';
+import { KineticTitle, reducedMotion, useInView } from '../site/motion';
 import { usePageTitle } from '../site/usePageTitle';
 import { VENDOR_RECORDS } from '../data/vendors';
 import { categoryById } from '../data/taxonomy';
 import './brand-pages.css';
+import './noor-page.css';
 
-const NOOR = ADV_NAMES.Noor;
 const BUDGET = ADVICE.find(a => a.id === 'budget');
 const IDEA = ADVICE.find(a => a.id === 'idea');
 const JAIPUR = VENDOR_RECORDS.filter(v => v.location === 'Jaipur');
-const PAIR = ['vermilion-films', 'studio-haveli'].map(s => VENDOR_RECORDS.find(v => v.slug === s)).filter(Boolean);
+const PAIR = ['studio-haveli', 'vermilion-films'].map(s => VENDOR_RECORDS.find(v => v.slug === s)).filter(Boolean);
 const lakh = s => parseFloat(String(s).replace(/[^\d.]/g, ''));
 
 const STATUS = {
   dev: { label: 'In development', note: 'Designed in the IndianWeddings prototype; not live yet.' },
   proposed: { label: 'Proposed', note: 'Planned; not yet designed for release.' },
+  example: { label: 'Example', note: 'An illustrative example with sample content.' },
 };
 function StatusLabel({ status }) {
-  return <span className={'bp-status bp-status-' + status} title={STATUS[status].note}>{STATUS[status].label}</span>;
+  return <span className={'bp-status bp-status-' + (status === 'example' ? 'proposed' : status)} title={STATUS[status].note}>{STATUS[status].label}</span>;
+}
+
+/** Noor speaking a line from her emotional library. */
+function NoorSays({ state, children }) {
+  return (
+    <p className="np-says" data-reveal="up">
+      <NoorBadge size={30} />
+      <span>{children || NOOR_STATES[state].copy}</span>
+    </p>
+  );
 }
 
 export default function NoorPage() {
   usePageTitle('Noor');
   return (
     <SiteShell footerCredit="Photography: PTaufiq Photography (design review only)">
-      <Hero />
-      <Knows />
-      <section className="pg-section" aria-labelledby="np-does">
-        <div className="iws-wrap">
-          <div className="pg-head">
-            <KineticTitle as="h2" id="np-does" text="What Noor does for you." />
-            <p className="pg-note" data-reveal="up">Nothing here is live yet. <strong>In development</strong> means designed in the IndianWeddings prototype; <strong>Proposed</strong> means planned but not yet designed for release. The examples use sample data.</p>
-          </div>
-          <Capability status="dev" title="Vendors chosen for your wedding" body="Discovery that starts from your places, dates, guests, budget and taste, with the reason each vendor appears." demo={<DemoVendors />} />
-          <Capability status="dev" title="A budget that holds" body="Noor holds your budget against what you want, catches what is running short and suggests a rebalance that keeps your total. Nothing changes until you say yes." demo={<DemoBudget />} flip />
-          <Capability status="dev" title="Comparisons on what matters to you" body="Two or three vendors side by side, measured against your own priorities rather than a generic checklist." demo={<DemoCompare />} />
-          <Capability status="dev" title="Answers from your own plan" body="Ask about next steps, quotes, guests or customs, and the answer starts from your wedding, not from wedding advice in general." demo={<DemoAnswer />} flip />
-          <Capability status="proposed" title="Seeing it before you book it" body="Generated sketches of how a venue could be dressed, and a vision board built from the photographs you save. Sketches to talk through, never quotes." demo={<DemoSketch />} />
-        </div>
-      </section>
-      <SampleAdvice />
-      <TryIt />
-      <NoorPromise />
+      <div className="np">
+        <Hero />
+        <Taste />
+        <Discover />
+        <Imagine />
+        <Numbers />
+        <Choose />
+        <InAction />
+        <Begin />
+      </div>
     </SiteShell>
   );
 }
 
+/* 01 · Meet Noor */
 function Hero() {
-  const { requestAccount, openNoor } = useSite();
+  const { requestAccount } = useSite();
+  const toTaste = e => { e.preventDefault(); document.getElementById('np-taste')?.scrollIntoView({ behavior: reducedMotion() ? 'auto' : 'smooth' }); };
   return (
-    <header className="bp-noor-hero">
-      <span className="bp-noor-sky" aria-hidden="true" />
-      <div className="iws-wrap bp-split">
-        <div>
-          <KineticTitle className="pg-h1 bp-hero-h1" text="The friend who has been to every wedding." />
-          <p className="pg-lede" data-reveal="up" style={{ '--i': 5 }}>{NOOR.lede}</p>
-          <div className="bp-ctas" data-reveal="up" style={{ '--i': 7 }}>
-            <button type="button" className="iws-btn iws-btn-primary" onClick={() => requestAccount('noor-personalise')}>Try Noor with your wedding</button>
-            <button type="button" className="iws-btn iws-btn-ghost" onClick={() => openNoor()}><NoorMark /> Ask Noor a question</button>
+    <header className="np-hero">
+      <div className="iws-wrap np-hero-grid">
+        <div className="np-hero-copy">
+          <p className="pg-label pg-label-gold" data-reveal="up">Your AI wedding companion</p>
+          <KineticTitle className="pg-h1 np-h1" text="Meet Noor. Your wedding, understood." />
+          <p className="pg-lede" data-reveal="up" style={{ '--i': 2 }}>Every wedding begins with a feeling. Noor helps you turn yours into a celebration that feels unmistakably yours.</p>
+          <p className="np-hero-what" data-reveal="up" style={{ '--i': 3 }}>She learns your taste, finds the right people, makes sense of the numbers and helps you compare, so the next decision always feels easier.</p>
+          <div className="bp-ctas" data-reveal="up" style={{ '--i': 4 }}>
+            <button type="button" className="iws-btn iws-btn-primary" onClick={() => requestAccount('noor-personalise')}>Start planning with Noor</button>
+            <a className="iws-underlined" href="#np-taste" onClick={toTaste}>See what Noor can do</a>
           </div>
+          <p className="np-ai-note" data-reveal="up" style={{ '--i': 5 }}><NoorMark size={14} /> Noor is an AI assistant. She suggests; you decide.</p>
         </div>
-        <div className="bp-orb-stage" data-reveal="fade" data-parallax="-0.08"><NoorOrb className="bp-orb" /></div>
+        <NoorIllustration state="hero" className="np-hero-art" />
       </div>
     </header>
   );
 }
 
-function Knows() {
+/* Shared section layout: copy beside an illustration, then the example. */
+function Section({ id, n, title, lede, points, status, state, says, children, flip }) {
+  const [exRef, live] = useInView({ threshold: 0.25 });
   return (
-    <section className="pg-section" aria-labelledby="np-knows">
+    <section className={'pg-section np-sec' + (flip ? ' is-flip' : '')} aria-labelledby={id}>
       <div className="iws-wrap">
-        <div className="pg-head">
-          <KineticTitle as="h2" id="np-knows" text="It starts with your wedding." />
-          <p className="pg-lede" data-reveal="up">When you begin planning, Noor asks about the celebration you are imagining, then keeps learning as you plan.</p>
-          <p className="bp-status-line" data-reveal="up"><StatusLabel status="dev" /></p>
+        <div className="np-sec-grid">
+          <div className="np-sec-copy">
+            <p className="np-n" data-reveal="up">{n}</p>
+            <KineticTitle as="h2" id={id} className="np-h2" text={title} />
+            <p className="pg-lede" data-reveal="up">{lede}</p>
+            {points ? <ul className="np-points" data-reveal="up">{points.map(p => <li key={p}>{p}</li>)}</ul> : null}
+            {status ? <p className="bp-status-line" data-reveal="up">{[].concat(status).map(s => <StatusLabel key={s} status={s} />)}</p> : null}
+            {state ? <NoorSays state={state}>{says}</NoorSays> : null}
+          </div>
+          {state ? <NoorIllustration state={state} className="np-sec-art" decorative /> : null}
         </div>
-        <ol className="bp-knows" role="list">
-          <li data-reveal="up" style={{ '--i': 0 }}>
-            <div className="bp-knows-visual bp-chips" aria-hidden="true">
-              {ORBIT.map((o, i) => <span key={o.n} style={{ '--i': i }}>{o.n}</span>)}
-            </div>
-            <h3>Your celebrations</h3>
-            <p>Which events you are holding, from the roka to the reception, and the traditions you are bringing together.</p>
-          </li>
-          <li data-reveal="up" style={{ '--i': 1 }}>
-            <div className="bp-knows-visual bp-big" aria-hidden="true"><CountUp to={150} /><small>guests · Udaipur · February</small></div>
-            <h3>Where, when and how many</h3>
-            <p>Your places, your dates or the months you are considering, and roughly how many guests.</p>
-          </li>
-          <li data-reveal="up" style={{ '--i': 2 }}>
-            <div className="bp-knows-visual bp-big" aria-hidden="true"><span>₹<CountUp to={85} />L</span><small>total, held steady</small></div>
-            <h3>Your budget</h3>
-            <p>The total you have in mind, the currency you are paying in, and how much room you want to keep.</p>
-          </li>
-          <li data-reveal="up" style={{ '--i': 3 }}>
-            <div className="bp-knows-visual bp-fan" aria-hidden="true">
-              {ADVICE.map(a => <span key={a.id}><img src={a.img} alt="" loading="lazy" decoding="async" /></span>)}
-            </div>
-            <h3>Your taste</h3>
-            <p>The photographs you save and choose, so Noor learns the light, colours and settings you keep returning to.</p>
-          </li>
-        </ol>
+        {children ? <div className="np-example" data-reveal="fade"><div ref={exRef} className={live ? 'is-live' : undefined}>{children}</div></div> : null}
       </div>
     </section>
   );
 }
 
-function Capability({ status, title, body, demo, flip }) {
-  const [ref, inView] = useInView({ threshold: 0.3 });
+/* 02 · She understands your taste (Curious) */
+const SCATTER = ['Marigold, not roses', 'Pheras at golden hour', 'Nani needs a ground-floor room', 'Jaipur? Or Udaipur?', 'Around 120 people', 'Nothing too loud', 'That blush lehenga'];
+const VISION = [['Feel', 'Intimate, warm and golden'], ['Where', 'A heritage haveli in Jaipur'], ['When', 'Late February, before the heat'], ['Guests', 'About 120'], ['Must-haves', 'Marigold everywhere, a ground-floor room for Nani'], ['Keep gentle', 'A quieter sangeet, more dinner than dance floor']];
+function Taste() {
   return (
-    <article ref={ref} className={'bp-cap' + (flip ? ' is-flip' : '') + (inView ? ' is-live' : '')}>
-      <div className="bp-cap-text" data-reveal="up">
-        <StatusLabel status={status} />
-        <h3>{title}</h3>
-        <p>{body}</p>
+    <Section id="np-taste" n="02" title="She understands your taste." state="curious"
+      lede="Bring her the half-formed ideas: the screenshots, the “not this, more like that”, the one song you know you want. Noor asks one good question at a time, and turns it into a vision you can plan from."
+      points={['Your celebrations, from the roka to the reception', 'The look and feel you keep saving', 'Where you’re dreaming of, and when', 'What matters most, and what can give', 'The budget you want to hold']}
+      status="dev">
+      <div className="np-vision">
+        <div className="np-scatter" aria-label="Scattered ideas, as a couple might share them">
+          <p className="np-ex-label">What you share</p>
+          <ul>
+            {SCATTER.map((s, i) => <li key={s} style={{ '--i': i }}>{s}</li>)}
+            {ADVICE.slice(0, 3).map((a, i) => <li key={a.id} className="np-scatter-img" style={{ '--i': i + SCATTER.length }}><img src={a.img} alt="" loading="lazy" decoding="async" /></li>)}
+          </ul>
+        </div>
+        <span className="np-vision-arrow" aria-hidden="true">
+          <svg viewBox="0 0 48 16" width="48" height="16"><path d="M0 8h44M37 2l7 6-7 6" fill="none" stroke="currentColor" strokeWidth="1.2" /></svg>
+        </span>
+        <div className="np-vision-card">
+          <p className="np-ex-label">Your wedding vision, as Noor understands it</p>
+          <dl>{VISION.map(([k, v]) => <div key={k}><dt>{k}</dt><dd>{v}</dd></div>)}</dl>
+        </div>
       </div>
-      <div className="bp-cap-demo" data-reveal="fade" aria-hidden="true">{demo}</div>
-    </article>
+      <p className="np-sample">Example with sample content.</p>
+    </Section>
   );
 }
 
-function DemoVendors() {
+/* 03 · She knows where to look (Thoughtful) */
+function Discover() {
   return (
-    <div className="dm-vendors">
-      <p className="dm-caption">For a sample wedding in Jaipur</p>
-      <div className="dm-fan">
-        {JAIPUR.slice(0, 3).map((v, i) => (
-          <div key={v.id} className="dm-vcard" style={{ '--i': i }}>
-            <img src={v.image} alt="" loading="lazy" decoding="async" />
-            <span className="dm-vcard-cat">{(categoryById(v.primaryCategory) || {}).short}</span>
-            <span className="dm-vcard-name">{v.name}</span>
-            <span className="dm-vcard-why">Based in Jaipur, where you are celebrating</span>
-          </div>
-        ))}
+    <Section id="np-discover" n="03" title="She knows where to look." state="thoughtful" flip
+      says="These three fit what you’ve told me. Here’s why each one is here."
+      lede="Noor starts from your city, dates, guest count, style and budget, and shows you vendors whose work fits, with the reason each one appears. No scores, no rankings dressed up as certainty: she tells you why, in words."
+      points={['Portfolios that match the look you’ve saved', 'Vendors who work where you’re celebrating', 'Services matched to your events', 'Budget fit, once vendors share their prices']}
+      status="dev">
+      <div className="dm-vendors np-vendors">
+        <p className="dm-caption">For a sample wedding in Jaipur</p>
+        <div className="np-vcards">
+          {JAIPUR.slice(0, 3).map(v => (
+            <article key={v.id} className="np-vcard">
+              <img src={v.image} alt="" loading="lazy" decoding="async" />
+              <span className="dm-vcard-cat">{(categoryById(v.primaryCategory) || {}).short}</span>
+              <h3>{v.name}</h3>
+              <p className="np-why"><NoorMark size={12} /> {v.speciality}, based in Jaipur, where you’re celebrating.</p>
+            </article>
+          ))}
+        </div>
       </div>
-    </div>
+      <p className="np-sample">Sample vendors. Not real IndianWeddings listings.</p>
+    </Section>
   );
 }
 
-function DemoBudget() {
+/* 04 · She helps you imagine it (Dreamer) */
+function Imagine() {
+  return (
+    <Section id="np-imagine" n="04" title="She helps you imagine it." state="dreamer"
+      lede="Describe the feeling, and Noor sketches how a venue might be dressed for it: a starting point to talk through with your décorator. A sketch to inspire, never a quote or a promise."
+      points={['Décor ideas drawn from the photographs you save', 'A first look at how a space could be dressed', 'A vision board to share with your family and décorator']}
+      status={['proposed', 'example']}>
+      <div className="np-imagine">
+        <div className="dm-sketch">
+          <img src={IDEA.img} alt="" loading="lazy" decoding="async" className="dm-sketch-color" />
+          <img src={IDEA.img} alt="" loading="lazy" decoding="async" className="dm-sketch-line" />
+          <span className="dm-sketch-tag">Sketch, not a quote</span>
+        </div>
+        <div className="np-imagine-note">
+          <p className="np-ex-label">You said</p>
+          <p className="np-quote">“Lots of marigold, warm light, and a mandap that doesn’t feel like a stage.”</p>
+          <p className="np-ex-label">Noor’s idea</p>
+          <p>Low marigold strings at eye height rather than overhead, lanterns along the courtyard walls, and the mandap open on all four sides so the family sits close.</p>
+        </div>
+      </div>
+      <p className="np-sample">Illustrative example. Visualisation is proposed and not yet built.</p>
+    </Section>
+  );
+}
+
+/* 05 · She helps you make sense of the numbers (Reassurer) */
+function Numbers() {
   const max = Math.max(...BUDGET.rows.flatMap(([, v]) => v.split('→').map(lakh)));
   return (
-    <div className="dm-budget">
-      <p className="dm-caption">{BUDGET.head}</p>
-      {BUDGET.rows.map(([k, v], i) => {
-        const [from, to] = v.split('→').map(lakh);
-        return (
-          <div key={k} className="dm-bar" style={{ '--from': from / max, '--to': to / max, '--i': i }}>
-            <div className="dm-bar-label"><span>{k}</span><span className="dm-bar-val"><s>₹{from}L</s> ₹{to}L</span></div>
-            <div className="dm-bar-track"><span className={'dm-bar-fill' + (to > from ? ' is-up' : '')} /></div>
+    <Section id="np-numbers" n="05" title="She helps you make sense of the numbers." state="reassurer" flip
+      says={NOOR_COPY.reassurance}
+      lede="Budgets are where planning gets stressful. Noor keeps your total steady, shows where it’s going, explains each estimate in plain words, and finds a gentler way through when something runs over. Nothing moves until you say so."
+      points={['Sharing your total across the celebrations', 'Understanding what an estimate includes', 'Comparing quotes line by line', 'Seeing the trade-off before you make it', 'Tracking what you’ve spent, in the planning app']}
+      status="dev">
+      <div className="dm-budget np-budget">
+        <p className="dm-caption">{BUDGET.head}</p>
+        {BUDGET.rows.map(([k, v], i) => {
+          const [from, to] = v.split('→').map(lakh);
+          return (
+            <div key={k} className="dm-bar" style={{ '--from': from / max, '--to': to / max, '--i': i }}>
+              <div className="dm-bar-label"><span>{k}</span><span className="dm-bar-val"><s>₹{from}L</s> ₹{to}L</span></div>
+              <div className="dm-bar-track"><span className={'dm-bar-fill' + (to > from ? ' is-up' : '')} /></div>
+            </div>
+          );
+        })}
+        <p className="dm-total">{BUDGET.foot}</p>
+      </div>
+      <p className="np-sample">Sample figures.</p>
+    </Section>
+  );
+}
+
+/* 06 · She helps you choose (Thoughtful, shown through the comparison itself) */
+function Choose() {
+  return (
+    <Section id="np-choose" n="06" title="She helps you choose."
+      lede="Side by side, Noor explains what’s actually different (services, style, where they’re based, and price once quotes arrive) and which might suit you better, and why. The choice is always yours."
+      status={['dev', 'example']}>
+      <div className="np-choose">
+        <div className="np-pair">
+          {PAIR.map(v => (
+            <article key={v.id} className="np-cmp">
+              <img src={v.image} alt="" loading="lazy" decoding="async" />
+              <h3>{v.name}</h3>
+              <dl>
+                <div><dt>Offers</dt><dd>{v.speciality}</dd></div>
+                <div><dt>Based in</dt><dd>{v.location}</dd></div>
+                <div><dt>Price</dt><dd>Not shared yet</dd></div>
+              </dl>
+            </article>
+          ))}
+        </div>
+        <div className="np-choose-note">
+          <p className="np-says"><NoorBadge size={30} /><span>{NOOR_STATES.thoughtful.copy}</span></p>
+          <p>Studio Haveli is based in Jaipur, where you’re celebrating, and covers portraits and film together, so one team captures everything.</p>
+          <p>Vermilion Films focuses on wedding films and is based in Delhi, so you’d plan for their travel.</p>
+          <p>Neither has shared prices here, so ask both for a quote for your dates. If one team for everything matters most to you, I’d start with Studio Haveli.</p>
+          <Link className="iws-underlined" to={paths.compare(PAIR.map(v => v.id))}>Compare vendors yourself</Link>
+        </div>
+      </div>
+      <p className="np-sample">Sample vendors and an illustrative explanation.</p>
+    </Section>
+  );
+}
+
+/* 07 · See Noor in action: a scripted demonstration */
+const FEELS = [
+  { id: 'intimate', label: 'Candlelit and intimate', says: 'Candlelit and intimate, with the people who matter most.', reflect: 'So: warm light, a smaller circle, and room to actually talk to everyone.', direction: 'a heritage haveli in Jaipur in late February. Courtyards hold candlelight beautifully, the evenings are cool, and the scale keeps it close.' },
+  { id: 'joyful', label: 'Big, bright and joyful', says: 'Big, bright and joyful. Everyone dancing.', reflect: 'So: colour, music, and a crowd that fills the room.', direction: 'a heritage hotel in Jaipur with a lawn for the sangeet and a palace courtyard for the pheras. February gives you clear skies for an outdoor celebration.' },
+  { id: 'elegant', label: 'Slow and elegant', says: 'Slow and elegant. Nothing rushed.', reflect: 'So: a gentle pace, long dinners, and fewer, finer details.', direction: 'a quieter heritage property in Jaipur, with the ceremony in the morning light and one long dinner table in the evening.' },
+];
+const SIZES = ['Around 80', 'Around 150', '250 or more'];
+
+function InAction() {
+  const { requestAccount } = useSite();
+  const [log, setLog] = useState([{ who: 'noor', text: 'So, tell me what you’re dreaming of. How should the day feel?' }]);
+  const [step, setStep] = useState(0);
+  const [thinking, setThinking] = useState(false);
+  const [feel, setFeel] = useState(null);
+  const timers = useRef([]);
+  useEffect(() => () => timers.current.forEach(clearTimeout), []);
+
+  const later = (fn, ms) => { if (reducedMotion()) { fn(); return; } timers.current.push(setTimeout(fn, ms)); };
+  const noorReplies = (items, next) => {
+    setThinking(true);
+    later(() => { setThinking(false); setLog(l => [...l, ...items]); setStep(next); }, 850);
+  };
+  const pickFeel = f => {
+    setFeel(f);
+    setLog(l => [...l, { who: 'you', text: f.says }]);
+    setStep(-1);
+    noorReplies([{ who: 'noor', text: `${f.reflect} Roughly how many guests are you imagining?` }], 1);
+  };
+  const pickSize = s => {
+    setLog(l => [...l, { who: 'you', text: `${s} guests.` }]);
+    setStep(-1);
+    noorReplies([
+      { who: 'noor', text: `${s.startsWith('250') ? 'A full house, then. ' : ''}Here’s a direction I think you’d love: ${feel.direction}` },
+      { who: 'noor', kind: 'vendors' },
+      { who: 'noor', text: 'Next, save the ones you like to your shortlist and ask each about your dates. I’ll help you prepare the questions; you decide who to contact.' },
+    ], 2);
+  };
+  const restart = () => { timers.current.forEach(clearTimeout); setLog([{ who: 'noor', text: 'So, tell me what you’re dreaming of. How should the day feel?' }]); setFeel(null); setThinking(false); setStep(0); };
+
+  return (
+    <section className="pg-section np-sec" aria-labelledby="np-action">
+      <div className="iws-wrap np-action">
+        <div className="np-sec-copy">
+          <p className="np-n" data-reveal="up">07</p>
+          <KineticTitle as="h2" id="np-action" className="np-h2" text="See Noor in action." />
+          <p className="pg-lede" data-reveal="up">A short conversation, the way planning with Noor begins: she asks about your vision, understands what you mean, suggests a direction and shows you who could bring it to life.</p>
+          <p className="np-demo-note" data-reveal="up"><strong>Demonstration.</strong> Sample content with scripted replies. Not connected to Noor.</p>
+        </div>
+        <div className="np-chat" data-reveal="fade">
+          <div className="np-chat-head"><NoorBadge size={32} state={thinking ? 'thinking' : 'rest'} /><span><b>Noor</b><small>AI wedding companion · demo</small></span></div>
+          <ol className="np-chat-log" aria-live="polite">
+            {log.map((m, i) => (
+              <li key={i} className={'np-msg is-' + m.who}>
+                {m.kind === 'vendors' ? (
+                  <div className="np-msg-vendors">
+                    {JAIPUR.slice(0, 3).map(v => (
+                      <span key={v.id}><img src={v.image} alt="" loading="lazy" decoding="async" /><b>{v.name}</b><small>{v.speciality}</small></span>
+                    ))}
+                  </div>
+                ) : m.text}
+              </li>
+            ))}
+            {thinking ? <li className="np-msg is-noor is-thinking">{NOOR_COPY.thinking}</li> : null}
+          </ol>
+          <div className="np-chat-choices">
+            {step === 0 ? FEELS.map(f => <button key={f.id} type="button" className="np-choice" onClick={() => pickFeel(f)}>{f.label}</button>) : null}
+            {step === 1 ? SIZES.map(s => <button key={s} type="button" className="np-choice" onClick={() => pickSize(s)}>{s}</button>) : null}
+            {step === 2 ? (
+              <>
+                <button type="button" className="iws-btn iws-btn-primary" onClick={() => requestAccount('noor-personalise')}>Start planning with Noor</button>
+                <button type="button" className="np-choice" onClick={restart}>Try another answer</button>
+              </>
+            ) : null}
           </div>
-        );
-      })}
-      <p className="dm-total">{BUDGET.foot}</p>
-    </div>
-  );
-}
-
-function DemoCompare() {
-  return (
-    <div className="dm-compare">
-      {PAIR.map((v, i) => (
-        <div key={v.id} className="dm-cmp" style={{ '--i': i }}>
-          <img src={v.image} alt="" loading="lazy" decoding="async" />
-          <span className="dm-vcard-name">{v.name}</span>
-          <dl>
-            <div><dt>Speciality</dt><dd>{v.speciality}</dd></div>
-            <div><dt>Based in</dt><dd>{v.location}</dd></div>
-          </dl>
         </div>
-      ))}
-    </div>
-  );
-}
-
-// The question is asked, Noor types, then the written sample answer appears.
-function DemoAnswer() {
-  const q = ASK[0];
-  const [ref, inView] = useInView({ threshold: 0.5 });
-  const [phase, setPhase] = useState(() => (reducedMotion() ? 2 : 0));
-  useEffect(() => {
-    if (!inView || reducedMotion()) return undefined;
-    const a = setTimeout(() => setPhase(1), 500);
-    const b = setTimeout(() => setPhase(2), 2000);
-    return () => { clearTimeout(a); clearTimeout(b); };
-  }, [inView]);
-  return (
-    <div className="dm-chat" ref={ref}>
-      <p className="dm-q">{q.q}</p>
-      {phase === 1 ? <p className="dm-typing"><span /><span /><span /></p> : null}
-      {phase === 2 ? (
-        <div className="dm-a">
-          <p>{q.a}</p>
-          <ul>{q.rows.map(([k, v], i) => <li key={k} style={{ '--i': i }}><strong>{k}</strong>{v}</li>)}</ul>
-        </div>
-      ) : null}
-    </div>
-  );
-}
-
-function DemoSketch() {
-  return (
-    <div className="dm-sketch">
-      <img src={IDEA.img} alt="" loading="lazy" decoding="async" className="dm-sketch-color" />
-      <img src={IDEA.img} alt="" loading="lazy" decoding="async" className="dm-sketch-line" />
-      <span className="dm-sketch-tag">Sketch, not a quote</span>
-    </div>
-  );
-}
-
-function SampleAdvice() {
-  return (
-    <section className="pg-section" aria-labelledby="np-advice">
-      <div className="iws-wrap">
-        <div className="pg-head">
-          <KineticTitle as="h2" id="np-advice" text="The kind of thing Noor says." />
-          <p className="pg-note" data-reveal="up">{NOOR.sample}</p>
-        </div>
-        <ul className="bp-advice" role="list">
-          {ADVICE.map(a => (
-            <li key={a.id}>
-              <span className="pg-frame bp-advice-img lamp" data-reveal="arch"><img src={a.img} alt={a.alt} loading="lazy" decoding="async" /></span>
-              <div className="bp-advice-text" data-reveal="up">
-                <p className="pg-label pg-label-gold">{a.tab}</p>
-                <h3>{a.head}</h3>
-                <p>{a.body}</p>
-                <dl className="pg-facts">
-                  {a.rows.map(([k, v]) => <div key={k}><dt>{k}</dt><dd>{v}</dd></div>)}
-                </dl>
-                {a.foot ? <p className="bp-advice-foot">{a.foot}</p> : null}
-                <details className="bp-why">
-                  <summary>Why Noor says this</summary>
-                  <p>{a.why}</p>
-                </details>
-              </div>
-            </li>
-          ))}
-        </ul>
       </div>
     </section>
   );
 }
 
-function TryIt() {
-  const { openNoor } = useSite();
-  return (
-    <section className="pg-section" aria-labelledby="np-try">
-      <div className="iws-wrap bp-try">
-        <div>
-          <KineticTitle as="h2" id="np-try" className="bp-h2" text="Ask what you would ask a friend who knows." />
-          <p className="pg-lede" data-reveal="up">Here Noor answers in general. In your plan, it answers from your own dates, guests and budget.</p>
-        </div>
-        <ul className="bp-questions" role="list">
-          {ASK.map((item, i) => (
-            <li key={item.q} data-reveal="up" style={{ '--i': i }}><button type="button" onClick={() => openNoor(item.q)}><span>{item.q}</span><NoorMark /></button></li>
-          ))}
-          <li data-reveal="up" style={{ '--i': ASK.length }}><button type="button" onClick={() => openNoor()}><span>Ask your own question</span><NoorMark /></button></li>
-        </ul>
-      </div>
-    </section>
-  );
-}
-
-function NoorPromise() {
+/* 08 · Begin your journey (Cheerleader) */
+function Begin() {
   const { requestAccount } = useSite();
   return (
-    <section className="pg-section bp-last" aria-labelledby="np-promise">
-      <div className="iws-wrap bp-promise">
-        <NoorOrb className="bp-orb bp-orb-sm" />
+    <section className="pg-section bp-last np-begin" aria-labelledby="np-begin">
+      <div className="iws-wrap np-begin-grid">
+        <NoorIllustration state="cheerleader" className="np-begin-art" decorative />
         <div>
-          <KineticTitle as="h2" id="np-promise" className="bp-h2" text="Noor suggests. You decide." />
-          <p className="pg-lede" data-reveal="up">{NOOR.trust}</p>
+          <KineticTitle as="h2" id="np-begin" className="np-h2" text="Your story. Your vision. Let’s begin." />
+          <p className="pg-lede" data-reveal="up">Tell Noor about your celebration, and everything from vendors to budget starts from your wedding, not weddings in general.</p>
           <div className="bp-ctas" data-reveal="up">
-            <button type="button" className="iws-btn iws-btn-primary" onClick={() => requestAccount('noor-personalise')}>Try Noor with your wedding</button>
+            <button type="button" className="iws-btn iws-btn-primary" onClick={() => requestAccount('noor-personalise')}>Start planning with Noor</button>
             <Link className="iws-underlined" to={paths.ourApproach}>Our approach</Link>
           </div>
+          <p className="np-trust" data-reveal="up">Noor is an AI assistant. She suggests, explains and compares; you make every decision. She never books, pays, negotiates or messages anyone on your behalf.</p>
         </div>
       </div>
     </section>

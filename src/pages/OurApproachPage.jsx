@@ -9,7 +9,7 @@ import { paths } from '../routes';
 import { IWU, ORBIT } from '../landingLogic';
 import SiteShell from '../site/SiteShell';
 import { Arrow } from '../site/VendorCard';
-import NoorOrb from '../site/NoorOrb';
+import NoorIllustration from '../site/noor/NoorIllustration';
 import { CountUp, KineticTitle, reducedMotion } from '../site/motion';
 import { usePageTitle } from '../site/usePageTitle';
 import { CATEGORIES, typeCount } from '../data/taxonomy';
@@ -84,7 +84,7 @@ export default function OurApproachPage() {
 
       <section className="pg-section" aria-labelledby="oa-noor">
         <div className="iws-wrap bp-oa-noor">
-          <NoorOrb className="bp-orb" />
+          <NoorIllustration state="reassurer" className="bp-orb" decorative />
           <div>
             <KineticTitle as="h2" id="oa-noor" className="bp-h2" text="How Noor helps." />
             <p className="pg-lede" data-reveal="up">Noor is an advisor inside your plan, not a chat window off to the side. It suggests; you decide. It never books, pays or messages anyone without you, and it always tells you why.</p>

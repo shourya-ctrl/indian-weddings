@@ -2,6 +2,7 @@
 // to that action afterwards (docs/website-conversion-flows.md §5). The payload
 // is kept in sessionStorage and mirrored in the account URL.
 import { paths } from '../routes';
+import { currentPath } from '../router';
 
 const KEY = 'iw-intent';
 
@@ -24,7 +25,7 @@ export function intentTitle(intent, details = {}) {
 
 /** Saves the intent and returns the account links that carry it. */
 export function prepareIntent(intent, details = {}) {
-  const returnTo = window.location.pathname + window.location.search;
+  const returnTo = currentPath();
   const payload = { v: 1, intent, returnTo, vendorId: details.vendorId || null, vendorIds: details.vendorIds || null, createdAt: new Date().toISOString() };
   try { sessionStorage.setItem(KEY, JSON.stringify(payload)); } catch (_) { /* storage unavailable: the URL still carries it */ }
   const q = { intent, return: returnTo, vendor: details.vendorId };

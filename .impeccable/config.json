@@ -1,0 +1,17 @@
+{
+  "detector": {
+    "ignoreRules": [],
+    "ignoreFiles": [],
+    "ignoreValues": [
+      {
+        "rule": "low-contrast",
+        "value": "*",
+        "files": [
+          "docs/noor/noor-persona-alternatives.html"
+        ],
+        "createdAt": "2026-11-17T05:28:40.123Z",
+        "reason": "Claude: checker measured gold/ivory text against #ffffff, but the page background is #0C0907 ink; verified readable in browser"
+      }
+    ]
+  }
+}

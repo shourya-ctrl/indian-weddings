@@ -63,20 +63,3 @@ a:hover .lamp::before, .lamp:hover::before { transform: translateX(120%); }
   .lamp::before { display: none; }
   ::view-transition-group(*), ::view-transition-old(*), ::view-transition-new(*) { animation: none !important; }
 }
-
-/* Noor orb */
-.noor-orb { overflow: visible; }
-.noor-orb ellipse { fill: none; stroke: var(--iw-gold); stroke-width: .9; opacity: .65; }
-.noor-orb-mote { fill: var(--iw-gold-light); }
-.noor-orb-core { fill: rgba(240,221,179,.16); stroke: var(--iw-gold-light); stroke-width: 2.5; transform-origin: 120px 120px; }
-.noor-orb-ring { transform-origin: 120px 120px; }
-@media (prefers-reduced-motion: no-preference) {
-  .noor-orb .r1 { animation: orb-turn 38s linear infinite; }
-  .noor-orb .r2 { animation: orb-turn 52s linear infinite reverse; }
-  .noor-orb .r3 { animation: orb-turn 70s linear infinite; }
-  .noor-orb-core { animation: orb-breathe 5s ease-in-out infinite; }
-  .noor-orb-glow { animation: orb-glow 5s ease-in-out infinite; transform-origin: 120px 120px; }
-}
-@keyframes orb-turn { to { transform: rotate(360deg); } }
-@keyframes orb-breathe { 50% { transform: scale(1.12); } }
-@keyframes orb-glow { 50% { opacity: .65; transform: scale(.94); } }

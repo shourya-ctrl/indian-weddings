@@ -14,6 +14,8 @@ import { CATEGORIES, categoryById } from '../../data/taxonomy';
 import { LOCATIONS, VENDOR_RECORDS } from '../../data/vendors';
 import { COLLECTIONS } from '../../data/collections';
 import './vendor-pages.css';
+import NoorBadge from '../../site/noor/NoorBadge';
+import { NOOR_COPY } from '../../site/noor/states';
 
 const fold = s => String(s || '').toLowerCase().normalize('NFKD').replace(/[̀-ͯ]/g, '');
 
@@ -136,6 +138,7 @@ export default function SearchPage() {
           {state === 'none' ? (
             <div className="vp-none" data-reveal="up">
               <h2>We couldn’t find a close match yet.</h2>
+              <p className="vp-none-noor"><NoorBadge size={28} /><span>{NOOR_COPY.noMatch}</span></p>
               <p>{type ? `No listed vendor offers ${type.name.toLowerCase()} yet.` : 'Nothing listed matches all of these at once.'} Broaden the search, or change what you are looking for.</p>
               <div className="vp-none-actions">
                 {wider ? <Link className="iws-btn iws-btn-primary" to={paths.search(toParams(wider))}>Broaden the search</Link> : null}

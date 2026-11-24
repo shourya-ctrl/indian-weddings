@@ -8,7 +8,7 @@ import { paths } from '../routes';
 import { ADV_NAMES, ADVICE, ASK } from '../landingLogic';
 import { useSite } from '../site/siteContext';
 import { NoorMark } from '../site/SiteHeader';
-import NoorOrb from '../site/NoorOrb';
+import NoorIllustration from '../site/noor/NoorIllustration';
 import { KineticTitle, reducedMotion } from '../site/motion';
 import './home.css';
 
@@ -76,7 +76,7 @@ export default function NoorCarousel() {
                 <Moment a={s.advice} answer={answers[s.id]} onAnswer={v => { setAuto(false); setAnswers(x => ({ ...x, [s.id]: v })); }} showWhy={!!why[s.id]} onWhy={() => { setAuto(false); setWhy(x => ({ ...x, [s.id]: !x[s.id] })); }} />
               ) : (
                 <div className="hn-ask">
-                  <NoorOrb className="hn-ask-orb" />
+                  <NoorIllustration state="welcome" className="hn-ask-orb is-small" decorative />
                   <p className="hn-ask-note">Noor answers in general here, and from your own dates, guests and budget in your plan.</p>
                   <ul>
                     {ASK.map(q => <li key={q.q}><button type="button" onClick={() => openNoor(q.q)}><span>{q.q}</span><NoorMark /></button></li>)}

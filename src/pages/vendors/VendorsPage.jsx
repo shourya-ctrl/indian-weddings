@@ -12,7 +12,7 @@ import { IWU } from '../../landingLogic';
 import { APP_LIVE, APP_URL } from '../../links';
 import SiteShell from '../../site/SiteShell';
 import { useSite } from '../../site/siteContext';
-import NoorOrb from '../../site/NoorOrb';
+import NoorIllustration from '../../site/noor/NoorIllustration';
 import { hasCompleteProfile } from '../../site/session';
 import { categoryById, categoryImage, EXTENDED_CATEGORIES, PRIMARY_CATEGORIES, typeCount } from '../../data/taxonomy';
 import { VENDOR_RECORDS } from '../../data/vendors';
@@ -274,7 +274,7 @@ function NoorLink() {
   return (
     <section className="pg-section vd-noor" aria-labelledby="vd-noor-h">
       <div className="iws-wrap vd-noor-grid">
-        <NoorOrb className="vd-noor-rings" />
+        <NoorIllustration state="thoughtful" className="vd-noor-rings is-small" decorative />
         <div>
           <KineticTitle as="h2" id="vd-noor-h" text="Finding the right people should feel effortless." />
           <p className="pg-lede">Noor helps you discover professionals based on your celebration, preferences and personal taste.</p>
