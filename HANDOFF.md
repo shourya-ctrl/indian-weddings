@@ -6,8 +6,8 @@ To resume, open this folder in Claude Code and say: "Read HANDOFF.md and continu
 ## Where the work is
 
 - **Repo:** `/Users/shouryawork/indian-weddings`, branch `website-ia-docs`.
-- **Last commit:** `e38e246`. The branch has **5 commits that are not on GitHub** and no upstream.
-- **Uncommitted:** 24 changed paths. This includes the whole illustrated Noor system. Commit only when the owner asks.
+- **Last commit:** `5f6b988`, pushed to `origin/website-ia-docs` on 25 November 2026. Nothing was left uncommitted.
+- **Not merged:** no pull request into `main` is open yet. Commit, push and open PRs only when the owner asks.
 - **Run it:** `npm run dev`. Build the single-file Noor page with `npm run standalone`, which writes `standalone/indianweddings-noor.html`.
 
 ## What was built
